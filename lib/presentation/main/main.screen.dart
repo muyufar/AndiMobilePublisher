@@ -120,7 +120,7 @@ class MainScreen extends GetView<MainController> {
                 BottomNavigationBarItem(
                     icon: Icon(Ionicons.home_outline), label: 'Home'),
                 BottomNavigationBarItem(
-                    icon: Icon(Ionicons.heart_outline), label: 'wishlist'),
+                    icon: Icon(Ionicons.heart_outline), label: 'Wishlist'),
                 BottomNavigationBarItem(
                     icon: Icon(Ionicons.file_tray_full_outline),
                     label: 'Transaksi'),
@@ -150,12 +150,12 @@ class MainScreen extends GetView<MainController> {
             decoration: InputDecoration(hintText: 'Cari Sesuatu ...'),
           ),
           bottom: TabBar(
-            // isScrollable: true,
+            isScrollable: true,
             labelColor: Colors.white,
             unselectedLabelColor: colorTextGrey,
             tabs: const [
               Tab(text: 'Menu'),
-              Tab(text: 'E book'),
+              Tab(text: 'E Book'),
               Tab(text: 'Kategori'),
               Tab(text: 'Produk Digital'),
             ],

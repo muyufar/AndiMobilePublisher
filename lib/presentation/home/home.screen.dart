@@ -1,4 +1,5 @@
 import 'package:andipublisher/presentation/home/views/home_category_view.dart';
+import 'package:andipublisher/presentation/home/views/home_ebook_view.dart';
 import 'package:andipublisher/presentation/home/views/home_menu_view.dart';
 import 'package:andipublisher/presentation/home/views/home_product_digital_view.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends GetView<HomeController> {
     return TabBarView(
       children: [
         HomeMenuView(),
-        Container(),
+        HomeEbookView(),
         HomeCategoryView(),
         HomeProductDigitalView(),
       ],
