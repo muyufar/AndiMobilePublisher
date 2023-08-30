@@ -13,7 +13,7 @@ class SplashScreen extends GetView<SplashController> {
     return Scaffold(
       body: const Center(
         child: Text(
-          'SplashScreen is working',
+          'Selamat Datang di Andi Publiser',
           style: TextStyle(fontSize: 20),
         ),
       ),
