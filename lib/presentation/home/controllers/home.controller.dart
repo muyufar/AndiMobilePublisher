@@ -13,6 +13,10 @@ class HomeController extends GetxController {
       Rxn<LabelItemsMasterModel>();
   Rxn<LabelItemsMasterModel> bestSallerLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
+  Rxn<LabelItemsMasterModel> sewaSallerLabelItemsMasterModel =
+      Rxn<LabelItemsMasterModel>();
+  Rxn<LabelItemsMasterModel> beliSallerLabelItemsMasterModel =
+      Rxn<LabelItemsMasterModel>();
 
   RxInt currentBanner = 0.obs;
 
@@ -35,6 +39,8 @@ class HomeController extends GetxController {
     await fetchBanner();
     await newLabelItemsMaster();
     await bestSallerLabelItemsMaster();
+    await sewaSallerLabelItemsMaster();
+    await beliSallerLabelItemsMaster();
   }
 
   Future<List<BannerModel>> fetchBanner() async {
@@ -52,5 +58,17 @@ class HomeController extends GetxController {
     bestSallerLabelItemsMasterModel.value =
         await ItemsService.getItemsMaster(link: 'bestSaller');
     return bestSallerLabelItemsMasterModel.value!;
+  }
+
+  Future<LabelItemsMasterModel> sewaSallerLabelItemsMaster() async {
+    sewaSallerLabelItemsMasterModel.value =
+        await ItemsService.getItemsMaster(link: 'sewa');
+    return sewaSallerLabelItemsMasterModel.value!;
+  }
+
+  Future<LabelItemsMasterModel> beliSallerLabelItemsMaster() async {
+    beliSallerLabelItemsMasterModel.value =
+        await ItemsService.getItemsMaster(link: 'beli');
+    return beliSallerLabelItemsMasterModel.value!;
   }
 }
