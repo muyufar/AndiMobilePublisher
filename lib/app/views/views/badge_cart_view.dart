@@ -6,6 +6,23 @@ import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:ionicons/ionicons.dart';
 
+/// BadgeCartView
+///
+/// This class is a widget that displays a badge with the number of items in the cart.
+
+/// Properties
+///
+/// * `color`: The color of the badge.
+
+/// Usage
+///
+/// To use this class, you first need to import it. Then, you can use it to display a badge with the number of items in the cart like this:
+///
+///
+/// BadgeCartView(color: Colors.red);
+///
+/// This code will create a badge with the number of items in the cart and the color red.
+
 class BadgeCartView extends GetView {
   final Color color;
   BadgeCartView({this.color = Colors.white, Key? key}) : super(key: key);
@@ -15,8 +32,6 @@ class BadgeCartView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    controller.getCountCart();
-
     return InkWell(
       onTap: () => Get.toNamed(Routes.CART),
       child: Padding(

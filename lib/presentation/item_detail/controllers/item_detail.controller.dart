@@ -9,6 +9,38 @@ import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/presentation/item_detail/views/item_detail_bottom_sheet_order.dart';
 import 'package:get/get.dart';
 
+/// ItemDetailController
+///
+/// This class is a controller for the item detail page.
+
+/// Properties
+///
+/// * `itemMasterDetailModel`: The item master detail model.
+/// * `warehouse`: The warehouse model.
+/// * `quantityOrder`: The quantity of the order.
+/// * `priceTotalOrder`: The total price of the order.
+/// * `bottomSheetOrderIsBuy`: Whether the bottom sheet order is buy or add to cart.
+
+/// Methods
+///
+/// * `fetchDetailItem`: Fetches the detail item.
+/// * `onTapBuyNow`: Handles the buy now button tap event.
+/// * `onTapAddCart`: Handles the add to cart button tap event.
+/// * `onTapBottomSheetOrder`: Handles the bottom sheet order tap event.
+/// * `onTapQuantityMinus`: Handles the quantity minus button tap event.
+/// * `onTapQuantityPlus`: Handles the quantity plus button tap event.
+/// * `countPriceTotalOrder`: Counts the total price of the order.
+/// * `onChangedDropdown`: Handles the change dropdown event.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can instantiate it like this:
+///
+///
+/// ItemDetailController controller = ItemDetailController();
+///
+/// This code will instantiate a ItemDetailController object.
+
 class ItemDetailController extends GetxController {
   final UtilsController utilsController = Get.put(UtilsController());
 

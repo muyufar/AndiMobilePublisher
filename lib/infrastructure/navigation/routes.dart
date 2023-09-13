@@ -19,4 +19,5 @@ class Routes {
   static const TRANSACTION_DETAIL = '/transaction-detail';
   static const WISHLIST = '/wishlist';
   static const CART = '/cart';
+  static const CATEGORY = '/category';
 }

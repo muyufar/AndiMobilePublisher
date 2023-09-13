@@ -8,6 +8,23 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+/// CardListTransactionView
+///
+/// This class is a widget that displays a card of a history transaction.
+
+/// Properties
+///
+/// * `data`: The history transaction data.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can use it to display a card of a history transaction like this:
+///
+///
+/// CardListTransactionView(data: historyTransactionData);
+///
+/// This code will create a card of a history transaction with the data provided.
+
 class CardListTransactionView extends GetView {
   final ListHistoryTransactionModel data;
   const CardListTransactionView({required this.data, Key? key})

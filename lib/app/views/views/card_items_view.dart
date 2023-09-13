@@ -7,6 +7,23 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+/// CardItemsView
+///
+/// This class is a widget that displays a card of an item.
+
+/// Properties
+///
+/// * `data`: The item data.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can use it to display a card of an item like this:
+///
+///
+/// CardItemsView(data: itemData);
+///
+/// This code will create a card of an item with the data provided.
+
 class CardItemsView extends GetView {
   final ItemMasterModel data;
   const CardItemsView(this.data, {Key? key}) : super(key: key);
