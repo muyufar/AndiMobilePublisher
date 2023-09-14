@@ -1,6 +1,7 @@
 import 'package:andipublisher/app/views/views/badge_cart_view.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail.controller.dart';
+import 'package:andipublisher/presentation/ebook_detail/views/ebook_content_view.dart';
 import 'package:andipublisher/presentation/item_detail/views/content_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class EbookDetailScrenn extends GetView<EbookDetailController> {
         children: [
           Expanded(
             child: ListView(
-              children: [_appBar(), ContentView()],
+              children: [_appBar(), EbookContentView()],
             ),
           ),
           Container(

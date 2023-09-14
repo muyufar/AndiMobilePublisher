@@ -17,6 +17,39 @@ class EbookContentView extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    // return FutureBuilder(
+    //   future: controller.fetchDetailItem(),
+    //   builder: (context, snapshot) {
+    //     if (snapshot.hasData) {
+    //       var data = snapshot.data;
+
+    //       print("DATA_SUCCESS: $data");
+
+    //       return Obx(() => Column(
+    //             crossAxisAlignment: CrossAxisAlignment.start,
+    //             children: [
+    //               _imagesItem(),
+    //               Padding(
+    //                 padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+    //                 child: Column(
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: [
+    //                     // _priceAndPromo(),
+    //                     _infoItem(),
+    //                   ],
+    //                 ),
+    //               ),
+    //             ],
+    //           ));
+    //     } else {
+    //       // print("data: ${snapshot.data!.judul}");
+    //       return Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     }
+    //     ;
+    //   },
+    // );
     return FutureView(
       future: controller.fetchDetailItem(),
       widgetBuilder: Obx(
@@ -80,18 +113,18 @@ class EbookContentView extends GetView {
                 ],
               );
             } else {
-              return Table(
-                children: [
-                  TableRow(
-                    children: [
-                      const TableCell(child: Text('Berat')),
-                      TableCell(
-                          child: Text(
-                              controller.ebookMasterDetailModel.value!.berat)),
-                    ],
-                  ),
-                ],
-              );
+              // return Table(
+              //   children: [
+              //     TableRow(
+              //       children: [
+              //         const TableCell(child: Text('Berat')),
+              //         TableCell(
+              //             child: Text(
+              //                 controller.ebookMasterDetailModel.value!.berat)),
+              //       ],
+              //     ),
+              //   ],
+              // );
             }
           },
         ),
@@ -179,16 +212,17 @@ class EbookContentView extends GetView {
             Row(
               children: [
                 Text(
-                  controller.ebookMasterDetailModel.value!.diskon.harga
+                  controller.ebookMasterDetailModel.value!.harga.total
                       .parceRp(),
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Visibility(
                   visible:
-                      (controller.ebookMasterDetailModel.value!.diskon != 0),
+                      (controller.ebookMasterDetailModel.value!.diskon.persen !=
+                          0),
                   child: Text(
-                    ' ${controller.ebookMasterDetailModel.value!.diskon}% OFF ',
+                    ' ${controller.ebookMasterDetailModel.value!.diskon.persen}% OFF ',
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -200,7 +234,8 @@ class EbookContentView extends GetView {
             Visibility(
               visible: (controller.ebookMasterDetailModel.value!.diskon != 0),
               child: Text(
-                controller.ebookMasterDetailModel.value!.harga.total.parceRp(),
+                controller.ebookMasterDetailModel.value!.harga.original
+                    .parceRp(),
                 style: TextStyle(
                     decoration: TextDecoration.lineThrough,
                     color: colorTextGrey),
@@ -210,7 +245,9 @@ class EbookContentView extends GetView {
         ),
         const Spacer(),
         Visibility(
-          visible: (controller.ebookMasterDetailModel.value!.diskon != 'none'),
+          visible: (controller.ebookMasterDetailModel.value!.flashsale.status !=
+                  null &&
+              controller.ebookMasterDetailModel.value!.flashsale.status),
           child: Column(
             children: [
               const Text('Berkhir Dalam'),

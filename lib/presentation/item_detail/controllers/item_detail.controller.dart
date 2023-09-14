@@ -75,9 +75,9 @@ class ItemDetailController extends GetxController {
     itemMasterDetailModel.value =
         await ItemsService.getItemMasterDetail(id: Get.arguments);
 
-    countPriceTotalOrder();
+    // countPriceTotalOrder();
 
-    warehouse.value = itemMasterDetailModel.value?.warehouse[0];
+    // warehouse.value = itemMasterDetailModel.value?.warehouse[0];
 
     return itemMasterDetailModel.value!;
   }

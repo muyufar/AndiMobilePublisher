@@ -1,4 +1,5 @@
 import 'package:andipublisher/app/data/models/banner_model.dart';
+import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/label_items_master_model.dart';
 import 'package:andipublisher/app/data/services/banner_service.dart';
 import 'package:andipublisher/app/data/services/items_service.dart';
@@ -18,8 +19,8 @@ class HomeController extends GetxController {
       Rxn<LabelItemsMasterModel>();
   Rxn<LabelItemsMasterModel> beliSallerLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
-  Rxn<LabelItemsMasterModel> ebookNewLabelItemsMasterModel =
-      Rxn<LabelItemsMasterModel>();
+  Rxn<LabelEbookMasterModel> ebookNewLabelItemsMasterModel =
+      Rxn<LabelEbookMasterModel>();
 
   RxInt currentBanner = 0.obs;
 
@@ -76,7 +77,7 @@ class HomeController extends GetxController {
     return beliSallerLabelItemsMasterModel.value!;
   }
 
-  Future<LabelItemsMasterModel> ebookNewLabelItemsMaster() async {
+  Future<LabelEbookMasterModel> ebookNewLabelItemsMaster() async {
     ebookNewLabelItemsMasterModel.value =
         await EbookService.getEbookItemsMaster(link: 'list');
     return ebookNewLabelItemsMasterModel.value!;

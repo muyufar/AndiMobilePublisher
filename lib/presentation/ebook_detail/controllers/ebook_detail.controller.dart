@@ -1,6 +1,7 @@
 import 'package:andipublisher/app/controllers/utils_controller.dart';
 import 'package:andipublisher/app/data/models/checkout_model.dart';
 import 'package:andipublisher/app/data/models/ebook_master_detail_model.dart';
+import 'package:andipublisher/app/data/models/item_master_detail_model.dart';
 import 'package:andipublisher/app/data/services/cart_service.dart';
 import 'package:andipublisher/app/data/services/ebook_services.dart';
 import 'package:andipublisher/app/data/services/transaction_service.dart';
@@ -20,6 +21,7 @@ class EbookDetailController extends GetxController {
   RxInt priceTotalOrder = 0.obs;
 
   late bool bottomSheetOrderIsBuy;
+
   @override
   void onInit() {
     super.onInit();
@@ -41,7 +43,7 @@ class EbookDetailController extends GetxController {
   Future<EbookMasterDetailModel> fetchDetailItem() async {
     ebookMasterDetailModel.value =
         await EbookService.getEbookItemMasterDetail(id: Get.arguments);
-    //countPriceTotalOrder();
+    countPriceTotalOrder();
     return ebookMasterDetailModel.value!;
   }
 
@@ -86,5 +88,10 @@ class EbookDetailController extends GetxController {
 
     bottomSheetOrderIsBuy = isBuy;
     Get.bottomSheet(EbookDetailBottomSheetOrderView());
+  }
+
+  void countPriceTotalOrder() {
+    priceTotalOrder.value =
+        (ebookMasterDetailModel.value!.harga.total * quantityOrder.value);
   }
 }
