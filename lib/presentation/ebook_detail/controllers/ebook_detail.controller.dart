@@ -1,14 +1,12 @@
 import 'package:andipublisher/app/controllers/utils_controller.dart';
-import 'package:andipublisher/app/data/models/checkout_model.dart';
+import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/data/models/ebook_master_detail_model.dart';
-import 'package:andipublisher/app/data/models/item_master_detail_model.dart';
 import 'package:andipublisher/app/data/services/cart_service.dart';
 import 'package:andipublisher/app/data/services/ebook_services.dart';
-import 'package:andipublisher/app/data/services/transaction_service.dart';
+import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/presentation/ebook_detail/views/ebook_detail_bottom_sheet_order.dart';
-import 'package:andipublisher/presentation/transaction/views/transaction_send_view.dart';
 import 'package:get/get.dart';
 
 class EbookDetailController extends GetxController {
@@ -49,12 +47,13 @@ class EbookDetailController extends GetxController {
 
   Future<void> onTapBuyNow() async {
     Get.back();
-    CheckoutModel checkoutModel = await TransactionService.postCheckout(
-        tag: 'direck',
-        ids: [ebookMasterDetailModel.value!.idBarang],
-        quantityOrderDireck: quantityOrder.value);
+    CheckoutEbookModel checkoutEbookModel =
+        await TransactionEbookService.postCheckout(
+            tag: 'direck',
+            ids: [ebookMasterDetailModel.value!.idBarang],
+            quantityOrderDireck: quantityOrder.value);
 
-    Get.toNamed(Routes.CHECKOUT, arguments: checkoutModel);
+    Get.toNamed(Routes.CHECKOUT, arguments: checkoutEbookModel);
   }
 
   Future<void> onTapAddCart() async {

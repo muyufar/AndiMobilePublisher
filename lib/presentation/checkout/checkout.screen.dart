@@ -3,10 +3,8 @@ import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
 import 'controllers/checkout.controller.dart';
 
 class CheckoutScreen extends GetView<CheckoutController> {
