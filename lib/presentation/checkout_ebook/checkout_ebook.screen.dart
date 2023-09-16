@@ -248,18 +248,14 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
                         Row(
                           children: [
                             Text(
-                              (data.items[index].hargaPromo *
-                                      data.items[index].quantityOrder)
-                                  .parceRp(),
+                              (data.items[index].hargaPromo).parceRp(),
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Visibility(
                               visible: (data.items[index].diskon != 0),
                               child: Text(
-                                (data.items[index].harga *
-                                        data.items[index].quantityOrder)
-                                    .parceRp(),
+                                (data.items[index].harga).parceRp(),
                                 style: TextStyle(
                                     decoration: TextDecoration.lineThrough,
                                     color: colorTextGrey),
@@ -271,13 +267,13 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
                     ),
                     const SizedBox(width: 6),
                     //quantityOrder
-                    Text(
-                      '${data.items[index].quantityOrder}X',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: colorTextPrimary,
-                          fontWeight: FontWeight.bold),
-                    )
+                    // Text(
+                    //   '${data.items[index].quantityOrder}X',
+                    //   style: TextStyle(
+                    //       fontSize: 16,
+                    //       color: colorTextPrimary,
+                    //       fontWeight: FontWeight.bold),
+                    // )
                   ],
                 ),
               );

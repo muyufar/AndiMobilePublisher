@@ -47,21 +47,17 @@ class DataEbookCheckoutMolde {
 
 class Product {
   final String idProduct;
-  final int quantity;
 
   Product({
     required this.idProduct,
-    required this.quantity,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         idProduct: json['idProduct'],
-        quantity: json['quantity'],
       );
 
   Map<String, dynamic> toJson() => {
         'idProduct': idProduct,
-        'quantity': quantity,
       };
 }
 

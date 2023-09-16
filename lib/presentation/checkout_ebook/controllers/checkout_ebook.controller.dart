@@ -47,8 +47,7 @@ class CheckoutEbookController extends GetxController {
     List<Product> products = [];
 
     for (var product in checkoutEbookModel.dataEbookCheckout[0].items) {
-      Product valueProduct =
-          Product(idProduct: product.idBarang, quantity: product.quantityOrder);
+      Product valueProduct = Product(idProduct: product.idBarang);
       products.add(valueProduct);
     }
 

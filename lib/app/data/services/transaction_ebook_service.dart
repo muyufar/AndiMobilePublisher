@@ -7,15 +7,11 @@ import 'package:andipublisher/app/data/services/main_service.dart';
 
 class TransactionEbookService {
   static Future<CheckoutEbookModel> postCheckout(
-      {required String tag,
-      required List<String> ids,
-      int? quantityOrderDireck}) async {
+      {required String tag, required List<String> ids}) async {
     Map<String, dynamic> body = {
       'tag': tag,
       'idUser': MainService().utilsController.userModel.idUser,
-      'quantityOrderDireck': quantityOrderDireck.toString(),
     };
-
     for (int i = 0; i < ids.length; i++) {
       body.addAll({'id[$i]': ids[i]});
     }

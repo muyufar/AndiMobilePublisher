@@ -1,7 +1,7 @@
 import 'package:andipublisher/app/controllers/utils_controller.dart';
 import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/data/models/ebook_master_detail_model.dart';
-import 'package:andipublisher/app/data/services/cart_service.dart';
+import 'package:andipublisher/app/data/services/ebook_cart_service.dart';
 import 'package:andipublisher/app/data/services/ebook_services.dart';
 import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
@@ -15,7 +15,6 @@ class EbookDetailController extends GetxController {
   Rxn<EbookMasterDetailModel> ebookMasterDetailModel =
       Rxn<EbookMasterDetailModel>();
 
-  RxInt quantityOrder = 1.obs;
   RxInt priceTotalOrder = 0.obs;
 
   late bool bottomSheetOrderIsBuy;
@@ -32,7 +31,6 @@ class EbookDetailController extends GetxController {
 
   @override
   void onClose() {
-    quantityOrder.value = 1;
     priceTotalOrder.value = 0;
 
     super.onClose();
@@ -46,21 +44,17 @@ class EbookDetailController extends GetxController {
   }
 
   Future<void> onTapBuyNow() async {
-    Get.back();
+    //Get.back();
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
-            tag: 'direck',
-            ids: [ebookMasterDetailModel.value!.idBarang],
-            quantityOrderDireck: quantityOrder.value);
+            tag: 'direck', ids: [ebookMasterDetailModel.value!.idBarang]);
 
-    Get.toNamed(Routes.CHECKOUT, arguments: checkoutEbookModel);
+    Get.toNamed(Routes.CHECKOUT_EBOOK, arguments: checkoutEbookModel);
   }
 
   Future<void> onTapAddCart() async {
-    bool status = await CartService.postAddCart(
+    bool status = await EbookCartService.postAddCart(
       idBarang: ebookMasterDetailModel.value!.idBarang,
-      qty: quantityOrder.value,
-      idCabang: '',
     );
 
     if (status) {
@@ -90,7 +84,6 @@ class EbookDetailController extends GetxController {
   }
 
   void countPriceTotalOrder() {
-    priceTotalOrder.value =
-        (ebookMasterDetailModel.value!.harga.total * quantityOrder.value);
+    priceTotalOrder.value = (ebookMasterDetailModel.value!.harga.total);
   }
 }

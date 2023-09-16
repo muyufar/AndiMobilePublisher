@@ -50,7 +50,6 @@ class Item {
   final int harga;
   final int hargaPromo;
   final int diskon;
-  final int quantityOrder;
   final int subtotal;
 
   Item({
@@ -61,7 +60,6 @@ class Item {
     required this.harga,
     required this.hargaPromo,
     required this.diskon,
-    required this.quantityOrder,
     required this.subtotal,
   });
 
@@ -73,7 +71,6 @@ class Item {
         harga: json["harga"],
         hargaPromo: json["harga_promo"],
         diskon: json["diskon"],
-        quantityOrder: json["quantityOrder"],
         subtotal: json["subtotal"],
       );
 
@@ -85,7 +82,6 @@ class Item {
         "harga": harga,
         "harga_promo": hargaPromo,
         "diskon": diskon,
-        "quantityOrder": quantityOrder,
         "subtotal": subtotal,
       };
 }
