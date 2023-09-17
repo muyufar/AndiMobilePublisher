@@ -44,7 +44,7 @@ class EbookDetailController extends GetxController {
   }
 
   Future<void> onTapBuyNow() async {
-    //Get.back();
+    Get.back();
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
             tag: 'direck', ids: [ebookMasterDetailModel.value!.idBarang]);

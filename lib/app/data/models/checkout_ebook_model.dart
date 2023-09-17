@@ -11,11 +11,11 @@ class CheckoutEbookModel {
 
   factory CheckoutEbookModel.fromJson(Map<String, dynamic> json) =>
       CheckoutEbookModel(
-        dataUser: DataUser.fromJson(json["data_user"]),
-        dataProfile: DataProfile.fromJson(json["data_profile"]),
-        dataEbookCheckout: List<DataEbookCheckout>.from(
-            json["data_checkout"].map((x) => DataEbookCheckout.fromJson(x))),
-      );
+          dataUser: DataUser.fromJson(json["data_user"]),
+          dataProfile: DataProfile.fromJson(json["data_profile"]),
+          dataEbookCheckout: List<DataEbookCheckout>.from(
+            json["data_checkout"].map((x) => DataEbookCheckout.fromJson(x)),
+          ));
 
   Map<String, dynamic> toJson() => {
         "data_user": dataUser.toJson(),

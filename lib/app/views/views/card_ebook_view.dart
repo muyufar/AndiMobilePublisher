@@ -30,119 +30,113 @@ class CardEbookView extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    int hargaAwal = data.harga;
+    int diskonAwal = data.diskon;
+    double diskonAkhir = diskonAwal.toDouble();
+    double diskonHarga = (diskonAkhir / 100.0) * hargaAwal;
+    double hargatotal = hargaAwal - diskonHarga;
     // Hitung harga awal jika ada diskon
-    int hargaAwal = data.harga != 0
-        ? (data.harga / ((100 + data.diskon) / 100)).toInt()
-        : data.diskon;
 
     return InkWell(
       onTap: () => Get.toNamed(Routes.EBOOK_DETAIL, arguments: data.idBarang),
       child: AspectRatio(
-        aspectRatio: 2 / 4.4,
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            children: [
-              AspectRatio(
-                  aspectRatio: 0.66 / 1,
-                  child: Stack(
-                    children: [
-                      ImageNetworkView(
-                        url: data.gambar1,
-                        decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(10))),
-                      ),
-                      // Diskon
-                      Visibility(
-                        visible: data.diskon != 0,
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            height: 28,
-                            width: 40,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
-                                color: colorRad.withOpacity(0.9)),
-                            child: Text(
-                              '${data.diskon}%',
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ),
+          aspectRatio: 2 / 4.4,
+          child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              children: [
+                AspectRatio(
+                    aspectRatio: 0.66 / 1,
+                    child: Stack(
+                      children: [
+                        ImageNetworkView(
+                          url: data.gambar1,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(10))),
                         ),
-                      ),
-
-                      // Stok Habis
-                      Visibility(
-                        visible: !data.statusStok,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            height: 100,
-                            width: 100,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.black.withOpacity(0.8)),
-                            child: const Text(
-                              'Habis',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data.judul,
-                      maxLines: 2,
-                      style: const TextStyle(fontSize: 15),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    (data.diskon != 0)
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data.harga.parceRp(), // Harga awal di sini
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: colorTextGrey,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
-                              ),
-                              Text(
-                                hargaAwal.parceRp(),
+                        // Diskon
+                        Visibility(
+                          visible: data.diskon != 0,
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              height: 30,
+                              width: 40,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  color: colorRad.withOpacity(0.9)),
+                              child: Text(
+                                '${data.diskon}%',
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
-                            ],
-                          )
-                        : Text(
-                            data.diskon.parceRp(),
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+                        ),
+
+                        // Stok Habis
+                        Visibility(
+                          visible: !data.statusStok,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black.withOpacity(0.8)),
+                              child: const Text(
+                                'Habis',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data.judul,
+                        maxLines: 2,
+                        style: const TextStyle(fontSize: 15),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      (data.diskon != 0)
+                          ? Text(
+                              data.harga.parceRp(), // Harga awal di sini
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: colorTextGrey,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            )
+                          : const SizedBox(
+                              height: 20,
+                            ),
+                      Text(
+                        hargatotal.parceRp(),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )),
     );
   }
 }

@@ -1,10 +1,14 @@
 import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
+import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
+import 'package:andipublisher/app/data/models/voucher_model.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
+import 'package:andipublisher/presentation/voucher_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:andipublisher/app/data/services/voucher_service.dart';
 import 'package:andipublisher/presentation/checkout_ebook/controllers/checkout_ebook.controller.dart';
 
 class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
@@ -138,14 +142,14 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
             //     Text('-${controller.diskonOngkoskirim.value.parceRp()}')
             //   ],
             // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     const Text('Biaya Penanganan'),
-            //     Text(controller.checkoutModel.dataProfile.biayaPenanganan
-            //         .parceRp())
-            //   ],
-            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Biaya Penanganan'),
+                Text(controller.checkoutEbookModel.dataProfile.biayaPenanganan
+                    .parceRp())
+              ],
+            ),
           ],
         ),
       ),
@@ -339,45 +343,42 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
           //       )),
           // ),
           //subtotal
-          Obx(
-            () => ExpansionTile(
-              childrenPadding:
-                  EdgeInsets.symmetric(horizontal: marginHorizontal),
-              expandedAlignment: Alignment.topLeft,
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Subtotal'),
-                  Text(
-                    (data.items.fold(0, (total, item) => total + item.subtotal))
-                        .parceRp(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+          ExpansionTile(
+            childrenPadding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+            expandedAlignment: Alignment.topLeft,
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Harga (${data.items.length} Barang)'),
-                    Text(data.items
-                        .fold(0, (total, item) => total + item.subtotal)
-                        .parceRp()),
-                  ],
+                const Text('Subtotal'),
+                Text(
+                  (data.items.fold(0, (total, item) => total + item.subtotal))
+                      .parceRp(),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     const Text('Total Ongkos Kirim'),
-                //     Text(
-                //       controller.ongkoskirim.value.parceRp(),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
-          )
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Harga (${data.items.length} Barang)'),
+                  Text(data.items
+                      .fold(0, (total, item) => total + item.subtotal)
+                      .parceRp()),
+                ],
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     const Text('Total Ongkos Kirim'),
+              //     Text(
+              //       controller.ongkoskirim.value.parceRp(),
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
         ],
       ),
     );
@@ -468,11 +469,43 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
   // }
 
   Container _bottomSheetVoucher() {
+    final TextEditingController codeController = TextEditingController();
+
+    void fetchVoucherData() async {
+      final String code = codeController.text;
+
+      // Dapatkan idEbook dan idUser dari data eBook checkout
+      final CheckoutEbookModel dataEbookCheckoutModel =
+          Get.arguments as CheckoutEbookModel;
+
+      final int idEbook = int.tryParse(
+              dataEbookCheckoutModel.dataEbookCheckout[0].items[0].idBarang) ??
+          0;
+
+      final DataEbookCheckoutModel dataEbookCheckoutMode =
+          Get.arguments as DataEbookCheckoutModel;
+      final int idUser = int.tryParse(dataEbookCheckoutMode.user.idUser) ?? 0;
+
+      final Voucher? result =
+          await VoucherService.claimVoucher(code, idEbook, idUser);
+
+      if (result != false) {
+        // Tampilkan pesan berhasil atau aksi lainnya sesuai kebutuhan
+        print('Voucher berhasil di-klaim!');
+      } else {
+        // Tampilkan pesan gagal atau aksi lainnya sesuai kebutuhan
+        print('Voucher tidak valid.');
+      }
+    }
+
     return Container(
       color: Colors.white,
       margin: const EdgeInsets.only(top: 100),
       padding: EdgeInsets.only(
-          bottom: 12, left: marginHorizontal, right: marginHorizontal),
+        bottom: 12,
+        left: marginHorizontal,
+        right: marginHorizontal,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -481,7 +514,7 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Pilih Voucher',
+                'Masukan Voucher',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               IconButton(
@@ -493,9 +526,13 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
               ),
             ],
           ),
-          ListView(
-            shrinkWrap: true,
-            children: [],
+          TextField(
+            controller: codeController,
+            decoration: InputDecoration(labelText: 'Code Voucher'),
+          ),
+          ElevatedButton(
+            onPressed: fetchVoucherData,
+            child: Text('Klaim Voucher'),
           ),
         ],
       ),

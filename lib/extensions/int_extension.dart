@@ -22,7 +22,7 @@ import 'package:intl/intl.dart';
 ///
 /// This code will create an integer representing the price of 10000. Then, the extension method `parceRp` will be used to format the integer to Indonesian Rupiah. The resulting string will be stored in the variable `formattedPrice`.
 
-extension ExtensionString on int {
+extension ExtensionString on num {
   String parceRp() {
     NumberFormat currencyFormatter = NumberFormat.currency(
       locale: 'id',

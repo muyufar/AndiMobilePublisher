@@ -1,6 +1,6 @@
 class DataEbookCheckoutModel {
   final User user;
-  final Voucher voucher;
+  final VoucherEbook voucher;
   final List<DataEbookCheckoutMolde> dataEbookCheckout;
 
   DataEbookCheckoutModel({
@@ -12,7 +12,7 @@ class DataEbookCheckoutModel {
   factory DataEbookCheckoutModel.fromJson(Map<String, dynamic> json) =>
       DataEbookCheckoutModel(
         user: User.fromJson(json['user']),
-        voucher: Voucher.fromJson(json['voucher']),
+        voucher: VoucherEbook.fromJson(json['voucher']),
         dataEbookCheckout: List<DataEbookCheckoutMolde>.from(
           json['dataCheckout'].map((x) => DataEbookCheckoutMolde.fromJson(x)),
         ),
@@ -81,7 +81,7 @@ class User {
       };
 }
 
-class Voucher {
+class VoucherEbook {
   final bool isVoucher;
   final String name;
   final String code;
@@ -90,7 +90,7 @@ class Voucher {
   final Discount sewa;
   final String end;
 
-  Voucher({
+  VoucherEbook({
     required this.isVoucher,
     required this.name,
     required this.code,
@@ -100,7 +100,7 @@ class Voucher {
     required this.end,
   });
 
-  factory Voucher.fromJson(Map<String, dynamic> json) => Voucher(
+  factory VoucherEbook.fromJson(Map<String, dynamic> json) => VoucherEbook(
         isVoucher: json['isVoucher'],
         name: json['name'],
         code: json['code'],

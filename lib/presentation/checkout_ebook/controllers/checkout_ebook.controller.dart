@@ -9,6 +9,7 @@ class CheckoutEbookController extends GetxController {
   CheckoutEbookModel checkoutEbookModel = Get.arguments;
   RxInt hargaTotalProduct = 0.obs;
   RxInt diskonTotalProduct = 0.obs;
+  RxList<int> totalDiscount = <int>[].obs;
   RxList<int> priceSubTotalItmes = <int>[].obs;
 
   //TODO: Implement CheckoutEbookController
@@ -16,6 +17,8 @@ class CheckoutEbookController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
+    setPriceTotalItmes();
+    // calculateTotalDiscount();
     super.onInit();
   }
 
@@ -23,6 +26,8 @@ class CheckoutEbookController extends GetxController {
   void onReady() {
     hargaTotalProduct.value =
         priceSubTotalItmes.reduce((value, element) => value + element);
+    diskonTotalProduct.value =
+        totalDiscount.reduce((value, element) => value + element);
     super.onReady();
   }
 
@@ -40,6 +45,15 @@ class CheckoutEbookController extends GetxController {
     }
   }
 
+  // void calculateTotalDiscount() {
+  //   for (DataEbookCheckout dataEbookCheckout
+  //       in checkoutEbookModel.dataEbookCheckout) {
+  //     for (Item item in dataEbookCheckout.items) {
+  //       totalDiscount.add(item.diskon);
+  //     }
+  //   }
+  // }
+
   Future<void> onTapSelectPayment() async {
     // validator
 
@@ -51,10 +65,10 @@ class CheckoutEbookController extends GetxController {
       products.add(valueProduct);
     }
 
-    DataEbookCheckoutMolde valueDataEbookCheckoutModel =
+    DataEbookCheckoutMolde valueDataEbookCheckoutMolde =
         DataEbookCheckoutMolde(products: products);
 
-    dataEbookCheckout.add(valueDataEbookCheckoutModel);
+    dataEbookCheckout.add(valueDataEbookCheckoutMolde);
 
     PaymentEbookModel result = await TransactionEbookService.postPayment(
         usePoinUser: false,

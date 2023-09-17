@@ -3,6 +3,7 @@ import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/detail_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/list_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/payment_ebook_model.dart';
+import 'package:andipublisher/app/data/models/voucher_model.dart'; // Import model voucher
 import 'package:andipublisher/app/data/services/main_service.dart';
 
 class TransactionEbookService {
@@ -25,24 +26,32 @@ class TransactionEbookService {
   static Future<PaymentEbookModel> postPayment({
     required bool usePoinUser,
     required bool isVoucher,
-    required List<DataEbookCheckoutMolde>
-        dataEbookCheckout, // Perubahan di sini
+    required List<DataEbookCheckoutMolde> dataEbookCheckout,
+    required DataEbookCheckoutModel ebookCheckoutModel, // Tambahkan ini
   }) async {
+    // Dapatkan idUser dari eBook checkout
+    final String idUser = ebookCheckoutModel.user.idUser;
+
+    // Dapatkan idEbook dari eBook checkout
+    final String idEbook =
+        ebookCheckoutModel.dataEbookCheckout[0].products[0].idProduct;
+
     DataEbookCheckoutModel body = DataEbookCheckoutModel(
-        user: User(
-          idUser: MainService().utilsController.userModel.idUser,
-          usePoinUser: usePoinUser,
-        ),
-        voucher: Voucher(
-          isVoucher: isVoucher,
-          name: "Masukan Kode Voucher",
-          code: "########",
-          minimalTransaction: 0,
-          beli: Discount(harga: 0, persen: 0),
-          sewa: Discount(harga: 0, persen: 0),
-          end: "2023-09-30 11:52:00",
-        ),
-        dataEbookCheckout: dataEbookCheckout);
+      user: User(
+        idUser: idUser,
+        usePoinUser: usePoinUser,
+      ),
+      voucher: VoucherEbook(
+        isVoucher: isVoucher,
+        name: "Masukan Kode Voucher",
+        code: "########",
+        minimalTransaction: 0,
+        beli: Discount(harga: 0, persen: 0),
+        sewa: Discount(harga: 0, persen: 0),
+        end: "2023-09-30 11:52:00",
+      ),
+      dataEbookCheckout: dataEbookCheckout,
+    );
 
     final result = await MainService()
         .postAPIBodyRaw(url: 'Transaction/transaction', body: body.toJson());
