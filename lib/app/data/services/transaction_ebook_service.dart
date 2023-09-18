@@ -27,22 +27,21 @@ class TransactionEbookService {
     required bool usePoinUser,
     required bool isVoucher,
     required List<DataEbookCheckoutMolde> dataEbookCheckout,
-    required DataEbookCheckoutModel ebookCheckoutModel, // Tambahkan ini
   }) async {
     // Dapatkan idUser dari eBook checkout
-    final String idUser = ebookCheckoutModel.user.idUser;
+    // final String idUser = dataEbookCheckout;
 
-    // Dapatkan idEbook dari eBook checkout
-    final String idEbook =
-        ebookCheckoutModel.dataEbookCheckout[0].products[0].idProduct;
+    // // Dapatkan idEbook dari eBook checkout
+    // final String idEbook =
+    //     dataEbookCheckout.dataEbookCheckout[0].products[0].idProduct;
 
     DataEbookCheckoutModel body = DataEbookCheckoutModel(
       user: User(
-        idUser: idUser,
+        idUser: MainService().utilsController.userModel.idUser,
         usePoinUser: usePoinUser,
       ),
       voucher: VoucherEbook(
-        isVoucher: isVoucher,
+        isVoucher: true,
         name: "Masukan Kode Voucher",
         code: "########",
         minimalTransaction: 0,

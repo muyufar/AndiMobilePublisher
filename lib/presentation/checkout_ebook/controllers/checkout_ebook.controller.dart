@@ -1,5 +1,6 @@
 import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
+import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/payment_ebook_model.dart';
 import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
@@ -18,7 +19,7 @@ class CheckoutEbookController extends GetxController {
   @override
   void onInit() {
     setPriceTotalItmes();
-    // calculateTotalDiscount();
+    calculateTotalDiscount();
     super.onInit();
   }
 
@@ -40,19 +41,19 @@ class CheckoutEbookController extends GetxController {
     for (DataEbookCheckout dataEbookCheckout
         in checkoutEbookModel.dataEbookCheckout) {
       for (Item item in dataEbookCheckout.items) {
-        priceSubTotalItmes.add(item.subtotal);
+        priceSubTotalItmes.add(item.harga);
       }
     }
   }
 
-  // void calculateTotalDiscount() {
-  //   for (DataEbookCheckout dataEbookCheckout
-  //       in checkoutEbookModel.dataEbookCheckout) {
-  //     for (Item item in dataEbookCheckout.items) {
-  //       totalDiscount.add(item.diskon);
-  //     }
-  //   }
-  // }
+  void calculateTotalDiscount() {
+    for (DataEbookCheckout dataEbookCheckout
+        in checkoutEbookModel.dataEbookCheckout) {
+      for (Item item in dataEbookCheckout.items) {
+        totalDiscount.add(item.diskon);
+      }
+    }
+  }
 
   Future<void> onTapSelectPayment() async {
     // validator
@@ -71,10 +72,10 @@ class CheckoutEbookController extends GetxController {
     dataEbookCheckout.add(valueDataEbookCheckoutMolde);
 
     PaymentEbookModel result = await TransactionEbookService.postPayment(
-        usePoinUser: false,
-        dataEbookCheckout: dataEbookCheckout,
-        isVoucher: true);
-
+      usePoinUser: false,
+      dataEbookCheckout: dataEbookCheckout,
+      isVoucher: true,
+    );
     Get.toNamed(Routes.PAYMENT, arguments: result);
   }
 }

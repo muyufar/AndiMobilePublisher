@@ -29,11 +29,11 @@ class _VoucherScreenState extends State<VoucherScreen> {
     final int idEbook = checkoutEbookModel.dataUser as int;
     final int idUser = checkoutEbookModel.dataEbookCheckout as int;
 
-    final VoucherEbook? result =
+    final Voucher? result =
         await VoucherService.claimVoucher(code, idEbook, idUser);
 
     setState(() {
-      voucherEbook = result;
+      voucherEbook = voucherEbook;
     });
   }
 

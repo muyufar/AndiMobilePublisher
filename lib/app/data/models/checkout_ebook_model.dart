@@ -20,20 +20,25 @@ class CheckoutEbookModel {
   Map<String, dynamic> toJson() => {
         "data_user": dataUser.toJson(),
         "data_profile": dataProfile.toJson(),
-        "data_checkout":
-            List<dynamic>.from(dataEbookCheckout.map((x) => x.toJson())),
+        "data_checkout": List<dynamic>.from(dataEbookCheckout.map((x) => x.toJson())),
       };
 }
 
+
+
+
 class DataEbookCheckout {
   final List<Item> items;
+  final Subtotale subtotale;
 
   DataEbookCheckout({
     required this.items,
+    required this.subtotale,
   });
 
   factory DataEbookCheckout.fromJson(Map<String, dynamic> json) =>
       DataEbookCheckout(
+        subtotale: Subtotale.fromJson(json["subtotal"]),
         items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
       );
 
@@ -41,6 +46,37 @@ class DataEbookCheckout {
         "items": List<dynamic>.from(items.map((x) => x.toJson())),
       };
 }
+
+Class Subtotale {
+  final int subharga;
+  final int subdiskon;
+  final int subpenanganan;
+  final int subtotal;
+}
+
+Subtotale({
+  required this.subharga,
+  required this.subdiskon,
+  required this.subpenanganan,
+  required this.subtotal,
+})
+
+factory Subtotale.fromJson(Map<String, dynamic> json) => Subtotale(
+        subharga: json["harga"],
+        subdiskon: json["diskon"],
+        subpenanganan: json["penanganan"],
+        subtotal: json['total'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "harga": subharga,
+        "diskon": subdiskon,
+        "penanganan": subpenanganan,
+        "total": subtotal,
+      };
+
+
+
 
 class Item {
   final String idBarang;

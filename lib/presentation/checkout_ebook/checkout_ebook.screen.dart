@@ -343,42 +343,42 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
           //       )),
           // ),
           //subtotal
-          ExpansionTile(
-            childrenPadding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-            expandedAlignment: Alignment.topLeft,
-            expandedCrossAxisAlignment: CrossAxisAlignment.start,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Subtotal'),
-                Text(
-                  (data.items.fold(0, (total, item) => total + item.subtotal))
-                      .parceRp(),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Harga (${data.items.length} Barang)'),
-                  Text(data.items
-                      .fold(0, (total, item) => total + item.subtotal)
-                      .parceRp()),
-                ],
-              ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     const Text('Total Ongkos Kirim'),
-              //     Text(
-              //       controller.ongkoskirim.value.parceRp(),
-              //     ),
-              //   ],
-              // ),
-            ],
-          ),
+          // ExpansionTile(
+          //   childrenPadding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+          //   expandedAlignment: Alignment.topLeft,
+          //   expandedCrossAxisAlignment: CrossAxisAlignment.start,
+          //   title: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       const Text('Subtotal'),
+          //       Text(
+          //         (data.items.fold(0, (total, item) => total + item.subtotal))
+          //             .parceRp(),
+          //         style: const TextStyle(fontWeight: FontWeight.bold),
+          //       ),
+          //     ],
+          //   ),
+          //   children: [
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       children: [
+          //         Text('Harga (${data.items.length} Barang)'),
+          //         Text(data.items
+          //             .fold(0, (total, item) => total + item.subtotal)
+          //             .parceRp()),
+          //       ],
+          //     ),
+          //     // Row(
+          //     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     //   children: [
+          //     //     const Text('Total Ongkos Kirim'),
+          //     //     Text(
+          //     //       controller.ongkoskirim.value.parceRp(),
+          //     //     ),
+          //     //   ],
+          //     // ),
+          //   ],
+          // ),
         ],
       ),
     );
