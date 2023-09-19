@@ -4,7 +4,6 @@ import 'package:andipublisher/app/data/models/voucher_model.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
-import 'package:andipublisher/presentation/voucher_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -72,17 +71,11 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
                     'Total Belanja',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Obx(
-                    () => Text(
-                      ((controller.hargaTotalProduct.value +
-                                  controller.checkoutEbookModel.dataProfile
-                                      .biayaPenanganan) -
-                              (controller.diskonTotalProduct.value))
-                          .parceRp(),
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  )
+                  Text(
+                    _calculateTotalBelanja(),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
 
@@ -100,58 +93,71 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
     );
   }
 
+  String _calculateTotalBelanja() {
+    int totalHarga = 0;
+
+    int harga = controller.checkoutEbookModel.subtotal.harga;
+    int diskon = controller.checkoutEbookModel.subtotal.diskon;
+    int penanganan = controller.checkoutEbookModel.subtotal.penanganan;
+
+    // Subtract diskonTotalProduct and add biayaPenanganan here if needed
+    totalHarga += harga;
+    totalHarga -= diskon;
+    totalHarga += penanganan;
+
+    return totalHarga.parceRp();
+  }
+
   Container _infoOrder() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: marginHorizontal),
       color: Colors.white,
-      child: Obx(
-        () => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Ringkasan Belanja',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                    'Total Harga (${controller.checkoutEbookModel.dataEbookCheckout.length} Barang)'),
-                Text(controller.hargaTotalProduct.value.parceRp())
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Total Diskon Barang'),
-                Text('-${controller.diskonTotalProduct.value.parceRp()}')
-              ],
-            ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     const Text('Total Ongkos Kirim'),
-            //     Text(controller.ongkoskirim.value.parceRp())
-            //   ],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     const Text('Total Diskon Ongkos Kirim'),
-            //     Text('-${controller.diskonOngkoskirim.value.parceRp()}')
-            //   ],
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Biaya Penanganan'),
-                Text(controller.checkoutEbookModel.dataProfile.biayaPenanganan
-                    .parceRp())
-              ],
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Ringkasan Belanja',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Total Harga'),
+              Text(controller.checkoutEbookModel.subtotal.harga.parceRp())
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Total Diskon Barang'),
+              Text(
+                  '-${controller.checkoutEbookModel.subtotal.diskon.parceRp()}')
+            ],
+          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const Text('Total Ongkos Kirim'),
+          //     Text(controller.ongkoskirim.value.parceRp())
+          //   ],
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const Text('Total Diskon Ongkos Kirim'),
+          //     Text('-${controller.diskonOngkoskirim.value.parceRp()}')
+          //   ],
+          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Biaya Penanganan'),
+              Text(controller.checkoutEbookModel.dataProfile.biayaPenanganan
+                  .parceRp())
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -178,7 +184,7 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
                   const Icon(Ionicons.ticket_outline),
                   SizedBox(width: marginHorizontal),
                   const Text(
-                    'Pilih Voucher',
+                    'Masukan Voucher',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const Spacer(),
@@ -470,32 +476,35 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
 
   Container _bottomSheetVoucher() {
     final TextEditingController codeController = TextEditingController();
-
-    void fetchVoucherData() async {
-      final String code = codeController.text;
-
-      // Dapatkan idEbook dan idUser dari data eBook checkout
-      final CheckoutEbookModel dataEbookCheckoutModel =
-          Get.arguments as CheckoutEbookModel;
+    fetchVoucherData(String code) async {
+      final CheckoutEbookModel dataEbookCheckoutModel = Get.arguments;
 
       final int idEbook = int.tryParse(
               dataEbookCheckoutModel.dataEbookCheckout[0].items[0].idBarang) ??
           0;
 
-      final DataEbookCheckoutModel dataEbookCheckoutMode =
-          Get.arguments as DataEbookCheckoutModel;
+      final DataEbookCheckoutModel dataEbookCheckoutMode = Get.arguments;
       final int idUser = int.tryParse(dataEbookCheckoutMode.user.idUser) ?? 0;
 
-      final Voucher? result =
-          await VoucherService.claimVoucher(code, idEbook, idUser);
+      final bool isVoucherValid =
+          (await VoucherService.claimVoucher(code, idEbook, idUser)) as bool;
 
-      if (result != false) {
-        // Tampilkan pesan berhasil atau aksi lainnya sesuai kebutuhan
-        print('Voucher berhasil di-klaim!');
-      } else {
-        // Tampilkan pesan gagal atau aksi lainnya sesuai kebutuhan
-        print('Voucher tidak valid.');
-      }
+      // if (isVoucherValid) {
+      //   // Perbarui voucherCode dalam objek CheckoutEbookModel
+      //   controller.updateVoucherCode(true);
+
+      //   // Perbarui total harga berdasarkan nilai diskon voucher
+      //   controller.updateTotalPriceWithVoucher(dataEbookCheckoutModel.subtotal.harga);
+
+      //   // Tampilkan pesan berhasil atau aksi lainnya sesuai kebutuhan
+      //   print('Voucher berhasil di-klaim!');
+      // } else {
+      //   // Tampilkan pesan gagal atau aksi lainnya sesuai kebutuhan
+      //   print('Voucher tidak valid.');
+
+      //   // Perbarui voucherCode dalam objek CheckoutEbookModel
+      //   controller.updateVoucherCode(false);
+      // }
     }
 
     return Container(
@@ -530,53 +539,64 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
             controller: codeController,
             decoration: InputDecoration(labelText: 'Code Voucher'),
           ),
-          ElevatedButton(
-            onPressed: fetchVoucherData,
-            child: Text('Klaim Voucher'),
+          FutureBuilder<bool>(
+            // future: fetchVoucherData(codeController.text),
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data == true) {
+                // Voucher berhasil di-klaim
+                return Text('Voucher berhasil di-klaim!');
+              } else if (snapshot.hasData && snapshot.data == false) {
+                // Voucher tidak valid
+                return Text('Voucher tidak valid.');
+              } else {
+                // Tunggu proses klaim voucher selesai
+                return CircularProgressIndicator();
+              }
+            },
           ),
         ],
       ),
     );
-  }
 
-  // Container _alamat() {
-  //   return Container(
-  //     margin: const EdgeInsets.symmetric(vertical: 4),
-  //     padding: EdgeInsets.symmetric(vertical: 4, horizontal: marginHorizontal),
-  //     color: Colors.white,
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             const Text(
-  //               'Alamat Pengiriman',
-  //               style: TextStyle(fontWeight: FontWeight.bold),
-  //             ),
-  //             TextButton(
-  //                 onPressed: () => Get.bottomSheet(_bottomSheetAddress(),
-  //                     isScrollControlled: true),
-  //                 child: const Text('Pilih Alamat Lain'))
-  //           ],
-  //         ),
-  //         const Divider(),
-  //         Text(
-  //           controller.selectAlamatUser.value!.labelAlamatUser,
-  //           style: const TextStyle(fontWeight: FontWeight.bold),
-  //         ),
-  //         Text(
-  //           '${controller.selectAlamatUser.value!.namaPenerimaUser} (${controller.selectAlamatUser.value!.teleponUser})',
-  //           style: const TextStyle(fontWeight: FontWeight.w200),
-  //         ),
-  //         Text(
-  //           controller.selectAlamatUser.value!.alamatUser,
-  //           style: const TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
-  //           maxLines: 2,
-  //           overflow: TextOverflow.ellipsis,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+    // Container _alamat() {
+    //   return Container(
+    //     margin: const EdgeInsets.symmetric(vertical: 4),
+    //     padding: EdgeInsets.symmetric(vertical: 4, horizontal: marginHorizontal),
+    //     color: Colors.white,
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           children: [
+    //             const Text(
+    //               'Alamat Pengiriman',
+    //               style: TextStyle(fontWeight: FontWeight.bold),
+    //             ),
+    //             TextButton(
+    //                 onPressed: () => Get.bottomSheet(_bottomSheetAddress(),
+    //                     isScrollControlled: true),
+    //                 child: const Text('Pilih Alamat Lain'))
+    //           ],
+    //         ),
+    //         const Divider(),
+    //         Text(
+    //           controller.selectAlamatUser.value!.labelAlamatUser,
+    //           style: const TextStyle(fontWeight: FontWeight.bold),
+    //         ),
+    //         Text(
+    //           '${controller.selectAlamatUser.value!.namaPenerimaUser} (${controller.selectAlamatUser.value!.teleponUser})',
+    //           style: const TextStyle(fontWeight: FontWeight.w200),
+    //         ),
+    //         Text(
+    //           controller.selectAlamatUser.value!.alamatUser,
+    //           style: const TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+    //           maxLines: 2,
+    //           overflow: TextOverflow.ellipsis,
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
+  }
 }

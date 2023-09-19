@@ -5,8 +5,8 @@ import 'package:andipublisher/app/data/models/voucher_model.dart';
 class VoucherService {
   static Future<Voucher?> claimVoucher(
       String code, int idEbook, int idUser) async {
-    final result = await MainService()
-        .getAPI(url: 'claim_get?code=$code&idEbook=$idEbook&idUser=$idUser');
+    final result = await MainService().getAPI(
+        url: 'voucher/claim_get?code=$code&idEbook=$idEbook&idUser=$idUser');
 
     if (result.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(result.body);

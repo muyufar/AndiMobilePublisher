@@ -86,8 +86,8 @@ class VoucherEbook {
   final String name;
   final String code;
   final int minimalTransaction;
-  final Discount beli;
-  final Discount sewa;
+  final Discounte beli;
+  final Discounte sewa;
   final String end;
 
   VoucherEbook({
@@ -105,8 +105,8 @@ class VoucherEbook {
         name: json['name'],
         code: json['code'],
         minimalTransaction: json['minimalTransaction'],
-        beli: Discount.fromJson(json['beli']),
-        sewa: Discount.fromJson(json['sewa']),
+        beli: Discounte.fromJson(json['beli']),
+        sewa: Discounte.fromJson(json['sewa']),
         end: json['end'],
       );
 
@@ -121,16 +121,16 @@ class VoucherEbook {
       };
 }
 
-class Discount {
+class Discounte {
   final int harga;
   final int persen;
 
-  Discount({
+  Discounte({
     required this.harga,
     required this.persen,
   });
 
-  factory Discount.fromJson(Map<String, dynamic> json) => Discount(
+  factory Discounte.fromJson(Map<String, dynamic> json) => Discounte(
         harga: json['harga'] ?? 0,
         persen: json['persen'] ?? 0,
       );
