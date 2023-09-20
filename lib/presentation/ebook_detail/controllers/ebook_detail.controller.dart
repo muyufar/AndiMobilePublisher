@@ -1,9 +1,12 @@
 import 'package:andipublisher/app/controllers/utils_controller.dart';
 import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
+import 'package:andipublisher/app/data/models/data_checkout_model.dart';
+import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/ebook_master_detail_model.dart';
 import 'package:andipublisher/app/data/services/ebook_cart_service.dart';
 import 'package:andipublisher/app/data/services/ebook_services.dart';
 import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
+import 'package:andipublisher/app/data/services/voucher_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/presentation/ebook_detail/views/ebook_detail_bottom_sheet_order.dart';
@@ -18,6 +21,7 @@ class EbookDetailController extends GetxController {
   RxInt priceTotalOrder = 0.obs;
 
   late bool bottomSheetOrderIsBuy;
+  var voucherCode = "".obs;
 
   @override
   void onInit() {
@@ -47,7 +51,9 @@ class EbookDetailController extends GetxController {
     Get.back();
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
-            tag: 'direck', ids: [ebookMasterDetailModel.value!.idBarang]);
+            tag: 'direck',
+            ids: [ebookMasterDetailModel.value!.idBarang],
+            voucherCode: voucherCode.value);
 
     Get.toNamed(Routes.CHECKOUT_EBOOK, arguments: checkoutEbookModel);
   }

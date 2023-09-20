@@ -116,5 +116,10 @@ class Nav {
       page: () => const CheckoutEbookScreen(),
       binding: CheckoutEbookControllerBinding(),
     ),
+    GetPage(
+      name: Routes.PAYMENT_EBOOK,
+      page: () => const PaymentEbookScreen(),
+      binding: PaymentEbookControllerBinding(),
+    ),
   ];
 }

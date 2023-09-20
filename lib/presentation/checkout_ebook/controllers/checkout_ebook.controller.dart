@@ -4,14 +4,20 @@ import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/payment_ebook_model.dart';
 import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CheckoutEbookController extends GetxController {
+  final TextEditingController textVoucher = TextEditingController();
+
   CheckoutEbookModel checkoutEbookModel = Get.arguments;
   RxInt hargaTotalProduct = 0.obs;
   RxInt diskonTotalProduct = 0.obs;
   RxList<int> totalDiscount = <int>[].obs;
   RxList<int> priceSubTotalItmes = <int>[].obs;
+
+  var voucher = 0.obs;
+  var totalHarga = 0.obs;
 
   //TODO: Implement CheckoutEbookController
 
@@ -44,6 +50,23 @@ class CheckoutEbookController extends GetxController {
         priceSubTotalItmes.add(item.harga);
       }
     }
+  }
+
+  void calculateTotalBelanja() {
+    int harga = checkoutEbookModel.subtotal.total;
+    // int diskon = checkoutEbookModel.subtotal.diskon.barang;
+    // int penanganan = checkoutEbookModel.subtotal.penanganan;
+    int iVoucher = checkoutEbookModel.subtotal.diskon.voucher;
+
+    // Subtract diskonTotalProduct and add biayaPenanganan here if needed
+    totalHarga.value = harga;
+    // totalHarga.value = diskon;
+    // totalHarga.value = voucher;
+    // totalHarga.value = penanganan;
+
+    print("RESULT_CAL: $iVoucher");
+
+    voucher.value = iVoucher;
   }
 
   void calculateTotalDiscount() {

@@ -7,11 +7,15 @@ import 'package:andipublisher/app/data/models/voucher_model.dart'; // Import mod
 import 'package:andipublisher/app/data/services/main_service.dart';
 
 class TransactionEbookService {
-  static Future<CheckoutEbookModel> postCheckout(
-      {required String tag, required List<String> ids}) async {
+  static Future<CheckoutEbookModel> postCheckout({
+    required String tag,
+    required List<String> ids,
+    required String voucherCode,
+  }) async {
     Map<String, dynamic> body = {
       'tag': tag,
       'idUser': MainService().utilsController.userModel.idUser,
+      'voucherCode': voucherCode,
     };
     for (int i = 0; i < ids.length; i++) {
       body.addAll({'id[$i]': ids[i]});

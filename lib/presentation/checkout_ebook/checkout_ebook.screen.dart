@@ -1,51 +1,59 @@
+import 'dart:convert';
+
 import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
-import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
-import 'package:andipublisher/app/data/models/voucher_model.dart';
+import 'package:andipublisher/app/data/services/main_service.dart';
+import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:andipublisher/app/data/services/voucher_service.dart';
 import 'package:andipublisher/presentation/checkout_ebook/controllers/checkout_ebook.controller.dart';
 
 class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
   const CheckoutEbookScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(CheckoutEbookController());
-
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Checkout Ebook'),
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(Ionicons.chevron_back),
-          ),
+      appBar: AppBar(
+        title: const Text('Checkout Ebook'),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(Ionicons.chevron_back),
         ),
-        body: ListView(
-          children: [
-            // _alamat(),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: controller.checkoutEbookModel.dataEbookCheckout.length,
-              itemBuilder: (context, index) => _dataItms(
-                  data: controller.checkoutEbookModel.dataEbookCheckout[index],
-                  index: index),
-            ),
-            //Voucher
-            _voucher(),
+      ),
+      body: SingleChildScrollView(
+        child: Obx(
+          () {
+            return Column(
+              children: [
+                // _alamat(),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount:
+                      controller.checkoutEbookModel.dataEbookCheckout.length,
+                  itemBuilder: (context, index) => _dataItms(
+                      data: controller
+                          .checkoutEbookModel.dataEbookCheckout[index],
+                      index: index),
+                ),
+                //Voucher
+                _voucher(),
 
-            //Ringkasan Belanja
-            _infoOrder(),
+                //Ringkasan Belanja
+                _infoOrder(),
 
-            //footer button
-            _footer()
-          ],
-        ));
+                //footer button
+                _footer()
+              ],
+            );
+          },
+        ),
+      ),
+    );
   }
 
   Container _footer() {
@@ -71,10 +79,17 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
                     'Total Belanja',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    _calculateTotalBelanja(),
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                  // Text(
+                  //   _calculateTotalBelanja(),
+                  //   style: const TextStyle(
+                  //       fontSize: 16, fontWeight: FontWeight.bold),
+                  // ),
+                  Obx(
+                    () => Text(
+                      controller.totalHarga.value.parceRp(),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
@@ -93,22 +108,15 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
     );
   }
 
-  String _calculateTotalBelanja() {
-    int totalHarga = 0;
+  // String _calculateTotalBelanja() {
 
-    int harga = controller.checkoutEbookModel.subtotal.harga;
-    int diskon = controller.checkoutEbookModel.subtotal.diskon;
-    int penanganan = controller.checkoutEbookModel.subtotal.penanganan;
-
-    // Subtract diskonTotalProduct and add biayaPenanganan here if needed
-    totalHarga += harga;
-    totalHarga -= diskon;
-    totalHarga += penanganan;
-
-    return totalHarga.parceRp();
-  }
+  //   return totalHarga.parceRp();
+  // }
 
   Container _infoOrder() {
+    controller.totalHarga.value = controller.checkoutEbookModel.subtotal.total;
+    // controller.checkoutEbookModel.subtotal.diskon.voucher = 0;
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: marginHorizontal),
@@ -132,9 +140,19 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
             children: [
               const Text('Total Diskon Barang'),
               Text(
-                  '-${controller.checkoutEbookModel.subtotal.diskon.parceRp()}')
+                  '-${controller.checkoutEbookModel.subtotal.diskon.barang.parceRp()}')
             ],
           ),
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Total Diskon Voucher'),
+                Text('-${controller.voucher.value.parceRp()}'),
+              ],
+            ),
+          ),
+
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   children: [
@@ -474,47 +492,44 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
   //   );
   // }
 
+  // Container _bottomSheetVoucher() {
+  //   final TextEditingController codeController = TextEditingController();
+  //   fetchVoucherData(String code) async {
+  //     final CheckoutEbookModel dataEbookCheckoutModel = Get.arguments;
+
+  //     final int idEbook = int.tryParse(
+  //             dataEbookCheckoutModel.dataEbookCheckout[0].items[0].idBarang) ??
+  //         0;
+
+  //     final DataEbookCheckoutModel dataEbookCheckoutMode = Get.arguments;
+  //     final int idUser = int.tryParse(dataEbookCheckoutMode.user.idUser) ?? 0;
+
+  //     final bool isVoucherValid =
+  //         (await VoucherService.claimVoucher(code, idEbook, idUser)) as bool;
+
+  // if (isVoucherValid) {
+  //   // Perbarui voucherCode dalam objek CheckoutEbookModel
+  //   controller.updateVoucherCode(true);
+
+  //   // Perbarui total harga berdasarkan nilai diskon voucher
+  //   controller.updateTotalPriceWithVoucher(dataEbookCheckoutModel.subtotal.harga);
+
+  //   // Tampilkan pesan berhasil atau aksi lainnya sesuai kebutuhan
+  //   print('Voucher berhasil di-klaim!');
+  // } else {
+  //   // Tampilkan pesan gagal atau aksi lainnya sesuai kebutuhan
+  //   print('Voucher tidak valid.');
+
+  //   // Perbarui voucherCode dalam objek CheckoutEbookModel
+  //   controller.updateVoucherCode(false);
+  // }
+
   Container _bottomSheetVoucher() {
-    final TextEditingController codeController = TextEditingController();
-    fetchVoucherData(String code) async {
-      final CheckoutEbookModel dataEbookCheckoutModel = Get.arguments;
-
-      final int idEbook = int.tryParse(
-              dataEbookCheckoutModel.dataEbookCheckout[0].items[0].idBarang) ??
-          0;
-
-      final DataEbookCheckoutModel dataEbookCheckoutMode = Get.arguments;
-      final int idUser = int.tryParse(dataEbookCheckoutMode.user.idUser) ?? 0;
-
-      final bool isVoucherValid =
-          (await VoucherService.claimVoucher(code, idEbook, idUser)) as bool;
-
-      // if (isVoucherValid) {
-      //   // Perbarui voucherCode dalam objek CheckoutEbookModel
-      //   controller.updateVoucherCode(true);
-
-      //   // Perbarui total harga berdasarkan nilai diskon voucher
-      //   controller.updateTotalPriceWithVoucher(dataEbookCheckoutModel.subtotal.harga);
-
-      //   // Tampilkan pesan berhasil atau aksi lainnya sesuai kebutuhan
-      //   print('Voucher berhasil di-klaim!');
-      // } else {
-      //   // Tampilkan pesan gagal atau aksi lainnya sesuai kebutuhan
-      //   print('Voucher tidak valid.');
-
-      //   // Perbarui voucherCode dalam objek CheckoutEbookModel
-      //   controller.updateVoucherCode(false);
-      // }
-    }
-
     return Container(
       color: Colors.white,
       margin: const EdgeInsets.only(top: 100),
       padding: EdgeInsets.only(
-        bottom: 12,
-        left: marginHorizontal,
-        right: marginHorizontal,
-      ),
+          bottom: 12, left: marginHorizontal, right: marginHorizontal),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -523,7 +538,7 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Masukan Voucher',
+                'Pilih Voucher',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               IconButton(
@@ -536,27 +551,52 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
             ],
           ),
           TextField(
-            controller: codeController,
-            decoration: InputDecoration(labelText: 'Code Voucher'),
+            controller: controller.textVoucher,
           ),
-          FutureBuilder<bool>(
-            // future: fetchVoucherData(codeController.text),
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data == true) {
-                // Voucher berhasil di-klaim
-                return Text('Voucher berhasil di-klaim!');
-              } else if (snapshot.hasData && snapshot.data == false) {
-                // Voucher tidak valid
-                return Text('Voucher tidak valid.');
-              } else {
-                // Tunggu proses klaim voucher selesai
-                return CircularProgressIndicator();
+          ElevatedButton(
+            onPressed: () {
+              var voucher = controller.textVoucher.text;
+
+              print("DATA_VOUCHER: $voucher");
+
+              List<String> produk = [];
+              for (int i = 0;
+                  i < controller.checkoutEbookModel.dataEbookCheckout.length;
+                  i++) {
+                produk.add(controller
+                    .checkoutEbookModel.dataEbookCheckout[i].items[i].idBarang);
               }
+
+              TransactionEbookService.postCheckout(
+                tag: "direck",
+                ids: produk,
+                voucherCode: voucher,
+              ).then((value) {
+                print("DATA_RESULT: $value");
+
+                CheckoutEbookModel checkoutEbook = value;
+
+                print("RESULT: ${checkoutEbook.subtotal.diskon.voucher}");
+
+                controller.voucher.value =
+                    checkoutEbook.subtotal.diskon.voucher;
+                controller.totalHarga.value = checkoutEbook.subtotal.total;
+
+                Get.back();
+              }).catchError((Object e) {
+                print("DATA_ERROR: $e");
+              });
             },
+            child: Text("Claim"),
           ),
         ],
       ),
     );
+  }
+}
+
+
+
 
     // Container _alamat() {
     //   return Container(
@@ -598,5 +638,4 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
     //     ),
     //   );
     // }
-  }
-}
+  

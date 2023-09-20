@@ -55,9 +55,24 @@ class DataEbookCheckout {
       };
 }
 
+class Diskon {
+  final int barang;
+  int voucher;
+
+  Diskon({
+    required this.barang,
+    required this.voucher,
+  });
+
+  factory Diskon.fromJson(Map<String, dynamic> json) => Diskon(
+        barang: json["barang"],
+        voucher: json["voucher"],
+      );
+}
+
 class Subtotal {
   final int harga;
-  final int diskon;
+  final Diskon diskon;
   final int penanganan;
   final int total;
 
@@ -70,10 +85,17 @@ class Subtotal {
 
   factory Subtotal.fromJson(Map<String, dynamic> json) => Subtotal(
         harga: json["harga"],
-        diskon: json["diskon"],
+        diskon: Diskon.fromJson(json["diskon"]),
         penanganan: json["penanganan"],
         total: json['total'],
       );
+
+  Map<String, dynamic> toJson() => {
+        "harga": harga,
+        "diskon": diskon,
+        "penanganan": penanganan,
+        "total": total,
+      };
 }
 
 class Item {

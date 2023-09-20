@@ -8,6 +8,7 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ite
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/login.controller.binding.dart';
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/main.controller.binding.dart';
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/payment.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/payment_ebook.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/profile.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/re_verify.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/register.controller.binding.dart';

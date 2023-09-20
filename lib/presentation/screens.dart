@@ -8,6 +8,7 @@ export 'package:andipublisher/presentation/item_detail/item_detail.screen.dart';
 export 'package:andipublisher/presentation/login/login.screen.dart';
 export 'package:andipublisher/presentation/main/main.screen.dart';
 export 'package:andipublisher/presentation/payment/payment.screen.dart';
+export 'package:andipublisher/presentation/payment_ebook/payment_ebook.screen.dart';
 export 'package:andipublisher/presentation/profile/profile.screen.dart';
 export 'package:andipublisher/presentation/re_verify/re_verify.screen.dart';
 export 'package:andipublisher/presentation/register/register.screen.dart';
