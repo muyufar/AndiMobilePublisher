@@ -8,6 +8,7 @@ class PaymentEbookModel {
   final int subTotal;
   final int discTotal;
   final int grandTotal;
+  final String idcabang;
   final bool status;
   final String id;
   final String token;
@@ -23,6 +24,7 @@ class PaymentEbookModel {
     required this.subTotal,
     required this.discTotal,
     required this.grandTotal,
+    required this.idcabang,
     required this.status,
     required this.id,
     required this.token,
@@ -40,6 +42,7 @@ class PaymentEbookModel {
         subTotal: json["sub_total"],
         discTotal: json["disc_total"],
         grandTotal: json["grand_total"],
+        idcabang: json["idcabang"],
         status: json["status"],
         id: json["id"],
         token: json["token"],
@@ -56,6 +59,7 @@ class PaymentEbookModel {
         "sub_total": subTotal,
         "disc_total": discTotal,
         "grand_total": grandTotal,
+        "idcabang": idcabang,
         "status": status,
         "id": id,
         "token": token,

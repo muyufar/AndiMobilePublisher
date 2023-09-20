@@ -10,6 +10,7 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/mai
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/payment.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/payment_ebook.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/profile.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/rakbuku.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/re_verify.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/register.controller.binding.dart';
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/splash.controller.binding.dart';

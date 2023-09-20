@@ -106,6 +106,7 @@ class MainScreen extends GetView<MainController> {
                   HomeScreen(),
                   WishlistScreen(),
                   TransactionScreen(),
+                  RakbukuScreen(),
                   ProfileScreen(),
                 ],
               ),
@@ -124,6 +125,8 @@ class MainScreen extends GetView<MainController> {
                 BottomNavigationBarItem(
                     icon: Icon(Ionicons.file_tray_full_outline),
                     label: 'Transaksi'),
+                BottomNavigationBarItem(
+                    icon: Icon(Ionicons.book_sharp), label: 'Rak Buku'),
                 BottomNavigationBarItem(
                     icon: Icon(Ionicons.ellipsis_horizontal_outline),
                     label: 'Profile'),

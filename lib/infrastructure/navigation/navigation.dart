@@ -121,5 +121,10 @@ class Nav {
       page: () => const PaymentEbookScreen(),
       binding: PaymentEbookControllerBinding(),
     ),
+    GetPage(
+      name: Routes.RAKBUKU,
+      page: () => const RakbukuScreen(),
+      binding: RakbukuControllerBinding(),
+    ),
   ];
 }

@@ -15,6 +15,7 @@ class Routes {
   static const LOGIN = '/login';
   static const MAIN = '/main';
   static const PAYMENT = '/payment';
+  static const PAYMENT_EBOOK = '/payment-ebook';
   static const PROFILE = '/profile';
   static const REGISTER = '/register';
   static const RE_VERIFY = '/re-verify';
@@ -22,5 +23,5 @@ class Routes {
   static const TRANSACTION = '/transaction';
   static const TRANSACTION_DETAIL = '/transaction-detail';
   static const WISHLIST = '/wishlist';
-  static const PAYMENT_EBOOK = '/payment-ebook';
+  static const RAKBUKU = '/rakbuku';
 }

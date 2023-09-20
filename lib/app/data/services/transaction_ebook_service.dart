@@ -3,7 +3,6 @@ import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/detail_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/list_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/payment_ebook_model.dart';
-import 'package:andipublisher/app/data/models/voucher_model.dart'; // Import model voucher
 import 'package:andipublisher/app/data/services/main_service.dart';
 
 class TransactionEbookService {
@@ -32,32 +31,24 @@ class TransactionEbookService {
     required bool isVoucher,
     required List<DataEbookCheckoutMolde> dataEbookCheckout,
   }) async {
-    // Dapatkan idUser dari eBook checkout
-    // final String idUser = dataEbookCheckout;
-
-    // // Dapatkan idEbook dari eBook checkout
-    // final String idEbook =
-    //     dataEbookCheckout.dataEbookCheckout[0].products[0].idProduct;
-
     DataEbookCheckoutModel body = DataEbookCheckoutModel(
-      user: User(
-        idUser: MainService().utilsController.userModel.idUser,
-        usePoinUser: usePoinUser,
-      ),
-      voucher: VoucherEbook(
-        isVoucher: true,
-        name: "Masukan Kode Voucher",
-        code: "########",
-        minimalTransaction: 0,
-        beli: Discounte(harga: 0, persen: 0),
-        sewa: Discounte(harga: 0, persen: 0),
-        end: "2023-09-30 11:52:00",
-      ),
-      dataEbookCheckout: dataEbookCheckout,
-    );
+        user: User(
+          idUser: MainService().utilsController.userModel.idUser,
+          usePoinUser: usePoinUser,
+        ),
+        voucher: VoucherEbook(
+          isVoucher: true,
+          name: "Masukan Kode Voucher",
+          code: "########",
+          minimalTransaction: 0,
+          beli: Discounte(harga: 0, persen: 0),
+          sewa: Discounte(harga: 0, persen: 0),
+          end: "2023-09-30 11:52:00",
+        ),
+        dataEbookCheckout: dataEbookCheckout);
 
     final result = await MainService()
-        .postAPIBodyRaw(url: 'Transaction/transaction', body: body.toJson());
+        .postAPIBodyRaw(url: 'transaction/ebook', body: body.toJson());
 
     return PaymentEbookModel.fromJson(result['data']);
   }
