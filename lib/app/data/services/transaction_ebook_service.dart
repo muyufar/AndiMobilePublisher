@@ -28,7 +28,14 @@ class TransactionEbookService {
 
   static Future<PaymentEbookModel> postPayment({
     required bool usePoinUser,
-    required bool isVoucher,
+    //required bool isVoucher,
+    bool? isVoucher,
+    String? name,
+    String? code,
+    int? minimalTransaction,
+    Discounte? beli,
+    Discounte? sewa,
+    String? end,
     required List<DataEbookCheckoutMolde> dataEbookCheckout,
   }) async {
     DataEbookCheckoutModel body = DataEbookCheckoutModel(
@@ -37,13 +44,13 @@ class TransactionEbookService {
           usePoinUser: usePoinUser,
         ),
         voucher: VoucherEbook(
-          isVoucher: true,
-          name: "Masukan Kode Voucher",
-          code: "########",
-          minimalTransaction: 0,
-          beli: Discounte(harga: 0, persen: 0),
-          sewa: Discounte(harga: 0, persen: 0),
-          end: "2023-09-30 11:52:00",
+          isVoucher: isVoucher,
+          name: name,
+          code: code,
+          minimalTransaction: minimalTransaction,
+          beli: beli,
+          sewa: sewa,
+          end: end,
         ),
         dataEbookCheckout: dataEbookCheckout);
 

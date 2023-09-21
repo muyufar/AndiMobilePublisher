@@ -71,24 +71,24 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        idUser: json['idUser'],
+        idUser: json['id'],
         usePoinUser: json['usePoinUser'],
       );
 
   Map<String, dynamic> toJson() => {
-        'idUser': idUser,
+        'id': idUser,
         'usePoinUser': usePoinUser,
       };
 }
 
 class VoucherEbook {
-  final bool isVoucher;
-  final String name;
-  final String code;
-  final int minimalTransaction;
-  final Discounte beli;
-  final Discounte sewa;
-  final String end;
+  final bool? isVoucher;
+  final String? name;
+  final String? code;
+  final int? minimalTransaction;
+  final Discounte? beli;
+  final Discounte? sewa;
+  final String? end;
 
   VoucherEbook({
     required this.isVoucher,
@@ -115,8 +115,8 @@ class VoucherEbook {
         'name': name,
         'code': code,
         'minimalTransaction': minimalTransaction,
-        'beli': beli.toJson(),
-        'sewa': sewa.toJson(),
+        'beli': beli,
+        'sewa': sewa,
         'end': end,
       };
 }

@@ -97,6 +97,7 @@ class CheckoutEbookController extends GetxController {
       usePoinUser: false,
       dataEbookCheckout: dataEbookCheckout,
       isVoucher: true,
+      // product: ,
     );
     Get.toNamed(Routes.PAYMENT_EBOOK, arguments: result);
   }
