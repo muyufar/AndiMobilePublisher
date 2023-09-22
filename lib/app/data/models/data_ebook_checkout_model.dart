@@ -82,42 +82,18 @@ class User {
 }
 
 class VoucherEbook {
-  final bool? isVoucher;
-  final String? name;
-  final String? code;
-  final int? minimalTransaction;
-  final Discounte? beli;
-  final Discounte? sewa;
-  final String? end;
+  final bool isVoucher;
 
   VoucherEbook({
     required this.isVoucher,
-    required this.name,
-    required this.code,
-    required this.minimalTransaction,
-    required this.beli,
-    required this.sewa,
-    required this.end,
   });
 
   factory VoucherEbook.fromJson(Map<String, dynamic> json) => VoucherEbook(
         isVoucher: json['isVoucher'],
-        name: json['name'],
-        code: json['code'],
-        minimalTransaction: json['minimalTransaction'],
-        beli: Discounte.fromJson(json['beli']),
-        sewa: Discounte.fromJson(json['sewa']),
-        end: json['end'],
       );
 
   Map<String, dynamic> toJson() => {
         'isVoucher': isVoucher,
-        'name': name,
-        'code': code,
-        'minimalTransaction': minimalTransaction,
-        'beli': beli,
-        'sewa': sewa,
-        'end': end,
       };
 }
 

@@ -7,6 +7,8 @@ class RakBukuController extends GetxController {
 
   final rakBukuBeli = <RakBukuModel>[].obs;
   final rakBukuSewa = <RakBukuModel>[].obs;
+  final isLoading = true.obs;
+  final selectedCardIndex = ''.obs; // Tambahkan variabel selectedCardIndex
 
   @override
   void onInit() {
@@ -16,6 +18,7 @@ class RakBukuController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
+    isLoading.value = false;
   }
 
   @override
@@ -23,51 +26,24 @@ class RakBukuController extends GetxController {
     super.onClose();
   }
 
-  // Future<void> onRefresh() async {
-  //   await getRakbuku();
-  // }
-
-  // Future<RakBukuModel> getRakbuku() async {
-  //   rakBukuBeli.value =
-  //       await RakBukuService.getRakbuku(String idUser, int tag);
-  //   return RakBukuModel.value;
-  // }
-
   void getRakbuku(String idUser, int tag) async {
     try {
+      isLoading.value = true;
       final _rakBukuService = await RakBukuService.getRakbuku(idUser, tag);
       if (tag == 1) {
         rakBukuBeli.assignAll(_rakBukuService as Iterable<RakBukuModel>);
       } else if (tag == 2) {
         rakBukuSewa.assignAll(_rakBukuService as Iterable<RakBukuModel>);
       }
+      isLoading.value = false;
     } catch (e) {
-      // Handle error
+      isLoading.value = false;
       print('Error fetching rak buku: $e');
     }
   }
+
+  // Fungsi untuk mengatur selectedCardIndex
+  void setSelectedCardIndex(String cardId) {
+    selectedCardIndex.value = cardId;
+  }
 }
-
-
-
-// class RakbukuController extends GetxController {
-//   //TODO: Implement RakbukuController
-
-//   final count = 0.obs;
-//   @override
-//   void onInit() {
-//     super.onInit();
-//   }
-
-//   @override
-//   void onReady() {
-//     super.onReady();
-//   }
-
-//   @override
-//   void onClose() {
-//     super.onClose();
-//   }
-
-//   void increment() => count.value++;
-// }

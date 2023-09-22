@@ -178,37 +178,6 @@ class DataUser {
       };
 }
 
-// class DataAlamatUser {
-//   final String idAlamatUser;
-//   final String alamatUser;
-//   final String teleponUser;
-//   final String namaPenerimaUser;
-//   final String labelAlamatUser;
-
-//   DataAlamatUser({
-//     required this.idAlamatUser,
-//     required this.alamatUser,
-//     required this.teleponUser,
-//     required this.namaPenerimaUser,
-//     required this.labelAlamatUser,
-//   });
-
-//   factory DataAlamatUser.fromJson(Map<String, dynamic> json) => DataAlamatUser(
-//         idAlamatUser: json["id_alamat_user"],
-//         alamatUser: json["alamat_user"],
-//         teleponUser: json["telepon_user"],
-//         namaPenerimaUser: json["nama_penerima_user"],
-//         labelAlamatUser: json["label_alamat_user"],
-//       );
-
-//   Map<String, dynamic> toJson() => {
-//         "id_alamat_user": idAlamatUser,
-//         "alamat_user": alamatUser,
-//         "telepon_user": teleponUser,
-//         "nama_penerima_user": namaPenerimaUser,
-//         "label_alamat_user": labelAlamatUser,
-//       };
-
 class Voucher {
   final bool isVoucher;
   final String? name;

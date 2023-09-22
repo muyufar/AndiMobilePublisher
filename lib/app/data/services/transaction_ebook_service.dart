@@ -28,14 +28,15 @@ class TransactionEbookService {
 
   static Future<PaymentEbookModel> postPayment({
     required bool usePoinUser,
-    //required bool isVoucher,
-    bool? isVoucher,
-    String? name,
-    String? code,
-    int? minimalTransaction,
-    Discounte? beli,
-    Discounte? sewa,
-    String? end,
+    required bool isVoucher,
+    //bool? isVoucher,
+    // String? name,
+    // String? code,
+    //int? minimalTransaction,
+    // Discounte? beli,
+    //Discounte? sewa,
+    //String? end,
+
     required List<DataEbookCheckoutMolde> dataEbookCheckout,
   }) async {
     DataEbookCheckoutModel body = DataEbookCheckoutModel(
@@ -45,12 +46,12 @@ class TransactionEbookService {
         ),
         voucher: VoucherEbook(
           isVoucher: isVoucher,
-          name: name,
-          code: code,
-          minimalTransaction: minimalTransaction,
-          beli: beli,
-          sewa: sewa,
-          end: end,
+          //name: name,
+          //code: code,
+          //minimalTransaction: minimalTransaction,
+          //beli: beli,
+          // sewa: sewa,
+          //end: end,
         ),
         dataEbookCheckout: dataEbookCheckout);
 
@@ -70,7 +71,7 @@ class TransactionEbookService {
     };
 
     final result = await MainService()
-        .getAPI(url: 'Transaction/historyTransaction', body: body);
+        .getAPI(url: 'transaction/history/ebook', body: body);
 
     return List<ListHistoryTransactionModel>.from(
         ((result != null) ? result['data'] : [])
