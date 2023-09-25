@@ -47,7 +47,7 @@ class RegisterController extends GetxController {
   }
 
   Future<XFile?> getImage() async {
-    var image = await _picker.pickImage(source: ImageSource.gallery);
+    var image = await _picker.pickImage(source: ImageSource.camera);
     pathImage!.value = image?.path ?? '';
     return image;
   }
@@ -57,25 +57,27 @@ class RegisterController extends GetxController {
     pathImage!.value = '';
   }
 
-  Future<void> onTapRegister() async {
-UserModel result = await UserService.register(
-        name: sendArguments['name'] ?? '',
-        noPhone: sendArguments['number'] ?? '',
-        email: sendArguments['email'] ?? '',
-        password: sendArguments['password'] ?? '',
-  imageProfile: File(image?.path ?? ''),
-);
+ Future<void> onTapRegister() async {
+  String result = await UserService.register(
+    name: fullNameTextEditingController.text,
+    noPhone: numberTextEditingController.text,
+    email: emailTextEditingController.text,
+    password: passwordTextEditingController.text,
+    repassword: confirmationPasswordTextEditingController.text,
+    imageProfile: File(image?.path ?? ''),
+  );
 
-Get.dialog(
-  dialogView(
-    title: 'Berhasil Daftar',
-    content: result,
-    onTapOke: () {
-      Get.back();
-      Get.back();
-      Get.back();
-      Get.back();
-    },
-  ),
-);
-  }
+  Get.dialog(
+    dialogView(
+      title: 'Berhasil Daftar',
+      content: result,
+      onTapOke: () {
+        Get.back();
+        Get.back();
+        Get.back();
+        Get.back();
+      },
+    ),
+  );
+}
+}
