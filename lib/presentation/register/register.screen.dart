@@ -11,7 +11,7 @@ import 'controllers/register.controller.dart';
 
 class RegisterScreen extends GetView<RegisterController> {
   const RegisterScreen({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,8 @@ class RegisterScreen extends GetView<RegisterController> {
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: marginHorizontal, vertical: 24),
+        padding:
+            EdgeInsets.symmetric(horizontal: marginHorizontal, vertical: 24),
         children: [
           SizedBox(height: 20),
           Align(
@@ -50,9 +51,7 @@ class RegisterScreen extends GetView<RegisterController> {
           Text(
             'Daftar Baru',
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: colorPrimary),
+                fontSize: 20, fontWeight: FontWeight.bold, color: colorPrimary),
           ),
           SizedBox(height: 8),
           const Text('Daftar baru untuk pembuatan akun'),
@@ -62,8 +61,8 @@ class RegisterScreen extends GetView<RegisterController> {
             child: Obx(
               () => Column(
                 children: [
-                // _imageProfile(),
-                                  // SizedBox(height: 30),
+                  // _imageProfile(),
+                  // SizedBox(height: 30),
 
                   _textFromFiled(
                     controller: controller.fullNameTextEditingController,
@@ -72,9 +71,8 @@ class RegisterScreen extends GetView<RegisterController> {
                       color: Colors.grey.shade600,
                     ),
                     labelText: 'Nama Lengkap',
-                    validator: (value) => controller
-                        .validatorController
-                        .validatorFullName(value),
+                    validator: (value) =>
+                        controller.validatorController.validatorFullName(value),
                   ),
                   SizedBox(height: 30),
                   _textFromFiled(
@@ -85,18 +83,21 @@ class RegisterScreen extends GetView<RegisterController> {
                     ),
                     labelText: 'Nomor Telepon',
                     keyboardType: TextInputType.phone,
-                    validator: (value) => controller
-                        .validatorController
+                    validator: (value) => controller.validatorController
                         .validatorNumberPhone(value),
                   ),
                   SizedBox(height: 30),
                   _textFromFiled(
                     controller: controller.emailTextEditingController,
+                    keyboardType: TextInputType.emailAddress,
+                    labelText: 'Email',
                     prefixIcon: Icon(
                       Ionicons.mail_outline,
                       color: Colors.grey.shade600,
                     ),
-                    labelText: 'Email',
+
+                    // validator: (val) =>
+                    //     controller.validatorController.validatorIdentifier(val),
                     validator: (value) => controller
                         .validatorController
                         .validatorEmail(value),
@@ -111,17 +112,15 @@ class RegisterScreen extends GetView<RegisterController> {
                     labelText: 'Kata Sandi',
                     obscureText: !controller.obscureTextPassword.value,
                     suffixIcon: IconButton(
-                      onPressed: () =>
-                          controller.obscureTextPassword.toggle(),
+                      onPressed: () => controller.obscureTextPassword.toggle(),
                       icon: (controller.obscureTextPassword.value)
                           ? Icon(Ionicons.eye_outline,
                               color: Colors.grey.shade600)
                           : Icon(Ionicons.eye_off_outline,
                               color: Colors.grey.shade600),
                     ),
-                    validator: (value) => controller
-                        .validatorController
-                        .validatorPassword(value),
+                    validator: (value) =>
+                        controller.validatorController.validatorPassword(value),
                   ),
                   SizedBox(height: 30),
                   _textFromFiled(
@@ -144,8 +143,7 @@ class RegisterScreen extends GetView<RegisterController> {
                           : Icon(Ionicons.eye_off_outline,
                               color: Colors.grey.shade600),
                     ),
-                    validator: (value) => controller
-                        .validatorController
+                    validator: (value) => controller.validatorController
                         .validatorConfirmationPassword(
                             val: value,
                             passwordTextEditingController:
@@ -170,8 +168,7 @@ class RegisterScreen extends GetView<RegisterController> {
                         child: Text(
                           'Login',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: colorPrimary),
+                              fontWeight: FontWeight.bold, color: colorPrimary),
                         ),
                       ),
                     ],

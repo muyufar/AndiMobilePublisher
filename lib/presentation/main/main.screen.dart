@@ -45,7 +45,7 @@ class MainScreen extends GetView<MainController> {
                                       boxShadow: [boxShadow]),
                                 ),
                                 const Spacer(),
-                                const Icon(Ionicons.diamond),
+                                // const Icon(Ionicons.diamond),
                                 Text(
                                   controller.utilsController.userModel.poinUser
                                       .toString(),

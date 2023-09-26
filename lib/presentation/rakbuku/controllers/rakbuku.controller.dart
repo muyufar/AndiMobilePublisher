@@ -1,14 +1,16 @@
+import 'package:andipublisher/app/controllers/utils_controller.dart';
 import 'package:andipublisher/app/data/models/rakbuku_model.dart';
 import 'package:andipublisher/app/data/services/rakbuku_service.dart';
 import 'package:get/get.dart';
 
 class RakBukuController extends GetxController {
   final RakBukuService _rakBukuService = RakBukuService();
-
+  final UtilsController utilsController = Get.put(UtilsController());
   final rakBukuBeli = <RakBukuModel>[].obs;
   final rakBukuSewa = <RakBukuModel>[].obs;
   final isLoading = true.obs;
-  final selectedCardIndex = ''.obs; // Tambahkan variabel selectedCardIndex
+  final selectedCardIndex = ''.obs;
+  String idUser = '';
 
   @override
   void onInit() {
@@ -18,6 +20,8 @@ class RakBukuController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
+    idUser = utilsController.userModel.idUser;
+    await getRakbuku(1); // Mengambil rak buku dengan tag 1
     isLoading.value = false;
   }
 
@@ -26,14 +30,14 @@ class RakBukuController extends GetxController {
     super.onClose();
   }
 
-  void getRakbuku(String idUser, int tag) async {
+  Future<void> getRakbuku(int tag) async {
     try {
       isLoading.value = true;
-      final _rakBukuService = await RakBukuService.getRakbuku(idUser, tag);
+      final rakBukuServiceResult = await RakBukuService.getRakbuku(tag, idUser);
       if (tag == 1) {
-        rakBukuBeli.assignAll(_rakBukuService as Iterable<RakBukuModel>);
+        rakBukuBeli.assignAll(rakBukuServiceResult as Iterable<RakBukuModel>);
       } else if (tag == 2) {
-        rakBukuSewa.assignAll(_rakBukuService as Iterable<RakBukuModel>);
+        rakBukuSewa.assignAll(rakBukuServiceResult as Iterable<RakBukuModel>);
       }
       isLoading.value = false;
     } catch (e) {
@@ -42,7 +46,6 @@ class RakBukuController extends GetxController {
     }
   }
 
-  // Fungsi untuk mengatur selectedCardIndex
   void setSelectedCardIndex(String cardId) {
     selectedCardIndex.value = cardId;
   }

@@ -34,6 +34,7 @@ class UtilsController extends GetxController {
   RxBool isLogin = false.obs;
   late UserModel userModel;
   RxString countCart = '0'.obs;
+  
 
   /// Methods
   ///
@@ -126,4 +127,7 @@ class UtilsController extends GetxController {
   Future<void> getCountCart() async {
     countCart.value = await CartService.getCartCount();
   }
+
+   
+
 }

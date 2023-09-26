@@ -6,8 +6,9 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class RakBukuView extends StatelessWidget {
   final RakBukuModel data;
-
-  const RakBukuView(this.data, {Key? key}) : super(key: key);
+  // late PdfViewerController _pdfViewerController;
+  final GlobalKey<SfPdfViewerState> _pdfViewerStateKey = GlobalKey();
+   RakBukuView(this.data, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +62,22 @@ class RakBukuView extends StatelessWidget {
     );
   }
 
-  void _openEbook(String ebookUrl) {
+  void _openEbook(String ebookUrl, ) {
     Get.to(
       Scaffold(
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(onPressed: (){
+              _pdfViewerStateKey.currentState!.openBookmarkView();
+            }, icon: Icon(Icons.bookmark, color: Colors.white,)),
+            //  IconButton(onPressed: (){
+            //   _pdfViewerController.jumpToPage(5);
+            // }, icon: Icon(Icons.arrow_drop_down_circle, color: Colors.white,)),
+          ],
           title: const Text('Ebook'),
         ),
         body: SfPdfViewer.network(
-          ebookUrl,
+          ebookUrl, key: _pdfViewerStateKey,
         ),
       ),
     );

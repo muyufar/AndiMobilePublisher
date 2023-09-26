@@ -86,10 +86,12 @@ class LoginScreen extends GetView<LoginController> {
                                 child: const Text('Lupa Kata Sandi')),
                           ),
                           SizedBox(
-                              width: Get.width,
-                              child: ElevatedButton(
-                                  onPressed: () => controller.oTapLogin(),
-                                  child: const Text('Masuk')))
+                            width: Get.width,
+                            child: ElevatedButton(
+                              onPressed: () => controller.oTapLogin(),
+                              child: const Text('Masuk'),
+                            ),
+                          ),
                         ],
                       )),
                   const Spacer(flex: 1),

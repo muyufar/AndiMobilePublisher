@@ -24,12 +24,17 @@ class RegisterController extends GetxController {
   final UtilsController utilsController = Get.put(UtilsController());
   final formKey = GlobalKey<FormState>();
 
-  final ImagePicker _picker = ImagePicker();
-  XFile? image;
-  RxString? pathImage = ''.obs;
+  // final ImagePicker _picker = ImagePicker();
+  // XFile? image;
+  // RxString? pathImage = ''.obs;
 
   @override
   void onInit() {
+     fullNameTextEditingController = TextEditingController();
+    numberTextEditingController = TextEditingController();
+    emailTextEditingController = TextEditingController();
+    passwordTextEditingController = TextEditingController();
+    confirmationPasswordTextEditingController = TextEditingController();
     super.onInit();
   }
 
@@ -40,9 +45,17 @@ class RegisterController extends GetxController {
 
   @override
   void onClose() {
+    fullNameTextEditingController.dispose();
+    numberTextEditingController.dispose();
+    emailTextEditingController.dispose();
+    passwordTextEditingController.dispose();
+    confirmationPasswordTextEditingController.dispose();
     super.onClose();
   }
 Future<void> onTapRegister() async {
+  if(!formKey.currentState!.validate()){
+    return;
+  }
   final result = await UserService.register(
     name: fullNameTextEditingController.text,
     noPhone: numberTextEditingController.text,
@@ -52,13 +65,12 @@ Future<void> onTapRegister() async {
     // imageProfile: image != null ? File(image!.path) : null,
   );
 
-  print("Registration Result: $result"); // Print the result to the console
+  // print("Registration Result: $result"); // Print the result to the console
 
-  if (result['status'] == true) {
-    Get.dialog(
+   Get.dialog(
       dialogView(
-        title: "Berhasil",
-        content: result, // Change this message as needed.
+        title: "Pendaftaran Berhasil",
+        content: result,
         onTapOke: () {
           Get.back();
           Get.back();
@@ -66,11 +78,6 @@ Future<void> onTapRegister() async {
         },
       ),
     );
-  } else {
-    // Handle other response codes or errors here.
-    // You can show a different dialog or take other actions as needed.
   }
-}
-
 
 }
