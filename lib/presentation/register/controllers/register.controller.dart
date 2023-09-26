@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import 'package:andipublisher/app/controllers/utils_controller.dart';
 import 'package:andipublisher/app/controllers/validator_controller.dart';
-import 'package:andipublisher/app/data/models/user_model.dart';
 import 'package:andipublisher/app/data/services/user_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
-import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -45,39 +42,35 @@ class RegisterController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  Future<XFile?> getImage() async {
-    var image = await _picker.pickImage(source: ImageSource.camera);
-    pathImage!.value = image?.path ?? '';
-    return image;
-  }
-
-  void onTapDeteleImage() {
-    image = null;
-    pathImage!.value = '';
-  }
-
- Future<void> onTapRegister() async {
-  String result = await UserService.register(
+Future<void> onTapRegister() async {
+  final result = await UserService.register(
     name: fullNameTextEditingController.text,
     noPhone: numberTextEditingController.text,
     email: emailTextEditingController.text,
     password: passwordTextEditingController.text,
     repassword: confirmationPasswordTextEditingController.text,
-    imageProfile: File(image?.path ?? ''),
+    // imageProfile: image != null ? File(image!.path) : null,
   );
 
-  Get.dialog(
-    dialogView(
-      title: 'Berhasil Daftar',
-      content: result,
-      onTapOke: () {
-        Get.back();
-        Get.back();
-        Get.back();
-        Get.back();
-      },
-    ),
-  );
+  print("Registration Result: $result"); // Print the result to the console
+
+  if (result['status'] == true) {
+    Get.dialog(
+      dialogView(
+        title: "Berhasil",
+        content: result, // Change this message as needed.
+        onTapOke: () {
+          Get.back();
+          Get.back();
+          Get.back();
+        },
+      ),
+    );
+  } else {
+    // Handle other response codes or errors here.
+    // You can show a different dialog or take other actions as needed.
+  }
 }
+
+
 }

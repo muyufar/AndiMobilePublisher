@@ -3,6 +3,7 @@ import 'package:andipublisher/gen/assets.gen.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'dart:io'; // Untuk mengimpor dart:io
 
@@ -61,8 +62,8 @@ class RegisterScreen extends GetView<RegisterController> {
             child: Obx(
               () => Column(
                 children: [
-                _imageProfile(),
-                                  SizedBox(height: 30),
+                // _imageProfile(),
+                                  // SizedBox(height: 30),
 
                   _textFromFiled(
                     controller: controller.fullNameTextEditingController,
@@ -219,79 +220,80 @@ class RegisterScreen extends GetView<RegisterController> {
       validator: (value) => validator(value),
     );
   }
-
-  Center _imageProfile() {
-    return Center(
-      child: SizedBox(
-        height: 120,
-        width: 140,
-        child: Obx(
-          () => Stack(
-            children: [
-              (controller.pathImage?.value == null ||
-                      controller.pathImage!.value.isEmpty)
-                  ? Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage(Assets.images.imgDefaul.path),
-                          fit: BoxFit.contain,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                              color: colorGrey,
-                              blurRadius: 4,
-                              offset: const Offset(2, 4))
-                        ],
-                      ),
-                    )
-                  : Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: FileImage(File(controller.pathImage!.value)),
-                          fit: BoxFit.contain,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                              color: colorGrey,
-                              blurRadius: 4,
-                              offset: const Offset(2, 4))
-                        ],
-                      ),
-                    ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: (controller.pathImage?.value == null ||
-                        controller.pathImage!.value.isEmpty)
-                    ? ElevatedButton(
-                        onPressed: () async {
-                          controller.image = await controller.getImage();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
-                        ),
-                        child: const Icon(Ionicons.camera_outline))
-                    : ElevatedButton(
-                        onPressed: () => controller.onTapDeteleImage(),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          backgroundColor: colorRad,
-                          padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
-                        ),
-                        child: const Icon(Ionicons.close)),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
+//   Center _imageProfile() {
+//     return Center(
+//       child: SizedBox(
+//         height: 120,
+//         width: 140,
+//         child: Obx(
+//           () => Stack(
+//             children: [
+//               (controller.pathImage?.value == null ||
+//                       controller.pathImage!.value.isEmpty)
+//                   ? Container(
+//                       height: 120,
+//                       width: 120,
+//                       decoration: BoxDecoration(
+//                         color: Colors.white,
+//                         shape: BoxShape.circle,
+//                         image: DecorationImage(
+//                           image: AssetImage(Assets.images.imgDefaul.path),
+//                           fit: BoxFit.contain,
+//                         ),
+//                         boxShadow: [
+//                           BoxShadow(
+//                               color: colorGrey,
+//                               blurRadius: 4,
+//                               offset: const Offset(2, 4))
+//                         ],
+//                       ),
+//                     )
+//                   : Container(
+//                       height: 120,
+//                       width: 120,
+//                       decoration: BoxDecoration(
+//                         color: Colors.white,
+//                         shape: BoxShape.circle,
+//                         image: DecorationImage(
+//                           image: FileImage(File(controller.pathImage!.value)),
+//                           fit: BoxFit.contain,
+//                         ),
+//                         boxShadow: [
+//                           BoxShadow(
+//                               color: colorGrey,
+//                               blurRadius: 4,
+//                               offset: const Offset(2, 4))
+//                         ],
+//                       ),
+//                     ),
+//               Align(
+//                 alignment: Alignment.bottomRight,
+//                 child: (controller.pathImage?.value == null ||
+//                         controller.pathImage!.value.isEmpty)
+//                     ? ElevatedButton(
+//                         onPressed: () async {
+//                         await controller.getImage(source: ImageSource.camera);},
+//                         style: ElevatedButton.styleFrom(
+//                           shape: const CircleBorder(),
+//                           padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
+//                         ),
+//                         child: const Icon(Ionicons.camera_outline))
+//                     : ElevatedButton(
+//                         onPressed: () => controller.onTapDeteleImage(),
+//                         style: ElevatedButton.styleFrom(
+//                           shape: const CircleBorder(),
+//                           backgroundColor: colorRad,
+//                           padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
+//                         ),
+//                         child: const Icon(Ionicons.close)),
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+

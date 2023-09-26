@@ -64,9 +64,7 @@ class MainService {
         },
       ));
       return;
-    }
-
-    Get.back();
+    } 
 
     return result;
   }

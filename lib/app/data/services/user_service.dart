@@ -3,7 +3,8 @@ import 'package:andipublisher/app/data/models/user_model.dart';
 import 'package:andipublisher/app/data/services/main_service.dart';
 
 class UserService {
-  static Future<UserModel> login({required String email, required String password}) async {
+  static Future<UserModel> login(
+      {required String email, required String password}) async {
     Map body = {
       'email': email,
       'password': password,
@@ -14,24 +15,30 @@ class UserService {
     return UserModel.fromMap(result['data']);
   }
 
-  static Future<String> register({
+  static Future<dynamic> register({
     required String name,
     required String email,
     required String noPhone,
     required String password,
     required String repassword,
-    File? imageProfile,
+    // File? imageProfile,
   }) async {
     Map body = {
       'name': name,
       'email': email,
       'phone': noPhone,
       'password': password,
-      'repassword' : repassword,
-      'photo': imageProfile,
+      'repassword': repassword,
+      // 'photo': imageProfile,
     };
-    
-    final result = await MainService().postAPI(url: 'register', body: body);
-    return result['data']; // Ubah ini sesuai dengan respons server.
+
+    MainService().postAPI(
+      url: 'register',
+      body: body,
+    ).then((value) {
+      return value;
+    });
+
+    return ""; // Ubah ini sesuai dengan respons server.
   }
 }
