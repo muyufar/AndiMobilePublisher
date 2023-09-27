@@ -2,9 +2,11 @@ import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/payment_ebook_model.dart';
 import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
+import 'package:andipublisher/app/views/views/dialog_view.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:andipublisher/presentation/payment_ebook/controllers/payment_ebook.controller.dart';
 
 class CheckoutEbookController extends GetxController {
   final TextEditingController textVoucher = TextEditingController();
@@ -96,9 +98,34 @@ class CheckoutEbookController extends GetxController {
     PaymentEbookModel result = await TransactionEbookService.postPayment(
       usePoinUser: false,
       dataEbookCheckout: dataEbookCheckout,
-      isVoucher: true,
+      // isVoucher: true,
+      voucherCode: textVoucher.text,
       // product: ,
     );
-    Get.toNamed(Routes.PAYMENT_EBOOK, arguments: result);
+    if (result.status) {
+      if (result.grandTotal == 0) {
+        Get.dialog(
+          dialogView(
+            title: "Informasi",
+            content: "Sukses. Ebook berhasil dibeli",
+            onTapOke: () {
+              Get.back();
+            },
+          ),
+        );
+      } else {
+        Get.toNamed(Routes.PAYMENT_EBOOK, arguments: result);
+      }
+    } else {
+      Get.dialog(
+        dialogView(
+          title: "Kesalahan",
+          content: "Gagal membeli ebook",
+          onTapOke: () {
+            Get.back();
+          },
+        ),
+      );
+    }
   }
 }

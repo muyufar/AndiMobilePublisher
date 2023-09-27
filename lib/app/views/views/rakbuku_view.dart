@@ -3,6 +3,12 @@ import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+
+
+
+
+
 
 class RakBukuView extends StatelessWidget {
   final RakBukuModel data;
@@ -62,7 +68,8 @@ class RakBukuView extends StatelessWidget {
     );
   }
 
-  void _openEbook(String ebookUrl, ) {
+  void _openEbook(String ebookUrl, )async {  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+
     Get.to(
       Scaffold(
         appBar: AppBar(

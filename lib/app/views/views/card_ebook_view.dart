@@ -112,7 +112,7 @@ class CardEbookView extends GetView {
                       Text(
                         data.judul,
                         maxLines: 2,
-                        style: const TextStyle(fontSize: 15),
+                        style: const TextStyle(fontSize: 12),
                         overflow: TextOverflow.ellipsis,
                       ),
                       (data.diskon != 0)

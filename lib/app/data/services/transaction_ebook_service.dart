@@ -28,7 +28,8 @@ class TransactionEbookService {
 
   static Future<PaymentEbookModel> postPayment({
     required bool usePoinUser,
-    required bool isVoucher,
+    bool isVoucher = false,
+    String voucherCode = "",
     //bool? isVoucher,
     // String? name,
     // String? code,
@@ -40,20 +41,24 @@ class TransactionEbookService {
     required List<DataEbookCheckoutMolde> dataEbookCheckout,
   }) async {
     DataEbookCheckoutModel body = DataEbookCheckoutModel(
-        user: User(
-          idUser: MainService().utilsController.userModel.idUser,
-          usePoinUser: usePoinUser,
-        ),
-        voucher: VoucherEbook(
-          isVoucher: isVoucher,
-          //name: name,
-          //code: code,
-          //minimalTransaction: minimalTransaction,
-          //beli: beli,
-          // sewa: sewa,
-          //end: end,
-        ),
-        dataEbookCheckout: dataEbookCheckout);
+      user: User(
+        idUser: MainService().utilsController.userModel.idUser,
+        usePoinUser: usePoinUser,
+      ),
+      kodeVoucher: voucherCode,
+      // voucher: VoucherEbook(
+      //   isVoucher: isVoucher,
+      // voucherCode: voucherCode,
+
+      //name: name,
+      // code: code,
+      //minimalTransaction: minimalTransaction,
+      //beli: beli,
+      // sewa: sewa,
+      //end: end,
+      // ),
+      dataEbookCheckout: dataEbookCheckout,
+    );
 
     final result = await MainService()
         .postAPIBodyRaw(url: 'transaction/ebook', body: body.toJson());

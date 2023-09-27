@@ -39,15 +39,15 @@ class EbookDetailScrenn extends GetView<EbookDetailController> {
                       //       fontSize: 20,
                       //       fontWeight: FontWeight.w200),
                       // ),
-                      IconButton(
-                          onPressed: (controller
-                                  .ebookMasterDetailModel.value!.isReady)
-                              ? () =>
-                                  controller.onTapBottomSheetOrder(isBuy: false)
-                              : null,
-                          icon: const Icon(Ionicons.cart_outline)),
+                      // IconButton(
+                      //     onPressed: (controller
+                      //             .ebookMasterDetailModel.value!.isReady)
+                      //         ? () =>
+                      //             controller.onTapBottomSheetOrder(isBuy: false)
+                      //         : null,
+                      //     icon: const Icon(Ionicons.cart_outline)),
                       SizedBox(
-                          width: Get.width / 1.5,
+                          width: Get.width / 1.1,
                           child: ElevatedButton(
                               onPressed: (controller
                                       .ebookMasterDetailModel.value!.isReady)

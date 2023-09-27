@@ -118,7 +118,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.PAYMENT_EBOOK,
-      page: () => const PaymentEbookScreen(),
+      page: () =>  PaymentEbookScreen(),
       binding: PaymentEbookControllerBinding(),
     ),
     GetPage(

@@ -7,6 +7,7 @@ class PaymentEbookController extends GetxController {
   final GlobalKey webViewKey = GlobalKey();
 
   late PaymentEbookModel paymentEbookModel;
+    var voucherCode = "".obs;
 
   @override
   void onInit() {

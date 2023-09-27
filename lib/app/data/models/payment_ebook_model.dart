@@ -10,9 +10,11 @@ class PaymentEbookModel {
   final int grandTotal;
   // final String idcabang;
   final bool status;
+  final bool isUseMidtrans;
   final String id;
-  final String token;
-  final String url;
+  String token;
+  String url;
+    final bool voucherCode;
 
   PaymentEbookModel({
     // required this.idtransaksiNew,
@@ -26,9 +28,12 @@ class PaymentEbookModel {
     required this.grandTotal,
     // required this.idcabang,
     required this.status,
+    required this.isUseMidtrans,
     required this.id,
-    required this.token,
-    required this.url,
+    this.token = "",
+    this.url = "",
+        required this.voucherCode,
+
   });
 
   factory PaymentEbookModel.fromJson(Map<String, dynamic> json) =>
@@ -44,9 +49,13 @@ class PaymentEbookModel {
         grandTotal: json["grand_total"],
         // idcabang: json["idcabang"],
         status: json["status"],
+        isUseMidtrans: json["isUseMidtrans"],
         id: json["id"],
-        token: json["token"],
-        url: json["url"],
+        token: json["token"] ?? "",
+        url: json["url"] ?? "",
+        voucherCode:
+            json["voucher"] != null && json["voucher"]["isVoucher"] == true,
+        
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,6 +68,7 @@ class PaymentEbookModel {
         "sub_total": subTotal,
         "disc_total": discTotal,
         "grand_total": grandTotal,
+        "isUseMidtrans": isUseMidtrans,
         // "idcabang": idcabang,
         "status": status,
         "id": id,

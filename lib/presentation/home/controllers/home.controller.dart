@@ -1,6 +1,7 @@
 import 'package:andipublisher/app/data/models/banner_model.dart';
 import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/label_items_master_model.dart';
+import 'package:andipublisher/app/data/services/banner_ebook_service.dart';
 import 'package:andipublisher/app/data/services/banner_service.dart';
 import 'package:andipublisher/app/data/services/items_service.dart';
 import 'package:andipublisher/app/data/services/ebook_services.dart';
@@ -11,6 +12,8 @@ class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   RxList<BannerModel> bannerModel = RxList<BannerModel>();
+  RxList<BannerModel> bannerModelebook = RxList<BannerModel>();
+
   Rxn<LabelItemsMasterModel> newLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
   Rxn<LabelItemsMasterModel> bestSallerLabelItemsMasterModel =
@@ -20,6 +23,8 @@ class HomeController extends GetxController {
   Rxn<LabelItemsMasterModel> beliSallerLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
   Rxn<LabelEbookMasterModel> ebookNewLabelItemsMasterModel =
+      Rxn<LabelEbookMasterModel>();
+  Rxn<LabelEbookMasterModel> ebookLarisLabelItemsMasterModel =
       Rxn<LabelEbookMasterModel>();
 
   RxInt currentBanner = 0.obs;
@@ -40,12 +45,18 @@ class HomeController extends GetxController {
   }
 
   Future<void> onRefresh() async {
+    await fetchBannerEbook();
     await fetchBanner();
     await newLabelItemsMaster();
     await bestSallerLabelItemsMaster();
     await sewaSallerLabelItemsMaster();
     await beliSallerLabelItemsMaster();
     await ebookNewLabelItemsMaster();
+  }
+
+  Future<List<BannerModel>> fetchBannerEbook() async {
+    bannerModelebook.value = await BannerServiceEbook.getBanner();
+    return bannerModelebook;
   }
 
   Future<List<BannerModel>> fetchBanner() async {
@@ -78,8 +89,24 @@ class HomeController extends GetxController {
   }
 
   Future<LabelEbookMasterModel> ebookNewLabelItemsMaster() async {
+    Map<String, dynamic> body = {"tag": "terbaru"};
+
     ebookNewLabelItemsMasterModel.value =
-        await EbookService.getEbookItemsMaster(link: 'list');
+        await EbookService.getEbookItemsMaster(
+      link: 'list',
+      body: body,
+    );
     return ebookNewLabelItemsMasterModel.value!;
+  }
+
+  Future<LabelEbookMasterModel> ebookTerlarisLabelItemsMaster() async {
+    Map<String, dynamic> body = {"tag": "terlaris"};
+
+    ebookLarisLabelItemsMasterModel.value =
+        await EbookService.getEbookItemsMaster(
+      link: 'list',
+      body: body,
+    );
+    return ebookLarisLabelItemsMasterModel.value!;
   }
 }

@@ -1,18 +1,21 @@
 class DataEbookCheckoutModel {
   final User user;
-  final VoucherEbook voucher;
-  final List<DataEbookCheckoutMolde> dataEbookCheckout;
+  VoucherEbook? voucher;
+  String kodeVoucher;
+  List<DataEbookCheckoutMolde>? dataEbookCheckout;
 
   DataEbookCheckoutModel({
     required this.user,
-    required this.voucher,
-    required this.dataEbookCheckout,
+    this.voucher,
+    this.kodeVoucher = "",
+    this.dataEbookCheckout,
   });
 
   factory DataEbookCheckoutModel.fromJson(Map<String, dynamic> json) =>
       DataEbookCheckoutModel(
         user: User.fromJson(json['user']),
         voucher: VoucherEbook.fromJson(json['voucher']),
+        kodeVoucher: json['voucherCode'],
         dataEbookCheckout: List<DataEbookCheckoutMolde>.from(
           json['dataCheckout'].map((x) => DataEbookCheckoutMolde.fromJson(x)),
         ),
@@ -20,9 +23,10 @@ class DataEbookCheckoutModel {
 
   Map<String, dynamic> toJson() => {
         'user': user.toJson(),
-        'voucher': voucher.toJson(),
+        // 'voucher': voucher.toJson(),
+        'voucherCode' : kodeVoucher,
         'dataCheckout':
-            List<dynamic>.from(dataEbookCheckout.map((x) => x.toJson())),
+            List<dynamic>.from(dataEbookCheckout!.map((x) => x.toJson())),
       };
 }
 
@@ -83,13 +87,18 @@ class User {
 
 class VoucherEbook {
   final bool isVoucher;
+  // final String voucherCode;
 
   VoucherEbook({
     required this.isVoucher,
+    // required this.voucherCode,
   });
 
   factory VoucherEbook.fromJson(Map<String, dynamic> json) => VoucherEbook(
         isVoucher: json['isVoucher'],
+        // voucherCode: json['voucherCode'],
+            // json["voucher"] != null && json["voucher"]["isVoucher"] == true,
+
       );
 
   Map<String, dynamic> toJson() => {

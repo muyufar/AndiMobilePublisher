@@ -3,10 +3,15 @@ import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
 import 'package:andipublisher/app/data/services/main_service.dart';
 
 class EbookService {
-  static Future<LabelEbookMasterModel> getEbookItemsMaster(
-      {required String link}) async {
+  static Future<LabelEbookMasterModel> getEbookItemsMaster({
+    required String link,
+    Map<String, dynamic>? body,
+  }) async {
     print('link:$link');
-    final result = await MainService().getAPI(url: 'ebook/$link');
+    final result = await MainService().getAPI(
+      url: 'ebook/$link',
+      body: body,
+    );
     return LabelEbookMasterModel.fromJson(result['data']);
   }
 
