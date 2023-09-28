@@ -118,13 +118,23 @@ class Nav {
     ),
     GetPage(
       name: Routes.PAYMENT_EBOOK,
-      page: () =>  PaymentEbookScreen(),
+      page: () => PaymentEbookScreen(),
       binding: PaymentEbookControllerBinding(),
     ),
     GetPage(
       name: Routes.RAKBUKU,
       page: () => const RakbukuScreen(),
       binding: RakbukuControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.MAIN_TRANSACTION,
+      page: () => const MainTransactionScreen(),
+      binding: MainTransactionControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_TRANSACTION,
+      page: () => const EbookTransactionScreen(),
+      binding: EbookTransactionControllerBinding(),
     ),
   ];
 }

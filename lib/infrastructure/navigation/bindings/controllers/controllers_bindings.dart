@@ -2,11 +2,13 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/car
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/checkout.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/checkout_ebook.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_detail.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/forgot_password.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/home.controller.binding.dart';
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/item_detail.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/login.controller.binding.dart';
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/main.controller.binding.dart';
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/main_transaction.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/payment.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/payment_ebook.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/profile.controller.binding.dart'; 
