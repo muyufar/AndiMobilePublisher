@@ -105,7 +105,7 @@ class MainScreen extends GetView<MainController> {
                 children: const [
                   HomeScreen(),
                   WishlistScreen(),
-                  TransactionScreen(),
+                  MainTransactionScreen(),
                   RakbukuScreen(),
                   ProfileScreen(),
                 ],
