@@ -12,8 +12,7 @@ class RakBukuService {
     final dataList = result['data'] as List<dynamic>;
 
     // Mengonversi List<dynamic> menjadi List<RakBukuModel>
-    final rakBukuList =
-        dataList.map((data) => RakBukuModel.fromJson(data)).toList();
+    final rakBukuList = dataList.map((data) => RakBukuModel.fromJson(data)).toList();
 
     return rakBukuList;
   }

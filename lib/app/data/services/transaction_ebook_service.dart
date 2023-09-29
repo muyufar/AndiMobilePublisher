@@ -1,6 +1,7 @@
 import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/detail_history_transaction_model.dart';
+import 'package:andipublisher/app/data/models/ebook_list_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/list_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/payment_ebook_model.dart';
 import 'package:andipublisher/app/data/services/main_service.dart';
@@ -66,7 +67,7 @@ class TransactionEbookService {
     return PaymentEbookModel.fromJson(result['data']);
   }
 
-  static Future<List<ListHistoryTransactionModel>> getListHistoryTransaction(
+  static Future<List<EbookListHistoryTransactionModel>> getListHistoryTransaction(
       {required String tag, required String offset}) async {
     Map<String, String> body = {
       'tag': tag,
@@ -78,9 +79,9 @@ class TransactionEbookService {
     final result = await MainService()
         .getAPI(url: 'transaction/history/ebook', body: body);
 
-    return List<ListHistoryTransactionModel>.from(
+    return List<EbookListHistoryTransactionModel>.from(
         ((result != null) ? result['data'] : [])
-            .map((e) => ListHistoryTransactionModel.fromJson(e)));
+            .map((e) => EbookListHistoryTransactionModel.fromJson(e)));
   }
 
   static Future<DetailHistoryTransactionModel> getDetailHistoryTransaction(
@@ -91,7 +92,7 @@ class TransactionEbookService {
     };
 
     final result = await MainService()
-        .getAPI(url: 'Transaction/historyTransaction', body: body);
+        .getAPI(url: 'transaction/history/ebook', body: body);
 
     return DetailHistoryTransactionModel.fromJson(result['data']);
   }

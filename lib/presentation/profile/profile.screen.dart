@@ -25,30 +25,21 @@ class ProfileScreen extends GetView<ProfileController> {
     ));
   }
 
-  Row _info() {
-    return Row(
+Widget _info() {
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10, left: 18),
-          child: Image.asset(Assets.images.logo.path),
+        CircleAvatar(
+          radius: 50, // Ubah ukuran avatar sesuai keinginan Anda
+          backgroundImage: AssetImage(Assets.images.logo.path),
         ),
-        // Container(
-        //   margin: const EdgeInsets.only(right: 10, left: 18),
-        //   height: 80,
-        //   width: 80,
-        //   decoration: BoxDecoration(color: colorGrey, shape: BoxShape.circle),
-        // ),
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Andipublisher',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Text('Andipublishercom@yahoo.com'),
-          ],
-        )
+        const SizedBox(height: 15),
+        Text(
+          controller.utilsController.userModel.namaUser,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        Text(controller.utilsController.userModel.emailUser),
       ],
     );
   }
 }
+

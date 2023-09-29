@@ -5,6 +5,7 @@ class EbookMasterModel {
   final String judul;
   final int harga;
   final int diskon;
+  final String? jumlah;
   final bool statusStok;
 
   EbookMasterModel({
@@ -14,6 +15,7 @@ class EbookMasterModel {
     required this.judul,
     required this.harga,
     required this.diskon,
+    this.jumlah,
     required this.statusStok,
   });
 
@@ -25,6 +27,7 @@ class EbookMasterModel {
         judul: json["judul"],
         harga: json["harga"],
         diskon: json["diskon"],
+        jumlah: json["jumlah"],
         statusStok: json["status_stok"],
       );
 
@@ -35,6 +38,7 @@ class EbookMasterModel {
         "judul": judul,
         "harga": harga,
         "diskon": diskon,
+        "jumlah": jumlah,
         "status_stok": statusStok,
       };
 }

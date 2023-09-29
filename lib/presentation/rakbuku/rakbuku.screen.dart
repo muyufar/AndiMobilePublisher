@@ -10,27 +10,48 @@ class RakbukuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(RakBukuController());
+
     return DefaultTabController(
-      length: 2, // Jumlah tab
+      length: 2, 
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('Rak Buku'),
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                  text:
-                      'Buku Beli'), // Tab pertama untuk buku yang sudah dibeli
-              Tab(text: 'Buku Sewa'), // Tab kedua untuk buku yang sudah disewa
-            ],
-          ),
-        ),
+        appBar: _appBar(),
         body: TabBarView(
           children: [
             RakBukuBeliScreen(),
-            Rakbukusewa(),
+            RakbukusewaScreen(),
           ],
         ),
+      ),
+    );
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      title: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              readOnly: true,
+              decoration: InputDecoration(hintText: 'Cari Sesuatu ...'),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              // Aksi saat ikon filter ditekan
+            },
+            icon: Icon(Icons.filter_list),
+          ),
+        ],
+      ),
+      bottom: TabBar(
+        tabs: [
+          Tab(
+            text: 'Buku Beli',
+          ),
+          Tab(
+            text: 'Buku Sewa',
+          ),
+        ],
       ),
     );
   }

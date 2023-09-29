@@ -81,7 +81,9 @@ class EbookDetailScrenn extends GetView<EbookDetailController> {
         // ),
         IconButton(
           padding: const EdgeInsets.only(top: 14),
-          onPressed: () {},
+          onPressed: (
+            
+          ) {},
           icon: const Icon(Ionicons.heart_outline),
           color: colorBlack,
         ),

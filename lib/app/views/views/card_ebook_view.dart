@@ -4,7 +4,7 @@ import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 
 /// CardItemsView
@@ -35,6 +35,7 @@ class CardEbookView extends GetView {
     double diskonAkhir = diskonAwal.toDouble();
     double diskonHarga = (diskonAkhir / 100.0) * hargaAwal;
     double hargatotal = hargaAwal - diskonHarga;
+    String? jumlah = data.jumlah;
     // Hitung harga awal jika ada diskon
 
     return InkWell(
@@ -47,7 +48,7 @@ class CardEbookView extends GetView {
             child: Column(
               children: [
                 AspectRatio(
-                    aspectRatio: 0.66 / 1,
+                    aspectRatio: 0.75 / 1,
                     child: Stack(
                       children: [
                         ImageNetworkView(
@@ -125,12 +126,16 @@ class CardEbookView extends GetView {
                               ),
                             )
                           : const SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                       Text(
                         hargatotal.parceRp(),
                         style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      ),SizedBox(height:  3),
+                      Text(
+                        'Terjual: $jumlah',
+                        style: const TextStyle(fontWeight: FontWeight.normal),
+                        ),
                     ],
                   ),
                 )

@@ -5,11 +5,6 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
-
-
-
-
-
 class RakBukuView extends StatelessWidget {
   final RakBukuModel data;
   // late PdfViewerController _pdfViewerController;
@@ -22,12 +17,12 @@ class RakBukuView extends StatelessWidget {
       onTap: () {
         _openEbook(data.file);
       },
-      child: Container(
-        // aspectRatio: 2 / 4.4,
-        width: 118,
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        decoration: BoxDecoration(color: Colors.white,
-        borderRadius: BorderRadius.circular(8)),
+      child: AspectRatio(
+        aspectRatio: 2 / 4.4,
+        // width: 250,
+        // margin: const EdgeInsets.symmetric(horizontal: 8),
+        // decoration: BoxDecoration(color: Colors.white,
+        // borderRadius: BorderRadius.circular(8)),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -35,7 +30,7 @@ class RakBukuView extends StatelessWidget {
           child: Column(
             children: [
               AspectRatio(
-                aspectRatio: 0.66 / 1,
+                aspectRatio: 0.70 / 1,
                 child: Stack(
                   children: [
                     ImageNetworkView(
@@ -48,14 +43,14 @@ class RakBukuView extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       data.judul,
-                      maxLines: 2,
-                      style: const TextStyle(fontSize: 15),
+                      maxLines: 3,
+                      style: const TextStyle(fontSize: 12),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

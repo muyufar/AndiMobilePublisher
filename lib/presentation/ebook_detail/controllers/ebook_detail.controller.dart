@@ -5,6 +5,7 @@ import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/ebook_master_detail_model.dart';
 import 'package:andipublisher/app/data/services/ebook_cart_service.dart';
 import 'package:andipublisher/app/data/services/ebook_services.dart';
+import 'package:andipublisher/app/data/services/ebook_wislist.dart';
 import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
 import 'package:andipublisher/app/data/services/voucher_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
@@ -92,4 +93,24 @@ class EbookDetailController extends GetxController {
   void countPriceTotalOrder() {
     priceTotalOrder.value = (ebookMasterDetailModel.value!.harga.total);
   }
+  
+  
+  void addToWishlist() async {
+//   // final idUser =  controller.   
+//   // final idEbook = controller.ebookMasterDetailModel.value!.idBarang;
+
+//   // final isSuccess = await EbookWishlistService.addWishlist(idUser: idUser, idEbook: idEbook);
+
+//   if (isSuccess) {
+//     // Wishlist berhasil ditambahkan
+//     // Tampilkan pesan atau lakukan tindakan lain yang sesuai
+//     Get.snackbar("Info", "Item ditambahkan ke Wishlist");
+//   } else {
+//     // Gagal menambahkan item ke Wishlist
+//     // Tampilkan pesan atau lakukan tindakan lain yang sesuai
+//     Get.snackbar("Error", "Gagal menambahkan item ke Wishlist");
+//   }
+// }
+
+}
 }

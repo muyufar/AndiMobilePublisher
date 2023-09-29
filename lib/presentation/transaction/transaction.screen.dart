@@ -25,7 +25,7 @@ class TransactionScreen extends GetView<TransactionController> {
                 foregroundColor: colorBlack,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                title: const Text('er'),
+                title: const Text(''),
                 centerTitle: true,
               ),
               body: const RequestLoginView())

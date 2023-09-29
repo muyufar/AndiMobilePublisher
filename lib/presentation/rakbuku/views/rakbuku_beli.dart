@@ -36,12 +36,12 @@ class RakBukuBeliScreen extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(6),
+      padding: const EdgeInsets.all(20),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 160,
-        childAspectRatio: 2 / 3,
-        mainAxisExtent: Get.height / 3.2,
-        mainAxisSpacing: 18,
+        maxCrossAxisExtent: 200,
+        childAspectRatio: 1 / 1,
+        mainAxisExtent: Get.height / 2.6, 
+        mainAxisSpacing: 0,
       ),
       itemCount: rakBukuController.rakBukuBeli.length,
       itemBuilder: (context, index) {

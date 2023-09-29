@@ -2,8 +2,8 @@ import 'package:andipublisher/presentation/rakbuku/controllers/rakbuku.controlle
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Rakbukusewa extends GetView {
-  Rakbukusewa({Key? key}) : super(key: key);
+class RakbukusewaScreen extends GetView {
+  RakbukusewaScreen({Key? key}) : super(key: key);
 
   @override
   final RakBukuController controller = Get.put(RakBukuController());

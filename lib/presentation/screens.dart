@@ -3,6 +3,7 @@ export 'package:andipublisher/presentation/checkout/checkout.screen.dart';
 export 'package:andipublisher/presentation/checkout_ebook/checkout_ebook.screen.dart';
 export 'package:andipublisher/presentation/ebook_detail/ebook_detail.screen.dart';
 export 'package:andipublisher/presentation/ebook_transaction/ebook_transaction.screen.dart';
+export 'package:andipublisher/presentation/ebook_transaction_detail/ebook_transaction_detail.screen.dart';
 export 'package:andipublisher/presentation/forgot_password/forgot_password.screen.dart';
 export 'package:andipublisher/presentation/home/home.screen.dart';
 export 'package:andipublisher/presentation/item_detail/item_detail.screen.dart';

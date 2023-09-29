@@ -25,12 +25,12 @@ class EbookTransactionScreen extends GetView<EbookTransactionController> {
                 foregroundColor: colorBlack,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                title: const Text('er'),
+                title: const Text(''),
                 centerTitle: true,
               ),
               body: const RequestLoginView())
           : DefaultTabController(
-              length: 5,
+              length: 3,
               child: Scaffold(
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(50), // Menghilangkan tinggi AppBar
@@ -46,8 +46,8 @@ class EbookTransactionScreen extends GetView<EbookTransactionController> {
                       isScrollable: true,
                       tabs: [
                         Tab(text: 'Belum Dibayar'),
-                        Tab(text: 'Diproses'),
-                        Tab(text: 'Dikirim'),
+                        // Tab(text: 'Diproses'),
+                        // Tab(text: 'Dikirim'),
                         Tab(text: 'Selesai'),
                         Tab(text: 'Dibatalkan'),
                       ],
@@ -58,8 +58,8 @@ class EbookTransactionScreen extends GetView<EbookTransactionController> {
                   dragStartBehavior: DragStartBehavior.down,
                   children: [
                     EbookTransactionUnpaidView(),
-                    EbookTransactionProcessView(),
-                    EbookTransactionSendView(),
+                    // EbookTransactionProcessView(),
+                    // EbookTransactionSendView(),
                     EbookTransactionDoneView(),
                     EbookTransactionCaceledView()
                   ],

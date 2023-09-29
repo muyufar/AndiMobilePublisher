@@ -3,6 +3,7 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/che
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/checkout_ebook.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_detail.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction_detail.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/forgot_password.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/home.controller.binding.dart';
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/item_detail.controller.binding.dart'; 

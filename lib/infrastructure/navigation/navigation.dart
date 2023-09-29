@@ -136,5 +136,10 @@ class Nav {
       page: () => const EbookTransactionScreen(),
       binding: EbookTransactionControllerBinding(),
     ),
+    GetPage(
+      name: Routes.EBOOK_TRANSACTION_DETAIL,
+      page: () => const EbookTransactionDetailScreen(),
+      binding: EbookTransactionDetailControllerBinding(),
+    ),
   ];
 }
