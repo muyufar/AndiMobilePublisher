@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
+import 'presentation/profile/controllers/profile.controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,8 @@ void main() async {
   await GetStorage.init();
   var initialRoute = await Routes.initialRoute;
   runApp(Main(initialRoute));
+    Get.put(ProfileController());
+
 }
 
 class Main extends StatelessWidget {

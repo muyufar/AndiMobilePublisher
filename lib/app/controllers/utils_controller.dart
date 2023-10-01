@@ -32,7 +32,7 @@ class UtilsController extends GetxController {
   ///
   ///
   RxBool isLogin = false.obs;
-  late UserModel userModel;
+  late  UserModel userModel;
   RxString countCart = '0'.obs;
   
 
@@ -124,6 +124,19 @@ class UtilsController extends GetxController {
     log('isLogin $isLogin');
   }
 
+void initializeUserModel() {
+    userModel = UserModel(
+      idUser: '',
+      namaUser: '',
+      usernameUser: '',
+      emailUser: '',
+      teleponUser: '',
+      fotoUser: '',
+      poinUser: 0,
+    );
+    // Set isLogin menjadi false saat userModel belum terinisialisasi
+    isLogin.value = false;
+  }
   Future<void> getCountCart() async {
     countCart.value = await CartService.getCartCount();
   }

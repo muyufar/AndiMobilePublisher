@@ -10,36 +10,57 @@ class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // final controller = Get.find<ProfileController>();
+
     Get.put(ProfileController());
 
     return Scaffold(
-        body: SafeArea(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        children: [
-          _info(),
-          const SizedBox(height: 20),
-          ProfileOptionsView(),
-        ],
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          children: [
+            _info(),
+            const SizedBox(height: 20),
+            ProfileOptionsView(),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
-Widget _info() {
-    return Column(
+  Widget _info() {
+    final userModel = controller.utilsController.userModel;
+    final defaultNama = "AndiPublisher";
+    final defaultEmail = "andipublisher@gmail.com";
+
+    final namaUser = userModel?.namaUser ?? defaultNama;
+    final emailUser = userModel?.emailUser ?? defaultEmail;
+
+    return Row(
       children: [
-        CircleAvatar(
-          radius: 50, // Ubah ukuran avatar sesuai keinginan Anda
-          backgroundImage: AssetImage(Assets.images.logo.path),
+        Padding(
+          padding: const EdgeInsets.only(right: 10, left: 18),
+          child: Image.asset(
+            Assets.images.logo.path,
+            width: 50, // Ubah ukuran sesuai keinginan Anda
+            height: 50, // Ubah ukuran sesuai keinginan Anda
+          ),
         ),
-        const SizedBox(height: 15),
-        Text(
-          controller.utilsController.userModel.namaUser,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              namaUser,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(emailUser),
+          ],
         ),
-        Text(controller.utilsController.userModel.emailUser),
       ],
     );
   }
 }
-
