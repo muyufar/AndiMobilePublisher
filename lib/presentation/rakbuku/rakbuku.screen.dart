@@ -1,3 +1,4 @@
+import 'package:andipublisher/app/views/views/request_login_view.dart';
 import 'package:andipublisher/presentation/rakbuku/controllers/rakbuku.controller.dart';
 import 'package:andipublisher/presentation/rakbuku/views/rakbuku_beli.dart';
 import 'package:andipublisher/presentation/rakbuku/views/rakbuku_sewa.dart';
@@ -12,14 +13,18 @@ class RakbukuScreen extends StatelessWidget {
     Get.put(RakBukuController());
 
     return DefaultTabController(
-      length: 2, 
+      length: 2,
       child: Scaffold(
         appBar: _appBar(),
-        body: TabBarView(
-          children: [
-            RakBukuBeliScreen(),
-            RakbukusewaScreen(),
-          ],
+        body: Obx(
+          () => (!Get.find<RakBukuController>().utilsController.isLogin.value)
+              ? const RequestLoginView()
+              : TabBarView(
+                  children: [
+                    RakBukuBeliScreen(),
+                    RakbukusewaScreen(),
+                  ],
+                ),
         ),
       ),
     );

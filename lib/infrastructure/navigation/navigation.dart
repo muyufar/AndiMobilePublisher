@@ -108,7 +108,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.EBOOK_DETAIL,
-      page: () => const EbookDetailScrenn(),
+      page: () => const EbookDetailScreen(),
       binding: EbookDetailControllerBinding(),
     ),
     GetPage(

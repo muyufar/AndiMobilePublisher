@@ -11,6 +11,7 @@ import 'package:andipublisher/app/data/services/voucher_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/presentation/ebook_detail/views/ebook_detail_bottom_sheet_order.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EbookDetailController extends GetxController {
@@ -23,6 +24,8 @@ class EbookDetailController extends GetxController {
 
   late bool bottomSheetOrderIsBuy;
   var voucherCode = "".obs;
+
+  RxBool isInWishlist = false.obs;
 
   @override
   void onInit() {
@@ -93,24 +96,60 @@ class EbookDetailController extends GetxController {
   void countPriceTotalOrder() {
     priceTotalOrder.value = (ebookMasterDetailModel.value!.harga.total);
   }
-  
-  
-  void addToWishlist() async {
-//   // final idUser =  controller.   
-//   // final idEbook = controller.ebookMasterDetailModel.value!.idBarang;
 
-//   // final isSuccess = await EbookWishlistService.addWishlist(idUser: idUser, idEbook: idEbook);
+Future<void> addToWishlist() async {
+  final idUser = utilsController.userModel.idUser;
+  final idEbook = ebookMasterDetailModel.value!.idBarang;
 
-//   if (isSuccess) {
-//     // Wishlist berhasil ditambahkan
-//     // Tampilkan pesan atau lakukan tindakan lain yang sesuai
-//     Get.snackbar("Info", "Item ditambahkan ke Wishlist");
-//   } else {
-//     // Gagal menambahkan item ke Wishlist
-//     // Tampilkan pesan atau lakukan tindakan lain yang sesuai
-//     Get.snackbar("Error", "Gagal menambahkan item ke Wishlist");
-//   }
-// }
+  final response = await EbookWishlistService.addWishlist(
+    idUser: idUser,
+    idEbook: idEbook,
+  );
 
+  handleWishlistResponse(response, successMessage: 'Berhasil ditambahkan ke wishlist');
 }
+
+Future<void> removeFromWishlist() async {
+  final idUser = utilsController.userModel.idUser;
+  final idEbook = ebookMasterDetailModel.value!.idBarang;
+
+  final response = await EbookWishlistService.removeWishlist(
+    idUser: idUser,
+    idEbook: idEbook,
+  );
+
+  handleWishlistResponse(response, successMessage: 'Berhasil dihapus dari wishlist');
+}
+
+
+void handleWishlistResponse(dynamic response, {required String successMessage}) {
+  if (response == true) {
+    Get.dialog(
+      dialogView(
+        title: 'Info',
+        content: successMessage,
+        onTapOke: (
+          
+        ) {
+          Get.back();
+          Get.back();
+        },
+      ),
+    );
+    isInWishlist.value = true;
+  } else {
+    Get.snackbar('Error', 'Terjadi kesalahan');
+    isInWishlist.value = false;
+  }
+}
+
+void toggleWishlist() {
+  if (isInWishlist.value) {
+    removeFromWishlist();
+  } else {
+    addToWishlist();
+  }
+}
+
+
 }
