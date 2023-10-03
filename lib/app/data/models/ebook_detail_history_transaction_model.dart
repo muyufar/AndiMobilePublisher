@@ -101,8 +101,8 @@ class Items {
 }
 
   class Transaksi {
-  final String idTransaksi;
   final String idInvoice;
+  final String idTransaksi;
   final String statusTransaksi;
   final DateTime tanggalTransaksi;
   final DateTime? tanggalDibayar;
@@ -110,8 +110,8 @@ class Items {
   final String paymentRedirect;
 
   Transaksi({
-    required this.idTransaksi,
     required this.idInvoice,
+    required this.idTransaksi,
     required this.statusTransaksi,
     required this.tanggalTransaksi,
     required this.tanggalDibayar,
@@ -120,8 +120,8 @@ class Items {
   });
 
   factory Transaksi.fromJson(Map<String, dynamic> json) => Transaksi(
-        idTransaksi: json['id_transaksi'],
         idInvoice: json['id_invoice'],
+        idTransaksi: json['id_transaksi'],
         statusTransaksi: json['status_transaksi'],
         tanggalTransaksi: DateTime.parse(json['tanggal_transaksi']),
         tanggalDibayar: json['tanggal_dibayar'] != null
@@ -132,8 +132,8 @@ class Items {
       );
 
   Map<String, dynamic> toJson() => {
-        'id_transaksi': idTransaksi,
         'id_invoice': idInvoice,
+        'id_transaksi': idTransaksi,
         'status_transaksi': statusTransaksi,
         'tanggal_transaksi': tanggalTransaksi.toIso8601String(),
         'tanggal_dibayar': tanggalDibayar?.toIso8601String(),

@@ -1,8 +1,8 @@
 import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/detail_history_transaction_model.dart';
+import 'package:andipublisher/app/data/models/ebook_detail_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/ebook_list_history_transaction_model.dart';
-import 'package:andipublisher/app/data/models/list_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/payment_ebook_model.dart';
 import 'package:andipublisher/app/data/services/main_service.dart';
 
@@ -84,16 +84,17 @@ class TransactionEbookService {
             .map((e) => EbookListHistoryTransactionModel.fromJson(e)));
   }
 
-  static Future<DetailHistoryTransactionModel> getDetailHistoryTransaction(
-      {required String idInvoice, required String idUser}) async {
+  static Future<EbookDetailHistoryTransactionModel> ebookgetDetailHistoryTransaction(
+      {required String idTransaksi}) async {
          Map<String, dynamic> body = {
-      'id_invoice': idInvoice,
-      'idUser': MainService().utilsController.userModel.idUser,};
+      'idUser': MainService().utilsController.userModel.idUser,
+      'idTransaksi': idTransaksi};
+       print('Request Body: $body');
       
    final result = await MainService()
-        .getAPI(url: 'transaction/detail?idUser=$idUser&invoice=$idInvoice',body: body );
-
-    return DetailHistoryTransactionModel.fromJson(result['data']);
+        .getAPI(url: 'Transaction/detail',body: body);
+print('Response Data: $result');
+    return EbookDetailHistoryTransactionModel.fromJson(result['data']);
    
   }
 }

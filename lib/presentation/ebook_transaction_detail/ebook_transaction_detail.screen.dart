@@ -20,7 +20,7 @@ class EbookTransactionDetailScreen
         centerTitle: true,
       ),
       body: FutureView(
-          future: controller.fetchDetailTransaction(),
+          future: controller.ebookfetchDetailTransaction(),
           widgetBuilder: Obx(
             () => Column(
               children: [

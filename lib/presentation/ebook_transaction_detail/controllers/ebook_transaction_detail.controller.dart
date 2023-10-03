@@ -6,7 +6,7 @@ import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:get/get.dart';
 
 class EbookTransactionDetailController extends GetxController {
-  final UtilsController utilsController = Get.find();
+  // final UtilsController utilsController = Get.find();
   Rxn<EbookDetailHistoryTransactionModel> ebookdetailHistoryTransactionModel =
       Rxn<EbookDetailHistoryTransactionModel>();
 
@@ -25,26 +25,15 @@ class EbookTransactionDetailController extends GetxController {
     super.onClose();
   }
 
-Future<EbookDetailHistoryTransactionModel?> fetchDetailTransaction() async {
-  if (ebookdetailHistoryTransactionModel.value != null) {
+  Future<EbookDetailHistoryTransactionModel> ebookfetchDetailTransaction() async {
     ebookdetailHistoryTransactionModel.value =
-        (await TransactionEbookService.getDetailHistoryTransaction(
-            idInvoice: Get.arguments,
-            idUser: utilsController.userModel.idUser)) as EbookDetailHistoryTransactionModel?;
+        await TransactionEbookService.ebookgetDetailHistoryTransaction(
+            idTransaksi: Get.arguments);
     return ebookdetailHistoryTransactionModel.value!;
-  } else {
-    // Lakukan penanganan kesalahan jika diperlukan
-    print("Model detail transaksi tidak tersedia.");
-    return null;
   }
-}
 
 
   void onTapPayNow() {
-    final paymentRedirectUrl =
-        ebookdetailHistoryTransactionModel.value?.transaksi.paymentRedirect;
-
-    if (paymentRedirectUrl != null && paymentRedirectUrl.isNotEmpty) {
       final ebookpaymentModel = PaymentEbookModel(
         idtransaksiNew: '',
         isUseMidtrans: true,
@@ -60,12 +49,11 @@ Future<EbookDetailHistoryTransactionModel?> fetchDetailTransaction() async {
         status: true,
         id: '',
         token: '',
-        url: paymentRedirectUrl,
-      );
+        url: ebookdetailHistoryTransactionModel.value?.transaksi.paymentRedirect ??
+            '');
 
       Get.toNamed(Routes.PAYMENT_EBOOK, arguments: ebookpaymentModel);
-    } else {
-      print('Payment redirect URL is empty or null.');
-    }
+   
   }
+
 }
