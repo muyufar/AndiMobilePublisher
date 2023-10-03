@@ -1,5 +1,5 @@
 class PaymentEbookModel {
-  // final String idtransaksiNew;
+   final String idtransaksiNew;
   final String idTransaksiLama;
   final DateTime tanggalTransaksi;
   final String keterangan;
@@ -14,10 +14,10 @@ class PaymentEbookModel {
   final String id;
   String token;
   String url;
-    final bool voucherCode;
+  final bool voucherCode;
 
   PaymentEbookModel({
-    // required this.idtransaksiNew,
+    required this.idtransaksiNew,
     required this.idTransaksiLama,
     required this.tanggalTransaksi,
     required this.keterangan,
@@ -32,13 +32,13 @@ class PaymentEbookModel {
     required this.id,
     this.token = "",
     this.url = "",
-        required this.voucherCode,
+    required this.voucherCode,
 
   });
 
   factory PaymentEbookModel.fromJson(Map<String, dynamic> json) =>
       PaymentEbookModel(
-        // idtransaksiNew: json["idtransaksi_new"],
+        idtransaksiNew: json["idtransaksi_new"],
         idTransaksiLama: json["id_transaksi_lama"],
         tanggalTransaksi: DateTime.parse(json["tanggal_transaksi"]),
         keterangan: json["keterangan"],
@@ -59,7 +59,7 @@ class PaymentEbookModel {
       );
 
   Map<String, dynamic> toJson() => {
-        // "idtransaksi_new": idtransaksiNew,
+        "idtransaksi_new": idtransaksiNew,
         "id_transaksi_lama": idTransaksiLama,
         "tanggal_transaksi": tanggalTransaksi.toIso8601String(),
         "keterangan": keterangan,

@@ -85,15 +85,15 @@ class TransactionEbookService {
   }
 
   static Future<DetailHistoryTransactionModel> getDetailHistoryTransaction(
-      {required String idTransaksi}) async {
-    Map<String, dynamic> body = {
-      'idTransaksi': idTransaksi,
-      'idUser': MainService().utilsController.userModel.idUser,
-    };
-
-    final result = await MainService()
-        .getAPI(url: 'transaction/history/ebook', body: body);
+      {required String idInvoice, required String idUser}) async {
+         Map<String, dynamic> body = {
+      'id_invoice': idInvoice,
+      'idUser': MainService().utilsController.userModel.idUser,};
+      
+   final result = await MainService()
+        .getAPI(url: 'transaction/detail?idUser=$idUser&invoice=$idInvoice',body: body );
 
     return DetailHistoryTransactionModel.fromJson(result['data']);
+   
   }
 }

@@ -49,7 +49,6 @@ class TransactionDetailController extends GetxController {
     detailHistoryTransactionModel.value =
         await TransactionService.getDetailHistoryTransaction(
             idTransaksi: Get.arguments);
-
     return detailHistoryTransactionModel.value!;
   }
 

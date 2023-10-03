@@ -7,33 +7,42 @@ import 'package:get/get.dart';
 
 import 'controllers/wishlist.controller.dart';
 
-class WishlistScreen extends GetView<WishlistController> {
+class WishlistScreen extends StatelessWidget {
   const WishlistScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.put(WishlistController());
+    final WishlistController wishlistController = Get.put(WishlistController());
+
+    // Panggil getWishlistData saat membangun widget
+    wishlistController.getWishlistData();
 
     return Scaffold(
       appBar: appBarStandar(title: 'Wishlist', context: context),
       body: Obx(() {
         // Periksa apakah pengguna sudah login
-        if (!controller.utilsController.isLogin.value) {
+        if (!wishlistController.utilsController.isLogin.value) {
           // Jika belum login, tampilkan pesan atau widget yang sesuai
           return const Center(
             child: RequestLoginView(), // Tampilkan widget RequestLoginView
           );
         }
 
-        // Jika pengguna sudah login, tampilkan daftar wishlist
-        return _buildWishlist();
+        if (wishlistController.isLoading.value) {
+          // Tampilkan indikator loading saat data sedang diambil
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          // Jika pengguna sudah login dan data sudah diambil, tampilkan daftar wishlist
+          return _buildWishlist(wishlistController);
+        }
       }),
     );
   }
 
-Widget _buildWishlist() {
-  return Obx(() {
-    final wishlist = controller.wishlist;
+  Widget _buildWishlist(WishlistController wishlistController) {
+    final wishlist = wishlistController.wishlist;
     if (wishlist.isEmpty) {
       // Jika wishlist kosong, tampilkan pesan kosong
       return const Center(
@@ -42,15 +51,15 @@ Widget _buildWishlist() {
     } else {
       // Jika ada item dalam wishlist, tampilkan daftar item dalam bentuk CardEbookView
       return GridView.builder(
-         shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(20),
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200,
-        childAspectRatio: 1 / 1,
-        mainAxisExtent: Get.height / 2.6, 
-        mainAxisSpacing: 0,
-      ),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(20),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 1 / 1,
+          mainAxisExtent: Get.height / 2.6,
+          mainAxisSpacing: 0,
+        ),
         itemCount: wishlist.length,
         itemBuilder: (context, index) {
           final ebookItem = wishlist[index];
@@ -58,16 +67,13 @@ Widget _buildWishlist() {
             ebookItem: ebookItem,
             onRemove: () {
               // Tambahkan logika untuk menghapus item dari wishlist di sini
-              controller.removeFromWishlist(ebookItem); // Panggil fungsi yang sesuai di controller
+              wishlistController.removeFromWishlist(ebookItem);
+               Get.back();
+              wishlistController.getWishlistData(); // Panggil fungsi yang sesuai di controller
             },
           );
         },
       );
     }
-  });
-}
-
-
-
-
+  }
 }

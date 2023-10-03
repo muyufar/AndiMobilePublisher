@@ -5,6 +5,8 @@ import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail.controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
+
 
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
@@ -244,6 +246,49 @@ class EbookContentView extends GetView {
           ],
         ),
         const Spacer(),
+Obx(() {
+  final isInWishlist = controller.isInWishlist.value;
+
+  return InkWell(
+    onTap: () async {
+      // Tambahkan atau hapus item dari Wishlist di sini
+      if (isInWishlist) {
+        await controller.removeFromWishlist();
+      } else {
+        await controller.addToWishlist();
+      }
+      
+      // Setelah menambahkan atau menghapus dari Wishlist, perbarui status Wishlist
+      await controller.checkWishlistStatus();
+
+      // Setelah selesai, tutup halaman
+      Get.back();
+    },
+    child: AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.elasticInOut,
+      decoration: BoxDecoration(
+        color: isInWishlist ? Colors.red : Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isInWishlist ? Colors.red : colorBlack,
+          width: 2,
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      child: Row(
+        children: [
+          Icon(
+            Ionicons.heart,
+            color: isInWishlist ? Colors.white : colorBlack,
+          ),
+        ],
+      ),
+    ),
+  );
+}),
+
+
         Visibility(
           visible: (controller.ebookMasterDetailModel.value!.flashsale.status !=
                   null &&

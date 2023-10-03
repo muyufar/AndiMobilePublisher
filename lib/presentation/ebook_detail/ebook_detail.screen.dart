@@ -4,6 +4,7 @@ import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail
 import 'package:andipublisher/presentation/ebook_detail/views/ebook_content_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:animated_button/animated_button.dart';
 import 'package:ionicons/ionicons.dart';
 
 class EbookDetailScreen extends GetView<EbookDetailController> {
@@ -18,7 +19,9 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
         children: [
           Expanded(
             child: ListView(
-              children: [_appBar(), EbookContentView()],
+              children: [_appBar(), 
+              
+              EbookContentView()],
             ),
           ),
           Container(
@@ -60,21 +63,7 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
           color: colorBlack,
         ),
         const Spacer(),
-        IconButton(
-          padding: const EdgeInsets.only(top: 14),
-          onPressed: () {
-            // Tambahkan atau hapus item dari Wishlist di sini
-            if (controller.isInWishlist.isFalse) {
-              controller.removeFromWishlist();
-            } else {
-              controller.addToWishlist();
-            }
-          },
-          icon: Icon(
-            Ionicons.heart_outline,
-            color: controller.isInWishlist.isTrue ? Colors.red : colorBlack,
-          ),
-        ),
+       
         if (controller.utilsController.isLogin.value)
           BadgeCartView(
             color: colorBlack,

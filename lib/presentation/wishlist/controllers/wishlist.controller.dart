@@ -6,16 +6,16 @@ import 'package:get/get.dart';
 class WishlistController extends GetxController {
   final UtilsController utilsController = Get.put(UtilsController());
   final RxList<EbookWishlistItem> wishlist = <EbookWishlistItem>[].obs;
+  final RxBool isLoading = false.obs; // Variabel isLoading untuk melacak status loading
 
   @override
   void onInit() {
-    // Pindahkan pengambilan data wishlist ke getWishlistData agar dapat digunakan ulang
-    getWishlistData();
     super.onInit();
   }
 
   @override
   void onReady() {
+    getWishlistData(); // Panggil getWishlistData saat controller siap (sudah diinisialisasi)
     super.onReady();
   }
 
@@ -24,6 +24,7 @@ class WishlistController extends GetxController {
     super.onClose();
   }
 
+  // Fungsi untuk menambahkan ebook ke wishlist
   Future<void> addToWishlist(String idEbook) async {
     final idUser = utilsController.userModel.idUser; // Ganti dengan id user yang sesuai
     final result = await EbookWishlistService.addWishlist(
@@ -36,6 +37,7 @@ class WishlistController extends GetxController {
     }
   }
 
+  // Fungsi untuk menghapus ebook dari wishlist
   Future<void> removeFromWishlist(EbookWishlistItem ebookItem) async {
     final idUser = utilsController.userModel.idUser; // Ganti dengan id user yang sesuai
     final result = await EbookWishlistService.removeWishlist(
@@ -48,9 +50,12 @@ class WishlistController extends GetxController {
     }
   }
 
-  void getWishlistData() async {
+  // Fungsi untuk memperbarui data wishlist
+  Future<void> getWishlistData() async {
+    isLoading.value = true; // Set isLoading ke true ketika sedang memuat data
     final idUser = utilsController.userModel.idUser; // Ganti dengan id user yang sesuai
     final wishlistData = await EbookWishlistService.getWishlist(idUser);
     wishlist.assignAll(wishlistData);
+    isLoading.value = false; // Set isLoading ke false ketika data telah dimuat
   }
 }

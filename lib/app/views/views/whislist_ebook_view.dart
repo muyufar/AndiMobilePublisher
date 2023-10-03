@@ -47,11 +47,11 @@ class WhislistCardEbookView extends StatelessWidget {
                   Text(
                     ebookItem.judul,
                      maxLines: 3,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     ebookItem.harga.parceRp(),
-                    style: TextStyle(fontSize: 19),
+                    style: TextStyle(fontSize: 15),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
@@ -60,7 +60,7 @@ class WhislistCardEbookView extends StatelessWidget {
                       child: IconButton(
                         icon: Icon(
                           Icons.delete,
-                          size: 32, // Increase icon size as needed
+                          size: 25, // Increase icon size as needed
                           color: Colors.black, // Change icon color to black
                         ),
                         onPressed: onRemove,

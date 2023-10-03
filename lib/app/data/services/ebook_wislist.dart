@@ -35,5 +35,17 @@ class EbookWishlistService {
     return result['status'];
   }
 
- 
+ static Future<bool> isInWishlist({required String idUser, required String idEbook}) async {
+    final result = await MainService().getAPI(url: 'wishlist?idUser=$idUser&offset=0&limit=10');
+
+    final wishlistData = result['data']['list'] as List<dynamic>;
+
+    // Periksa apakah eBook dengan slugBarang ada dalam Wishlist
+    final existsInWishlist = wishlistData.any((data) {
+      final ebook = data['id_barang'] as String;
+      return ebook == idEbook;
+    });
+
+    return existsInWishlist;
+  }
 }

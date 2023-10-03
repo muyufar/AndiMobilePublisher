@@ -110,6 +110,7 @@ class CheckoutEbookController extends GetxController {
             content: "Sukses. Ebook berhasil dibeli",
             onTapOke: () {
               Get.back();
+              Get.back();
             },
           ),
         );

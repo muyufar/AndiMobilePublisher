@@ -29,6 +29,7 @@ class EbookDetailController extends GetxController {
 
   @override
   void onInit() {
+      checkWishlistStatus();
     super.onInit();
   }
 
@@ -101,55 +102,81 @@ Future<void> addToWishlist() async {
   final idUser = utilsController.userModel.idUser;
   final idEbook = ebookMasterDetailModel.value!.idBarang;
 
-  final response = await EbookWishlistService.addWishlist(
-    idUser: idUser,
-    idEbook: idEbook,
-  );
+  // Check if the item is already in the wishlist
+  if (isInWishlist.value) {
+    final response = await EbookWishlistService.removeWishlist(
+      idUser: idUser,
+      idEbook: idEbook,
+    );
 
-  handleWishlistResponse(response, successMessage: 'Berhasil ditambahkan ke wishlist');
+    handleWishlistResponse(response, successMessage: 'Berhasil dihapus dari wishlist');
+  } else {
+    final response = await EbookWishlistService.addWishlist(
+      idUser: idUser,
+      idEbook: idEbook,
+    );
+
+    handleWishlistResponse(response, successMessage: 'Berhasil ditambahkan ke wishlist');
+  }
 }
 
 Future<void> removeFromWishlist() async {
   final idUser = utilsController.userModel.idUser;
   final idEbook = ebookMasterDetailModel.value!.idBarang;
 
-  final response = await EbookWishlistService.removeWishlist(
-    idUser: idUser,
-    idEbook: idEbook,
-  );
+  // Check if the item is already in the wishlist
+  if (isInWishlist.value) {
+    final response = await EbookWishlistService.removeWishlist(
+      idUser: idUser,
+      idEbook: idEbook,
+    );
 
-  handleWishlistResponse(response, successMessage: 'Berhasil dihapus dari wishlist');
+    handleWishlistResponse(response, successMessage: 'Berhasil dihapus dari wishlist');
+  } else {
+    final response = await EbookWishlistService.addWishlist(
+      idUser: idUser,
+      idEbook: idEbook,
+    );
+
+    handleWishlistResponse(response, successMessage: 'Berhasil ditambahkan ke wishlist');
+  }
 }
 
+Future<void> checkWishlistStatus() async {
+    final idUser = utilsController.userModel.idUser;
+    final idEbook = ebookMasterDetailModel.value?.idBarang;
+
+    if (idEbook == null) {
+      return;
+    }
+
+    final isInWishlistResponse = await EbookWishlistService.isInWishlist(
+      idUser: idUser,
+      idEbook: idEbook,
+    );
+
+    if (isInWishlistResponse is bool) {
+      isInWishlist.value = isInWishlistResponse;
+    }
+  }
 
 void handleWishlistResponse(dynamic response, {required String successMessage}) {
-  if (response == true) {
-    Get.dialog(
-      dialogView(
-        title: 'Info',
-        content: successMessage,
-        onTapOke: (
-          
-        ) {
-          Get.back();
-          Get.back();
-        },
-      ),
-    );
-    isInWishlist.value = true;
+  if (response is bool) {
+    if (response) {
+      // Wishlist status was changed successfully
+      isInWishlist.value = !isInWishlist.value; // Toggle wishlist status
+    } else {
+      // Handle the case where the API request failed
+      Get.snackbar('Error', 'Terjadi kesalahan');
+    }
   } else {
-    Get.snackbar('Error', 'Terjadi kesalahan');
-    isInWishlist.value = false;
+    // Handle the case where the API response doesn't have the expected structure
+    Get.snackbar('Error', 'Terjadi kesalahan pada respons API');
   }
 }
 
-void toggleWishlist() {
-  if (isInWishlist.value) {
-    removeFromWishlist();
-  } else {
-    addToWishlist();
-  }
-}
+
+
 
 
 }
