@@ -16,6 +16,7 @@ AssetGenImage get imgDefaul =>
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
   AssetGenImage get banerDefault => const AssetGenImage('assets/images/defaultBN.jpg');
+  AssetGenImage get logosplashscreen => const AssetGenImage('assets/images/LogoAndiHigh.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [logo];

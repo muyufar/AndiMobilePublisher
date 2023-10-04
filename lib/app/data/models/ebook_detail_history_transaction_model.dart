@@ -64,7 +64,7 @@ class Items {
   final int hargaSetelahDiskon;
   final int subTotal;
   final String gambar1;
-  final String namaVoucher;
+   String? namaVoucher;
 
   Items({
     required this.idBarang,
@@ -74,7 +74,7 @@ class Items {
     required this.hargaSetelahDiskon,
     required this.subTotal,
     required this.gambar1,
-    required this.namaVoucher,
+   this.namaVoucher,
   });
 
   factory Items.fromJson(Map<String, dynamic> json) => Items(

@@ -31,7 +31,7 @@ class MainController extends GetxController {
   final NavController navController = Get.put(NavController());
   final UtilsController utilsController = Get.put(UtilsController());
 
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  Rx<GlobalKey<ScaffoldState>> scaffoldKey = GlobalKey<ScaffoldState>().obs;
 
   @override
   void onInit() {
@@ -42,8 +42,8 @@ class MainController extends GetxController {
   @override
   void onReady() {
     utilsController.getDataUser();
-    utilsController.getCountCart();
-    scaffoldKey = GlobalKey<ScaffoldState>();
+    // utilsController.getCountCart();
+    scaffoldKey.value = GlobalKey<ScaffoldState>();
     super.onReady();
   }
 

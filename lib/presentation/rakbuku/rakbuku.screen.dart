@@ -2,23 +2,23 @@ import 'package:andipublisher/app/views/views/request_login_view.dart';
 import 'package:andipublisher/presentation/rakbuku/controllers/rakbuku.controller.dart';
 import 'package:andipublisher/presentation/rakbuku/views/rakbuku_beli.dart';
 import 'package:andipublisher/presentation/rakbuku/views/rakbuku_sewa.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RakbukuScreen extends StatelessWidget {
-  const RakbukuScreen({Key? key}) : super(key: key);
-
+   const RakbukuScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(RakBukuController());
+    final RakBukuController rakBukuController = RakBukuController();
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: _appBar(),
         body: Obx(
-          () => (!Get.find<RakBukuController>().utilsController.isLogin.value)
-              ? const RequestLoginView()
+          () => (!rakBukuController.utilsController.isLogin.value)
+              ? RequestLoginView()
               : TabBarView(
                   children: [
                     RakBukuBeliScreen(),
@@ -49,6 +49,7 @@ class RakbukuScreen extends StatelessWidget {
         ],
       ),
       bottom: TabBar(
+        isScrollable: true,
         tabs: [
           Tab(
             text: 'Buku Beli',

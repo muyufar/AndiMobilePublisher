@@ -22,7 +22,7 @@ class RegisterController extends GetxController {
   RxBool obscureTextConfirmationPassword = false.obs;
 
   final UtilsController utilsController = Get.put(UtilsController());
-  final formKey = GlobalKey<FormState>();
+final formKey = GlobalKey<FormState>();
 
   // final ImagePicker _picker = ImagePicker();
   // XFile? image;

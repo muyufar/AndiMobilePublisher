@@ -68,7 +68,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.WISHLIST,
-      page: () => const WishlistScreen(),
+      page: () =>  const WishlistScreen(),
       binding: WishlistControllerBinding(),
     ),
     GetPage(
@@ -123,7 +123,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.RAKBUKU,
-      page: () => const RakbukuScreen(),
+      page: () =>   RakbukuScreen(),
       binding: RakbukuControllerBinding(),
     ),
     GetPage(

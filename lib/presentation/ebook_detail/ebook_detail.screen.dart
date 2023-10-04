@@ -1,4 +1,5 @@
 import 'package:andipublisher/app/views/views/badge_cart_view.dart';
+import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail.controller.dart';
 import 'package:andipublisher/presentation/ebook_detail/views/ebook_content_view.dart';
@@ -19,9 +20,10 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
         children: [
           Expanded(
             child: ListView(
-              children: [_appBar(), 
-              
-              EbookContentView()],
+              children: [
+                _appBar(),
+                EbookContentView(),
+              ],
             ),
           ),
           Container(
@@ -33,15 +35,24 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
             child: Obx(() {
               final isEbookReady =
                   controller.ebookMasterDetailModel.value?.isReady ?? false;
+
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
                     width: Get.width / 1.1,
                     child: ElevatedButton(
-                      onPressed: isEbookReady
-                          ? () => controller.onTapBottomSheetOrder(isBuy: true)
-                          : null,
+                      onPressed: () {
+                        if (!controller.utilsController.isLogin.value) {
+                          // Jika pengguna belum login, arahkan ke layar login
+                          Get.toNamed(Routes.LOGIN);
+                        } else {
+                          // Jika pengguna sudah login dan ebook siap, lakukan tindakan pembelian
+                          if (isEbookReady) {
+                            controller.onTapBuyNow();
+                          }
+                        }
+                      },
                       child: const Text('Beli Sekarang'),
                     ),
                   ),
@@ -63,7 +74,6 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
           color: colorBlack,
         ),
         const Spacer(),
-       
         if (controller.utilsController.isLogin.value)
           BadgeCartView(
             color: colorBlack,

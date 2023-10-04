@@ -15,12 +15,13 @@ class RakBukuController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+     idUser = utilsController.userModel.idUser;
   }
 
   @override
   void onReady() async {
     super.onReady();
-    idUser = utilsController.userModel.idUser;
+    // idUser = utilsController.userModel.idUser;
     await getRakbuku(1); // Mengambil rak buku dengan tag 1
     isLoading.value = false;
   }
@@ -42,7 +43,7 @@ class RakBukuController extends GetxController {
       isLoading.value = false;
     } catch (e) {
       isLoading.value = false;
-      print('Error fetching rak buku: $e');
+      // print('Error fetching rak buku: $e');
     }
   }
 

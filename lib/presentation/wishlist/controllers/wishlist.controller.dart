@@ -52,10 +52,22 @@ class WishlistController extends GetxController {
 
   // Fungsi untuk memperbarui data wishlist
   Future<void> getWishlistData() async {
-    isLoading.value = true; // Set isLoading ke true ketika sedang memuat data
-    final idUser = utilsController.userModel.idUser; // Ganti dengan id user yang sesuai
-    final wishlistData = await EbookWishlistService.getWishlist(idUser);
-    wishlist.assignAll(wishlistData);
-    isLoading.value = false; // Set isLoading ke false ketika data telah dimuat
+  isLoading.value = true; // Set isLoading ke true ketika sedang memuat data
+  
+  if (!utilsController.isLogin.value) {
+    // Jika pengguna belum login, set wishlist menjadi kosong dan isLoading menjadi false
+    wishlist.clear();
+    isLoading.value = false;
+    return;
   }
+
+  final idUser = utilsController.userModel.idUser; // Ganti dengan id user yang sesuai
+  final wishlistData = await EbookWishlistService.getWishlist(idUser);
+  wishlist.assignAll(wishlistData);
+  isLoading.value = false; // Set isLoading ke false ketika data telah dimuat
+}
+
+
+
+
 }

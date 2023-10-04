@@ -23,7 +23,7 @@ class MainScreen extends GetView<MainController> {
         () => DefaultTabController(
           length: 4,
           child: Scaffold(
-            key: controller.scaffoldKey,
+             key: controller.scaffoldKey.value,
             appBar: _appBar(),
             drawer: (controller.utilsController.isLogin.value)
                 ? Drawer(
@@ -103,11 +103,11 @@ class MainScreen extends GetView<MainController> {
                 onPageChanged: (index) =>
                     controller.onPageChangedPageView(index),
                 children: const [
-                  HomeScreen(),
-                  WishlistScreen(),
-                  MainTransactionScreen(),
-                  RakbukuScreen(),
-                  ProfileScreen(),
+                   HomeScreen(),
+                    WishlistScreen(),
+                   MainTransactionScreen(),
+                   RakbukuScreen(),
+                   ProfileScreen(),
                 ],
               ),
             ),
@@ -145,9 +145,13 @@ class MainScreen extends GetView<MainController> {
           leading: (controller.utilsController.isLogin.value)
               ? IconButton(
                   icon: const Icon(Ionicons.person_circle_outline),
-                  onPressed: () =>
-                      controller.scaffoldKey.currentState!.openDrawer())
-              : null,
+                   onPressed: () {
+                if (controller.scaffoldKey.value.currentState != null) {
+                  controller.scaffoldKey.value.currentState!.openDrawer();
+                }
+              },
+            )
+          : null,
           title: const TextField(
             readOnly: true,
             decoration: InputDecoration(hintText: 'Cari Sesuatu ...'),
