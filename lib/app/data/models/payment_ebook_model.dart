@@ -10,7 +10,7 @@ class PaymentEbookModel {
   final int grandTotal;
   // final String idcabang;
   final bool status;
-  final bool isUseMidtrans;
+    bool? isUseMidtrans;
   final String id;
   String token;
   String url;
@@ -28,7 +28,7 @@ class PaymentEbookModel {
     required this.grandTotal,
     // required this.idcabang,
     required this.status,
-    required this.isUseMidtrans,
+     this.isUseMidtrans,
     required this.id,
     this.token = "",
     this.url = "",

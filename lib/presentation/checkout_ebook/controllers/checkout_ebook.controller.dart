@@ -41,6 +41,7 @@ class CheckoutEbookController extends GetxController {
 
   @override
   void onClose() {
+    Get.back();
     super.onClose();
   }
 

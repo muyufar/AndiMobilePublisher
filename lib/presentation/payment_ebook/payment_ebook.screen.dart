@@ -47,13 +47,14 @@ class PaymentEbookScreen extends GetView<PaymentEbookController> {
                   log('url ${navigationAction.request.url}');
                   if (uri.toString().contains('finish')) {
                     Get.offAllNamed(Routes.MAIN);
+                    Get.back();
                     return null;
                   } else if (uri.toString().startsWith('https://app.midtrans.com')) {
                     return null;
                   } else if (uri.toString().startsWith('https://app.sandbox.midtrans.com')) {
                     return null;
                   }
-                  launchUrl(Uri.parse(uri.toString()), mode: LaunchMode.inAppWebView);
+                  launchUrl(Uri.parse(uri.toString()), mode: LaunchMode.externalApplication);
                   return NavigationActionPolicy.CANCEL;
                 },
               ),

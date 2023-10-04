@@ -154,7 +154,9 @@ class RegisterScreen extends GetView<RegisterController> {
                     width: Get.width,
                     child: ElevatedButton(
                       onPressed: () => controller.onTapRegister(),
+                      
                       child: const Text('Daftar'),
+                      
                     ),
                   ),
                   SizedBox(height: 20),

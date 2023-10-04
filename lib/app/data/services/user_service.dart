@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:andipublisher/app/data/models/user_model.dart';
 import 'package:andipublisher/app/data/services/main_service.dart';
+import 'package:andipublisher/app/views/views/dialog_view.dart';
+import 'package:get/get.dart';
+
 
 class UserService {
   static Future<UserModel> login(
@@ -32,13 +35,12 @@ class UserService {
       // 'photo': imageProfile,
     };
 
-    MainService().postAPI(
+      final result = await MainService().postAPI(
       url: 'register',
       body: body,
-    ).then((value) {
-      return value;
-    });
-
-    return ""; // Ubah ini sesuai dengan respons server.
+    );
+   
+   return UserModel.fromMap(result['data']);
+    
   }
 }

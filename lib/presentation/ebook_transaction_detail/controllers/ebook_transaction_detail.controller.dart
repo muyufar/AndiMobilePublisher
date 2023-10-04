@@ -36,7 +36,7 @@ class EbookTransactionDetailController extends GetxController {
   void onTapPayNow() {
       final ebookpaymentModel = PaymentEbookModel(
         // idtransaksiNew: '',
-        isUseMidtrans: true,
+         isUseMidtrans: true|false,
         idTransaksiLama: '',
         tanggalTransaksi: DateTime.now(),
         keterangan: '',

@@ -107,7 +107,7 @@ class Items {
   final DateTime tanggalTransaksi;
   final DateTime? tanggalDibayar;
   final String metodePembayaran;
-  final String paymentRedirect;
+   String? paymentRedirect;
 
   Transaksi({
     required this.idInvoice,
@@ -116,7 +116,7 @@ class Items {
     required this.tanggalTransaksi,
     required this.tanggalDibayar,
     required this.metodePembayaran,
-    required this.paymentRedirect,
+     this.paymentRedirect,
   });
 
   factory Transaksi.fromJson(Map<String, dynamic> json) => Transaksi(

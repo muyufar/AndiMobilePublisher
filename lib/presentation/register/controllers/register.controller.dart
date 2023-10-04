@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:andipublisher/app/controllers/utils_controller.dart';
 import 'package:andipublisher/app/controllers/validator_controller.dart';
+import 'package:andipublisher/app/data/models/user_model.dart';
 import 'package:andipublisher/app/data/services/user_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
+import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,7 +24,7 @@ class RegisterController extends GetxController {
   RxBool obscureTextConfirmationPassword = false.obs;
 
   final UtilsController utilsController = Get.put(UtilsController());
-final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   // final ImagePicker _picker = ImagePicker();
   // XFile? image;
@@ -30,7 +32,7 @@ final formKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
-     fullNameTextEditingController = TextEditingController();
+    fullNameTextEditingController = TextEditingController();
     numberTextEditingController = TextEditingController();
     emailTextEditingController = TextEditingController();
     passwordTextEditingController = TextEditingController();
@@ -52,11 +54,13 @@ final formKey = GlobalKey<FormState>();
     confirmationPasswordTextEditingController.dispose();
     super.onClose();
   }
-Future<void> onTapRegister() async {
-  if(!formKey.currentState!.validate()){
+
+  Future<void> onTapRegister() async {
+  if (!formKey.currentState!.validate()) {
     return;
   }
-  final result = await UserService.register(
+  
+  UserModel userModel = await UserService.register(
     name: fullNameTextEditingController.text,
     noPhone: numberTextEditingController.text,
     email: emailTextEditingController.text,
@@ -65,19 +69,20 @@ Future<void> onTapRegister() async {
     // imageProfile: image != null ? File(image!.path) : null,
   );
 
-  // print("Registration Result: $result"); // Print the result to the console
+  // Tambahkan penundaan sebelum menampilkan Snackbar
+  await Future.delayed(Duration(seconds: 1));
 
-   Get.dialog(
-      dialogView(
-        title: "Pendaftaran Berhasil",
-        content: result,
-        onTapOke: () {
-          Get.back();
-          Get.back();
-          Get.back();
-        },
-      ),
+  utilsController.saveDataUser(userModel: userModel);
+  utilsController.getDataUser();
+
+  if (utilsController.isLogin.value) {
+    // Tampilkan Snackbar setelah penundaan
+    ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+      SnackBar(content: Text('Selamat, Pendaftaran Berhasil'), backgroundColor: Colors.blue,)
     );
-  }
 
+    // Pindah ke halaman Main
+    Get.offAllNamed(Routes.MAIN);
+  }
+}
 }

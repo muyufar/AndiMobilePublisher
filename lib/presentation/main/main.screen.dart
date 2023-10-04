@@ -23,7 +23,7 @@ class MainScreen extends GetView<MainController> {
         () => DefaultTabController(
           length: 4,
           child: Scaffold(
-             key: controller.scaffoldKey.value,
+             key: controller.scaffoldKey,
             appBar: _appBar(),
             drawer: (controller.utilsController.isLogin.value)
                 ? Drawer(
@@ -146,8 +146,8 @@ class MainScreen extends GetView<MainController> {
               ? IconButton(
                   icon: const Icon(Ionicons.person_circle_outline),
                    onPressed: () {
-                if (controller.scaffoldKey.value.currentState != null) {
-                  controller.scaffoldKey.value.currentState!.openDrawer();
+                if (controller.scaffoldKey?.currentState != null) {
+                  controller.scaffoldKey?.currentState!.openDrawer();
                 }
               },
             )
