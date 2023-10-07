@@ -8,6 +8,7 @@ class EbookMasterDetailModel {
   final bool isDisplay;
   final bool isEbook;
   final bool isReady;
+  final bool isWishlisted;
   final Harga harga;
   final Diskon diskon;
   final Flashsale flashsale;
@@ -23,6 +24,7 @@ class EbookMasterDetailModel {
     required this.isDisplay,
     required this.isEbook,
     required this.isReady,
+    required this.isWishlisted,
     required this.harga,
     required this.diskon,
     required this.flashsale,
@@ -40,6 +42,7 @@ class EbookMasterDetailModel {
         isDisplay: json['isDisplay'],
         isEbook: json['isEbook'],
         isReady: json['isReady'],
+        isWishlisted: json['isWishlisted'],
         harga: Harga.fromJson(json['harga']),
         diskon: Diskon.fromJson(json['diskon']),
         flashsale: Flashsale.fromJson(json['flashsale']),

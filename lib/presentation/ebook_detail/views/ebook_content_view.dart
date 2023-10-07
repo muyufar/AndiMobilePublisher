@@ -167,9 +167,10 @@ class EbookContentView extends GetView {
             children: [
               Center(
                 child: AspectRatio(
-                  aspectRatio: 2 / 3,
+                  aspectRatio: 2.2 / 3,
                   child: ImageNetworkView(
                     url: controller.ebookMasterDetailModel.value!.images[index],
+                    fit: BoxFit.fill,
                     decoration: BoxDecoration(borderRadius: borderRadius),
                   ),
                 ),

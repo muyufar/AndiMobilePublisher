@@ -86,12 +86,14 @@ class MainService {
 
     final result = jsonDecode(response.body);
 
+    log("Error: ${result['message']}");
+
     if (!result['status']) {
-      Get.dialog(dialogView(
-        title: 'Error',
-        content: result['message'],
-        onTapOke: () => Get.back(),
-      ));
+      // Get.dialog(dialogView(
+      //   title: 'Error',
+      //   content: result['message'],
+      //   onTapOke: () => Get.back(),
+      // ));
       return;
     }
 

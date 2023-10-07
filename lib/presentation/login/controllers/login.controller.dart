@@ -52,7 +52,7 @@ class LoginController extends GetxController {
   if (utilsController.isLogin.value) {
     // Tampilkan Snackbar setelah penundaan
     ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-      SnackBar(content: Text('Selamat datang, Anda berhsil Login'), backgroundColor: Color.fromARGB(255, 39, 112, 172),)
+      SnackBar(content: Text('Selamat datang, Anda berhasil Login'), backgroundColor: Color.fromARGB(255, 39, 112, 172),)
     );
 
     // Pindah ke halaman Main

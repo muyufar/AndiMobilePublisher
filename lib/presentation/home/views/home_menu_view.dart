@@ -47,7 +47,7 @@ class HomeMenuView extends GetView {
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
-                TextButton(onPressed: () {}, child: const Text('Lainnya')),
+                TextButton(onPressed: () {}, child: const Text('')),
                 const SizedBox(width: 10),
               ],
             ),

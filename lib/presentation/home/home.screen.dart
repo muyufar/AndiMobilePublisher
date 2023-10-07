@@ -18,8 +18,8 @@ class HomeScreen extends GetView<HomeController> {
       children: [
         HomeMenuView(),
         HomeEbookView(),
-        HomeCategoryView(),
-        HomeProductDigitalView(),
+        // HomeCategoryView(),
+        // HomeProductDigitalView(),
       ],
     );
   }

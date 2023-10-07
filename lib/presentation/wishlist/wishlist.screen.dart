@@ -70,7 +70,7 @@ class WishlistScreen extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200,
             childAspectRatio: 1 / 1,
-            mainAxisExtent: Get.height / 2.6,
+            mainAxisExtent: Get.height / 2.4,
             mainAxisSpacing: 0,
           ),
           itemCount: wishlist.length,

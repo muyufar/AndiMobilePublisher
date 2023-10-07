@@ -74,11 +74,11 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
           color: colorBlack,
         ),
         const Spacer(),
-        if (controller.utilsController.isLogin.value)
-          BadgeCartView(
-            color: colorBlack,
-          )
-        else
+        // if (controller.utilsController.isLogin.value)
+        //   BadgeCartView(
+        //     color: colorBlack,
+        //   )
+        // else
           const SizedBox(),
       ],
     );

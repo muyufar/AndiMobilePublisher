@@ -46,14 +46,14 @@ class MainScreen extends GetView<MainController> {
                                 ),
                                 const Spacer(),
                                 // const Icon(Ionicons.diamond),
-                                Text(
-                                  controller.utilsController.userModel.poinUser
-                                      .toString(),
-                                  style: TextStyle(
-                                      fontSize: 28,
-                                      color: colorTextPrimary,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                                // Text(
+                                //   controller.utilsController.userModel.poinUser
+                                //       .toString(),
+                                //   style: TextStyle(
+                                //       fontSize: 28,
+                                //       color: colorTextPrimary,
+                                //       fontWeight: FontWeight.bold),
+                                // ),
                                 const Spacer()
                               ],
                             ),
@@ -62,38 +62,39 @@ class MainScreen extends GetView<MainController> {
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                            Text(controller.utilsController.userModel.emailUser)
+                            Text(controller.utilsController.userModel.emailUser),
+
                           ],
                         ),
                       ),
-                      ListTile(
-                        leading: const Icon(Ionicons.create_outline),
-                        title: const Text('Ubah Data'),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        leading: const Icon(Ionicons.key_outline),
-                        title: const Text('Ubah Password'),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        leading: const Icon(Ionicons.map_outline),
-                        title: const Text('Alamat'),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        leading: const Icon(Ionicons.ticket_outline),
-                        title: const Text('Voucher'),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
+                      // ListTile(
+                      //   leading: const Icon(Ionicons.create_outline),
+                      //   title: const Text('Ubah Data'),
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
+                      // ListTile(
+                      //   leading: const Icon(Ionicons.key_outline),
+                      //   title: const Text('Ubah Password'),
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
+                      // ListTile(
+                      //   leading: const Icon(Ionicons.map_outline),
+                      //   title: const Text('Alamat'),
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
+                      // ListTile(
+                      //   leading: const Icon(Ionicons.ticket_outline),
+                      //   title: const Text('Voucher'),
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      // ),
                     ]),
                   )
                 : null,
@@ -163,14 +164,15 @@ class MainScreen extends GetView<MainController> {
             tabs: const [
               Tab(text: 'Menu'),
               Tab(text: 'E Book'),
-              Tab(text: 'Kategori'),
-              Tab(text: 'Produk Digital'),
+              // Tab(text: 'Kategori'),
+              // Tab(text: 'Produk Digital'),
             ],
           ),
           actions: [
             (controller.utilsController.isLogin.value)
-                ? BadgeCartView()
-                : const SizedBox(),
+                ?
+                 BadgeCartView():
+                  const SizedBox(),
           ],
         );
       default:

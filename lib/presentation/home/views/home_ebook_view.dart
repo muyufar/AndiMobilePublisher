@@ -19,10 +19,14 @@ class HomeEbookView extends GetView {
     return ListView(
       children: [
         _bannerEbook(context),
+        SizedBox(height: 10,),
         _labelEbookMaster(
           future: controller.ebookNewLabelItemsMaster(),
           data: controller.ebookNewLabelItemsMasterModel,
+          
         ),
+                SizedBox(height: 10,),
+
                 _labelEbookMaster(
           future: controller.ebookTerlarisLabelItemsMaster(),
           data: controller.ebookLarisLabelItemsMasterModel,
@@ -120,9 +124,9 @@ Widget _bannerEbook(BuildContext context) {
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const Spacer(),
-                  TextButton(onPressed: () {}, child: const Text('Lainnya')),
-                  const SizedBox(width: 10),
+                  // const Spacer(),
+                  // TextButton(onPressed: () {}, child: const Text('Lainnya')),
+                   SizedBox(width: 15),
                 ],
               ),
             SizedBox(

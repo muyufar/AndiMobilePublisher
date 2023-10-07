@@ -34,7 +34,7 @@ class RakBukuView extends StatelessWidget {
                 child: Stack(
                   children: [
                     ImageNetworkView(
-                          url: data.gambar1,
+                          url: data.gambar1,fit: BoxFit.fill,
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(10))),

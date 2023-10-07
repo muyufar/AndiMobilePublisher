@@ -10,12 +10,12 @@ class CartScreen extends GetView<CartController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CartScreen'),
+        title: const Text('Keranjang Belanja'),
         centerTitle: true,
       ),
       body: const Center(
         child: Text(
-          'CartScreen is working',
+          'Keranjang Belanja Kosong',
           style: TextStyle(fontSize: 20),
         ),
       ),

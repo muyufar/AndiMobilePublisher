@@ -78,13 +78,13 @@ class LoginScreen extends GetView<LoginController> {
                                   .validatorPassword(val),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                                onPressed: () =>
-                                    Get.toNamed(Routes.FORGOT_PASSWORD),
-                                child: const Text('Lupa Kata Sandi')),
-                          ),
+                          // Align(
+                          //   alignment: Alignment.centerRight,
+                          //   child: TextButton(
+                          //       onPressed: () =>
+                          //           Get.toNamed(Routes.FORGOT_PASSWORD),
+                          //       child: const Text('Lupa Kata Sandi')),
+                          // ),
                           SizedBox(
                             width: Get.width,
                             child: ElevatedButton(

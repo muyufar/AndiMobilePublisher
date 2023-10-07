@@ -70,6 +70,8 @@ class CheckoutController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    Get.back();
+      Get.back();
   }
 
   void setPriceTotalItmes() {
@@ -102,6 +104,7 @@ class CheckoutController extends GetxController {
     selectCourier.value = data;
     ongkoskirim.value = selectCourier.value?.harga ?? 0;
     Get.back();
+     Get.back();
   }
 
   Future<void> onTapSelectPayment() async {

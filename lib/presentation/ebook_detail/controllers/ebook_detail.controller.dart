@@ -28,14 +28,18 @@ class EbookDetailController extends GetxController {
   RxBool isInWishlist = false.obs;
 
   @override
-  void onInit() {
-      checkWishlistStatus();
+   void onInit() {
     super.onInit();
+    checkWishlistStatus();
+    ever(ebookMasterDetailModel, (_) {
+      checkWishlistStatus();
+    });
   }
 
   @override
   void onReady() {
     super.onReady();
+    
   }
 
   @override

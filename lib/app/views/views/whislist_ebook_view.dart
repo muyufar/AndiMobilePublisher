@@ -24,18 +24,42 @@ class WhislistCardEbookView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AspectRatio(
-              aspectRatio: 2.1 / 1.6, // Adjust aspect ratio as needed
+              aspectRatio: 0.70 / 1, // Adjust aspect ratio as needed
               child: Stack(
                 children: [
                   ImageNetworkView(
                     url: ebookItem.gambar1,
+                    fit: BoxFit.fill,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(10),
                       ),
                     ),
                   ),
-                  
+                 Align(
+  alignment: Alignment.bottomRight, // Atur ke pojok kanan bawah
+  child: GestureDetector(
+    onTap: onRemove,
+    child: Container(
+      height: 40,
+      width: 40,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.9), // Warna latar belakang tombol
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(0),
+          topRight: Radius.circular(0),
+          topLeft: Radius.circular(10),
+        ),
+      ),
+      child: Icon(
+        Icons.delete,
+        size: 25, // Ukuran ikon sesuaikan kebutuhan Anda
+        color: Colors.red, // Warna ikon
+      ),
+    ),
+  ),
+),
+
                 ],
               ),
             ),
@@ -46,31 +70,15 @@ class WhislistCardEbookView extends StatelessWidget {
                 children: [
                   Text(
                     ebookItem.judul,
-                     maxLines: 3,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     ebookItem.harga.parceRp(),
                     style: TextStyle(fontSize: 15),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      margin: EdgeInsets.all(8), // Adjust margin as needed
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.delete,
-                          size: 25, // Increase icon size as needed
-                          color: Colors.black, // Change icon color to black
-                        ),
-                        onPressed: onRemove,
-                      ),
-                    ),
-                  ),
                 ],
-                
               ),
-              
             ),
           ],
         ),

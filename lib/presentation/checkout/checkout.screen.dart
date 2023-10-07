@@ -34,7 +34,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                   index: index),
             ),
             //Voucher
-            _voucher(),
+            // _voucher(),
 
             //Ringkasan Belanja
             _infoOrder(),
@@ -522,13 +522,13 @@ class CheckoutScreen extends GetView<CheckoutController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Alamat Pengiriman',
+                'Alamat Pengiriman :',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              TextButton(
-                  onPressed: () => Get.bottomSheet(_bottomSheetAddress(),
-                      isScrollControlled: true),
-                  child: const Text('Pilih Alamat Lain'))
+              // TextButton(
+              //     onPressed: () => Get.bottomSheet(_bottomSheetAddress(),
+              //         isScrollControlled: true),
+              //     child: const Text('Pilih Alamat Lain'))
             ],
           ),
           const Divider(),

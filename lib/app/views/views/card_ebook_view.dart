@@ -51,8 +51,9 @@ class CardEbookView extends GetView {
                     aspectRatio: 0.75 / 1,
                     child: Stack(
                       children: [
+                        
                         ImageNetworkView(
-                          url: data.gambar1,
+                          url: data.gambar1, fit: BoxFit.fill,
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(10))),
@@ -69,7 +70,7 @@ class CardEbookView extends GetView {
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10),
+                                      // bottomRight: Radius.circular(10),
                                       topRight: Radius.circular(10)),
                                   color: colorRad.withOpacity(0.9)),
                               child: Text(

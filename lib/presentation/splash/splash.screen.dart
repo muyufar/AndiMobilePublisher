@@ -23,7 +23,7 @@ class SplashScreen extends GetView<SplashController> {
             ),
             SizedBox(height: 16), // Jarak antara logo dan teks
             Text(
-              'Andipublisher Mobile', // Ganti dengan teks yang diinginkan
+              'Andi Publisher Mobile', // Ganti dengan teks yang diinginkan
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
