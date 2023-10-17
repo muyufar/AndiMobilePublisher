@@ -115,18 +115,6 @@ class EbookContentView extends GetView {
                 ],
               );
             } else {
-              // return Table(
-              //   children: [
-              //     TableRow(
-              //       children: [
-              //         const TableCell(child: Text('Berat')),
-              //         TableCell(
-              //             child: Text(
-              //                 controller.ebookMasterDetailModel.value!.berat)),
-              //       ],
-              //     ),
-              //   ],
-              // );
             }
           },
         ),

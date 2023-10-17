@@ -1,35 +1,53 @@
 import 'dart:io';
 import 'package:andipublisher/app/data/models/rakbuku_model.dart';
+import 'package:andipublisher/app/views/views/image_network_view.dart';
+import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
+import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail.controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:dio/dio.dart';
 import 'package:pspdfkit_flutter/pspdfkit.dart';
+import 'package:readmore/readmore.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class RakBukuView extends StatelessWidget {
+
+class RakBukuView extends StatefulWidget {
   final RakBukuModel data;
+
+  @override
+  final EbookDetailController controller = Get.put(EbookDetailController());
 
   RakBukuView(this.data, {Key? key}) : super(key: key);
 
-  Future<bool> _downloadEbook(String ebookUrl) async {
-    final pdfFile = File(await _getLocalPDFPath(ebookUrl));
+  @override
+  _RakBukuViewState createState() => _RakBukuViewState();
+}
+
+class _RakBukuViewState extends State<RakBukuView> {
+  bool downloading = false; // Menambahkan flag `downloading`
+  double downloadProgress = 0.0;
+  bool showIndicator = false;
+ // Menambahkan `downloadProgress`
+
+  Future<bool> _downloadEbook(String ebookUrl, String idEbook) async {
+    final pdfFile = File(await _getLocalPDFPath(idEbook));
 
     try {
       final dio = Dio();
-      dio.interceptors.add(
-          LogInterceptor()); // Opsional, untuk melihat log request/response di konsol.
-
-      bool downloadInProgress = true;
-      double progress = 0;
+      dio.interceptors.add(LogInterceptor());
 
       final response = await dio.download(
         ebookUrl,
         pdfFile.path,
         onReceiveProgress: (received, total) {
           if (total != -1) {
-            progress = (received / total) * 100;
-            if (progress == 100) {
-              downloadInProgress = false;
+            setState(() {
+              downloadProgress = (received / total) * 100;
+            });
+            if (downloadProgress == 100) {
+              downloading = false;
             }
           }
         },
@@ -40,16 +58,16 @@ class RakBukuView extends StatelessWidget {
       }
 
       await Pspdfkit.present(pdfFile.path);
-      return true; // Return true when the download and open is successful.
+      return true;
     } catch (e) {
       print("PDF_ERROR: $e");
-      return false; // Return false if there is an error.
+      return false;
     }
   }
 
-  Future<String> _getLocalPDFPath(String url) async {
-    final tempDir = await Pspdfkit.getTemporaryDirectory(); // Ganti Pspdfkit.getTemporaryDirectory() dengan getTemporaryDirectory()
-    final fileName = Uri.parse(url).pathSegments.last;
+  Future<String> _getLocalPDFPath(String idEbook) async {
+    final tempDir = await Pspdfkit.getTemporaryDirectory();
+    final fileName = '$idEbook.pdf';
     return '${tempDir.path}/$fileName';
   }
 
@@ -71,7 +89,7 @@ class RakBukuView extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 0.70 / 1,
                 child: Image.network(
-                  data.gambar1,
+                  widget.data.gambar1,
                   fit: BoxFit.fill,
                   errorBuilder: (BuildContext context, Object exception,
                       StackTrace? stackTrace) {
@@ -91,8 +109,7 @@ class RakBukuView extends StatelessWidget {
                               loadingProgress.expectedTotalBytes!)
                             Center(
                               child: CircularProgressIndicator(
-                                value: loadingProgress.cumulativeBytesLoaded! /
-                                    loadingProgress.expectedTotalBytes!,
+                                value: downloadProgress / 100,
                               ),
                             ),
                         ],
@@ -107,8 +124,8 @@ class RakBukuView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.judul,
-                      maxLines: 3,
+                      widget.data.judul,
+                      maxLines: 2,
                       style: const TextStyle(fontSize: 12),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -125,11 +142,74 @@ class RakBukuView extends StatelessWidget {
   Widget _buildDownloadEbookScreen() {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Download Ebook'),
+        title: Text('Rak Buku Beli'),
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CarouselSlider.builder(
+              itemCount: widget.data.gambar1.length,
+              itemBuilder: (context, index, realIndex) {
+                return Container(
+                  height: Get.width - 100,
+                  width: Get.width - 100,
+                  margin: const EdgeInsets.only(bottom: 28, top: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 28),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [BoxShadow(blurRadius: 10, color: Colors.grey)],
+                  ),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: AspectRatio(
+                          aspectRatio: 2.2 / 3,
+                          child: ImageNetworkView(
+                            url: widget.data.gambar1,
+                            fit: BoxFit.fill,
+                            decoration:
+                                BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              options: CarouselOptions(
+                autoPlay: (widget.data.gambar1.length != 1),
+                aspectRatio: 1 / 1,
+                viewportFraction: 1,
+                enlargeCenterPage: true,
+                autoPlayInterval: const Duration(seconds: 10),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Deskripsi',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: ReadMoreText(
+                widget.data.deskripsi,
+                trimMode: TrimMode.Length,
+                moreStyle: TextStyle(color: colorTextPrimary),
+                lessStyle: TextStyle(color: colorTextPrimary),
+                trimCollapsedText: 'Baca Selengkapnya',
+                trimExpandedText: ' Sembunyikan',
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16),
         child: FutureBuilder<bool>(
-          future: _checkIfFileExists(),
+          future: _checkIfFileExists(widget.data.idEbook),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Column(
@@ -141,9 +221,9 @@ class RakBukuView extends StatelessWidget {
                 ],
               );
             } else if (snapshot.hasError || !snapshot.data!) {
-              return _buildDownloadButton();
+              return _buildDownloadButton(widget.data.idEbook);
             } else {
-              return _buildOpenButton();
+              return _buildOpenButton(widget.data.idEbook);
             }
           },
         ),
@@ -151,39 +231,64 @@ class RakBukuView extends StatelessWidget {
     );
   }
 
-  Future<bool> _checkIfFileExists() async {
-    final localPath = await _getLocalPDFPath(data.file);
+  Future<bool> _checkIfFileExists(String idEbook) async {
+    final localPath = await _getLocalPDFPath(idEbook);
     final file = File(localPath);
     return file.existsSync();
   }
 
-  Widget _buildDownloadButton() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ElevatedButton(
-          onPressed: () async {
-            final result = await _downloadEbook(data.file);
-            if (result) {
-              // File berhasil diunduh, tampilkan tombol untuk membuka ebook.
-              Get.to(_buildOpenButton());
-            }
-          },
-          child: Text('Download Ebook'),
-        ),
-        SizedBox(height: 16),
-        Text('Ebook has not been downloaded yet'),
-      ],
-    );
-  }
+  Widget _buildDownloadButton(String idEbook) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      ElevatedButton(
+        onPressed: () async {
+          setState(() {
+            downloading = true;
+            showIndicator = true;
+          });
 
-  Widget _buildOpenButton() {
+          final result = await _downloadEbook(widget.data.file, idEbook);
+
+          setState(() {
+            downloading = false;
+            showIndicator = false;
+          });
+
+          if (result) {
+            Get.to(_buildOpenButton(widget.data.idEbook));
+          }
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            showIndicator
+                ? SpinKitThreeBounce(
+                    color: Colors.white,
+                    size: 25.0,
+                  )
+                : Text(
+                    'Download Ebook',
+                    style: TextStyle(fontSize: 16),
+                  ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+
+  Widget _buildOpenButton(String idEbook) {
     return ElevatedButton(
       onPressed: () async {
-        final localPath = await _getLocalPDFPath(data.file);
+        final localPath = await _getLocalPDFPath(idEbook);
         await Pspdfkit.present(localPath);
       },
-      child: Text('Open Ebook'),
+      child: Text(
+        '  Open Ebook  ',
+        style: TextStyle(fontSize: 16),
+      ),
     );
   }
 }

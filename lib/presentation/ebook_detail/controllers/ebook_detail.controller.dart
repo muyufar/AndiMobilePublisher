@@ -62,7 +62,8 @@ class EbookDetailController extends GetxController {
         await TransactionEbookService.postCheckout(
             tag: 'direck',
             ids: [ebookMasterDetailModel.value!.idBarang],
-            voucherCode: voucherCode.value);
+            voucherCode: voucherCode.value, isBuy: [true,false]);
+            
 
     Get.toNamed(Routes.CHECKOUT_EBOOK, arguments: checkoutEbookModel);
   }

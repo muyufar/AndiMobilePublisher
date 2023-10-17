@@ -570,7 +570,7 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
               TransactionEbookService.postCheckout(
                 tag: "direck",
                 ids: produk,
-                voucherCode: voucher,
+                voucherCode: voucher, isBuy: [true,false],
               ).then((value) {
                 print("DATA_RESULT: $value");
 

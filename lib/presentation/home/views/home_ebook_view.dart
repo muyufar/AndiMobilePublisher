@@ -146,4 +146,5 @@ Widget _bannerEbook(BuildContext context) {
       ),
     );
   }
+
 }

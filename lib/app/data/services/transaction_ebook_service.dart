@@ -11,14 +11,17 @@ class TransactionEbookService {
     required String tag,
     required List<String> ids,
     required String voucherCode,
+    required List<bool> isBuy,
   }) async {
     Map<String, dynamic> body = {
       'tag': tag,
       'idUser': MainService().utilsController.userModel.idUser,
       'voucherCode': voucherCode,
+
     };
     for (int i = 0; i < ids.length; i++) {
       body.addAll({'id[$i]': ids[i]});
+      body.addAll({'isBuy[$i]': isBuy[i] ? 'true' : 'false'});
     }
 
     final result = await MainService()
