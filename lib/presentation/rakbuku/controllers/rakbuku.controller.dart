@@ -40,10 +40,10 @@ class RakBukuController extends GetxController {
     try {
       isLoading.value = true;
       final rakBukuServiceResult = await RakBukuService.getRakbuku(tag, idUser);
-      if (tag == 1) {
+      if (tag == 0) {
         rakBukuBeli.assignAll(rakBukuServiceResult as Iterable<RakBukuModel>);
         originalRakBukuBeli = rakBukuServiceResult.toList(); // Simpan daftar asli
-      } else if (tag == 2) {
+      } else if (tag == 1) {
         rakBukuSewa.assignAll(rakBukuServiceResult as Iterable<RakBukuModel>);
         originalRakBukuSewa = rakBukuServiceResult.toList(); // Simpan daftar asli
       }

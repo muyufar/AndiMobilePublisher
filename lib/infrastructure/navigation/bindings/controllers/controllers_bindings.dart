@@ -2,6 +2,8 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/car
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/checkout.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/checkout_ebook.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_detail.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_kategori.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_penerbit.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction_detail.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/forgot_password.controller.binding.dart'; 

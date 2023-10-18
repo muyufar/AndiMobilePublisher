@@ -68,7 +68,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.WISHLIST,
-      page: () =>  const WishlistScreen(),
+      page: () => const WishlistScreen(),
       binding: WishlistControllerBinding(),
     ),
     GetPage(
@@ -123,7 +123,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.RAKBUKU,
-      page: () =>   RakbukuScreen(),
+      page: () => RakbukuScreen(),
       binding: RakbukuControllerBinding(),
     ),
     GetPage(
@@ -140,6 +140,16 @@ class Nav {
       name: Routes.EBOOK_TRANSACTION_DETAIL,
       page: () => const EbookTransactionDetailScreen(),
       binding: EbookTransactionDetailControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_KATEGORI,
+      page: () => const EbookKategoriScreen(),
+      binding: EbookKategoriControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_PENERBIT,
+      page: () => const EbookPenerbitScreen(),
+      binding: EbookPenerbitControllerBinding(),
     ),
   ];
 }

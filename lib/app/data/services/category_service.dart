@@ -22,4 +22,6 @@ class CategoryService {
     return List<ItemMasterDetailModel>.from(
         result.map((e) => ItemMasterDetailModel.fromJson(e)));
   }
+
+  
 }

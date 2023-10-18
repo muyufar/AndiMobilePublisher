@@ -2,6 +2,8 @@ export 'package:andipublisher/presentation/cart/cart.screen.dart';
 export 'package:andipublisher/presentation/checkout/checkout.screen.dart';
 export 'package:andipublisher/presentation/checkout_ebook/checkout_ebook.screen.dart';
 export 'package:andipublisher/presentation/ebook_detail/ebook_detail.screen.dart';
+export 'package:andipublisher/presentation/ebook_kategori/ebook_kategori.screen.dart';
+export 'package:andipublisher/presentation/ebook_penerbit/ebook_penerbit.screen.dart';
 export 'package:andipublisher/presentation/ebook_transaction/ebook_transaction.screen.dart';
 export 'package:andipublisher/presentation/ebook_transaction_detail/ebook_transaction_detail.screen.dart';
 export 'package:andipublisher/presentation/forgot_password/forgot_password.screen.dart';
