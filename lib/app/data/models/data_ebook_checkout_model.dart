@@ -53,11 +53,11 @@ class DataEbookCheckoutMolde {
 
 class Product {
   final String idProduct;
-  final bool isBuy;
+   bool? isBuy;
 
   Product({
     required this.idProduct,
-    required this.isBuy,
+     this.isBuy,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(

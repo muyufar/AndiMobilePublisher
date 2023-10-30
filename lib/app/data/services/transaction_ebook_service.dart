@@ -21,7 +21,7 @@ class TransactionEbookService {
     };
     for (int i = 0; i < ids.length; i++) {
       body.addAll({'id[$i]': ids[i]});
-      body.addAll({'isBuy[$i]': isBuy[i] ? 'true' : 'false'});
+      body.addAll({'isBuy[]': isBuy[i] ? 'true' : 'false'});
       // body.addAll({'isBuy[]': isBuy[i] ? 'true' : 'true' });
     }
 
@@ -35,7 +35,7 @@ class TransactionEbookService {
     required bool usePoinUser,
     bool isVoucher = false,
     String voucherCode = "",
-    required bool isBuy,
+     required bool isBuy,
 
     required List<DataEbookCheckoutMolde> dataEbookCheckout,
   }) async {

@@ -24,7 +24,8 @@ class EbookDetailController extends GetxController {
 
   late bool bottomSheetOrderIsBuy;
   var voucherCode = "".obs;
-    RxBool isBuy = false.obs;
+  late bool isBuy = false;
+  // RxBool isBuy = RxBool(false);
 
   RxBool isInWishlist = false.obs;
 
@@ -59,7 +60,7 @@ class EbookDetailController extends GetxController {
 
   Future<void> onTapBuyNow() async {
     Get.back();
-        isBuy.value = true;
+        isBuy = true;
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
             tag: 'direck',
@@ -73,7 +74,7 @@ class EbookDetailController extends GetxController {
 
     Future<void> onTapSewaNow() async {
     Get.back();
-      isBuy.value = false;
+      isBuy = false;
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
             tag: 'direck',

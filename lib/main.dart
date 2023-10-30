@@ -12,11 +12,10 @@ import 'presentation/profile/controllers/profile.controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterDownloader.initialize();
-
   await GetStorage.init();
+
   var initialRoute = await Routes.initialRoute;
   runApp(Main(initialRoute));
-    Get.put(ProfileController());
 
 }
 
@@ -30,6 +29,7 @@ class Main extends StatelessWidget {
       theme: themeData(),
       initialRoute: initialRoute,
       getPages: Nav.routes,
+      
     );
   }
 }

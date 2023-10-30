@@ -21,7 +21,7 @@ class MainScreen extends GetView<MainController> {
       },
       child: Obx(
         () => DefaultTabController(
-          length: 4,
+          length: 2,
           child: Scaffold(
              key: controller.scaffoldKey,
             appBar: _appBar(),

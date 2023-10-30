@@ -25,7 +25,7 @@ class RakbukusewaScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return _buildRakBukuList(rakBukuController.rakBukuBeli);
+            return _buildRakBukuList(rakBukuController.rakBukuSewa);
           }
         },
       ),
