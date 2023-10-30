@@ -35,6 +35,13 @@ class HomeEbookView extends GetView {
           future: controller.ebookTerlarisLabelItemsMaster(),
           data: controller.ebookLarisLabelItemsMasterModel,
         ),
+         SizedBox(
+          height: 10,
+        ),
+        _labelEbookMaster(
+          future: controller.sewaSallerLabelItemsMaster(),
+          data: controller.sewaSallerLabelItemsMasterModel,
+        ),
       ],
     );
   }

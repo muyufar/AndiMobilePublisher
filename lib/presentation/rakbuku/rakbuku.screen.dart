@@ -51,11 +51,11 @@ class RakbukuScreen extends StatelessWidget {
             isScrollable: true,
             tabs: [
               Tab(
-                text: 'Rak Buku Beli',
+                text: 'Buku Beli',
               ),
-              // Tab(
-              //   text: 'Buku Sewa',
-              // ),
+              Tab(
+                text: 'Buku Sewa',
+              ),
             ],
           ),
         ),
@@ -65,7 +65,7 @@ class RakbukuScreen extends StatelessWidget {
               : TabBarView(
                   children: [
                     RakBukuBeliScreen(),
-                    // RakbukusewaScreen(),
+                    RakbukusewaScreen(),
                   ],
                 ),
         ),

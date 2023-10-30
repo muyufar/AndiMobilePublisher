@@ -19,39 +19,6 @@ class EbookContentView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //   future: controller.fetchDetailItem(),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.hasData) {
-    //       var data = snapshot.data;
-
-    //       print("DATA_SUCCESS: $data");
-
-    //       return Obx(() => Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               _imagesItem(),
-    //               Padding(
-    //                 padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-    //                 child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   children: [
-    //                     // _priceAndPromo(),
-    //                     _infoItem(),
-    //                   ],
-    //                 ),
-    //               ),
-    //             ],
-    //           ));
-    //     } else {
-    //       // print("data: ${snapshot.data!.judul}");
-    //       return Center(
-    //         child: CircularProgressIndicator(),
-    //       );
-    //     }
-    //     ;
-    //   },
-    // );
     return FutureView(
       future: controller.fetchDetailItem(),
       widgetBuilder: Obx(

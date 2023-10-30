@@ -2,6 +2,7 @@ import 'dart:core';
 
 class EbookMasterDetailModel {
   final String idBarang;
+  final int jenisTransaksi; 
   final String slugBarang;
   final String judul;
   final String deskripsi;
@@ -18,6 +19,7 @@ class EbookMasterDetailModel {
 
   EbookMasterDetailModel({
     required this.idBarang,
+    required this.jenisTransaksi,
     required this.slugBarang,
     required this.judul,
     required this.deskripsi,
@@ -36,6 +38,7 @@ class EbookMasterDetailModel {
   factory EbookMasterDetailModel.fromJson(Map<String, dynamic> json) =>
       EbookMasterDetailModel(
         idBarang: json['id_barang'],
+        jenisTransaksi: json['jenis_transaksi'],
         slugBarang: json['slug_barang'],
         judul: json['judul'],
         deskripsi: json['deskripsi'],

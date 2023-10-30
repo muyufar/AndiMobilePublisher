@@ -32,6 +32,7 @@ dependencies:
   pspdfkit_flutter: ^3.7.0
   dio: ^5.3.3
   flutter_spinkit: ^5.2.0
+  flutter_downloader: ^1.11.4
 
 
 dev_dependencies: 

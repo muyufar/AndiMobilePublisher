@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class DataEbookCheckoutModel {
   final User user;
   VoucherEbook? voucher;
@@ -51,17 +53,21 @@ class DataEbookCheckoutMolde {
 
 class Product {
   final String idProduct;
+  final bool isBuy;
 
   Product({
     required this.idProduct,
+    required this.isBuy,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         idProduct: json['idProduct'],
+        isBuy: json['isBuy'],
       );
 
   Map<String, dynamic> toJson() => {
         'idProduct': idProduct,
+        'isBuy': isBuy,
       };
 }
 

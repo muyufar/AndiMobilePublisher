@@ -37,6 +37,10 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/warning-red.json
   String get warningRed => 'assets/lottie/warning-red.json';
 
+  String get animdownload => 'assets/lottie/animdownload.json';
+  String get ebookdownload => 'assets/lottie/ebookdownloadnew.json';
+  // String get downloadebook => 'assets/lottie/ebookdownloadas.json';
+
   /// List of all assets
   List<String> get values =>
       [correctTealColour, emptyStatePage, login, warningRed];

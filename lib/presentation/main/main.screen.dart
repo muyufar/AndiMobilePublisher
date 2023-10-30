@@ -168,12 +168,12 @@ class MainScreen extends GetView<MainController> {
               // Tab(text: 'Produk Digital'),
             ],
           ),
-          actions: [
-            (controller.utilsController.isLogin.value)
-                ?
-                 BadgeCartView():
-                  const SizedBox(),
-          ],
+          // actions: [
+          //   (controller.utilsController.isLogin.value)
+          //       ?
+          //        BadgeCartView():
+          //         const SizedBox(),
+          // ],
         );
       default:
         return null;

@@ -22,6 +22,7 @@ class TransactionEbookService {
     for (int i = 0; i < ids.length; i++) {
       body.addAll({'id[$i]': ids[i]});
       body.addAll({'isBuy[$i]': isBuy[i] ? 'true' : 'false'});
+      // body.addAll({'isBuy[]': isBuy[i] ? 'true' : 'true' });
     }
 
     final result = await MainService()
@@ -34,13 +35,7 @@ class TransactionEbookService {
     required bool usePoinUser,
     bool isVoucher = false,
     String voucherCode = "",
-    //bool? isVoucher,
-    // String? name,
-    // String? code,
-    //int? minimalTransaction,
-    // Discounte? beli,
-    //Discounte? sewa,
-    //String? end,
+    required bool isBuy,
 
     required List<DataEbookCheckoutMolde> dataEbookCheckout,
   }) async {
@@ -48,20 +43,11 @@ class TransactionEbookService {
       user: User(
         idUser: MainService().utilsController.userModel.idUser,
         usePoinUser: usePoinUser,
+  
       ),
       kodeVoucher: voucherCode,
-      // voucher: VoucherEbook(
-      //   isVoucher: isVoucher,
-      // voucherCode: voucherCode,
-
-      //name: name,
-      // code: code,
-      //minimalTransaction: minimalTransaction,
-      //beli: beli,
-      // sewa: sewa,
-      //end: end,
-      // ),
       dataEbookCheckout: dataEbookCheckout,
+      
     );
 
     final result = await MainService()

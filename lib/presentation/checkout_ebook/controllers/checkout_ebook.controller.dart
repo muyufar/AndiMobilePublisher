@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/payment_ebook_model.dart';
@@ -16,7 +18,7 @@ class CheckoutEbookController extends GetxController {
   RxInt diskonTotalProduct = 0.obs;
   RxList<int> totalDiscount = <int>[].obs;
   RxList<int> priceSubTotalItmes = <int>[].obs;
-
+  RxBool isBuy = RxBool(true);
   var voucher = 0.obs;
   var totalHarga = 0.obs;
 
@@ -85,9 +87,10 @@ class CheckoutEbookController extends GetxController {
 
     List<DataEbookCheckoutMolde> dataEbookCheckout = [];
     List<Product> products = [];
+     
 
     for (var product in checkoutEbookModel.dataEbookCheckout[0].items) {
-      Product valueProduct = Product(idProduct: product.idBarang);
+      Product valueProduct = Product(idProduct: product.idBarang, isBuy: isBuy.value);
       products.add(valueProduct);
     }
 
@@ -101,6 +104,7 @@ class CheckoutEbookController extends GetxController {
       dataEbookCheckout: dataEbookCheckout,
       // isVoucher: true,
       voucherCode: textVoucher.text,
+      isBuy: isBuy.value,
       // product: ,
     );
     if (result.status) {

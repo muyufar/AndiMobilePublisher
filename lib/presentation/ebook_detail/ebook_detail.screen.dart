@@ -40,7 +40,25 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: Get.width / 1.1,
+                    width: Get.width / 2.5,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (!controller.utilsController.isLogin.value) {
+                          // Jika pengguna belum login, arahkan ke layar login
+                          Get.toNamed(Routes.LOGIN);
+                        } else {
+                          // Jika pengguna sudah login dan ebook siap, lakukan tindakan pembelian
+                          if (isEbookReady) {
+                            controller.onTapSewaNow();
+                          }
+                        }
+                      },
+                      child: const Text('Sewa'),
+                      
+                    ),
+                  ),
+                   SizedBox(
+                    width: Get.width / 2.5,
                     child: ElevatedButton(
                       onPressed: () {
                         if (!controller.utilsController.isLogin.value) {
@@ -53,7 +71,8 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
                           }
                         }
                       },
-                      child: const Text('Beli Sekarang'),
+                      child: const Text('Beli'),
+                      
                     ),
                   ),
                 ],

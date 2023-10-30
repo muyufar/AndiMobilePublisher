@@ -27,7 +27,7 @@ class RakBukuController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    await getRakbuku(1); // Mengambil rak buku dengan tag 1
+    // await getRakbuku(1); // Mengambil rak buku dengan tag 1
     isLoading.value = false;
   }
 
@@ -40,10 +40,10 @@ class RakBukuController extends GetxController {
     try {
       isLoading.value = true;
       final rakBukuServiceResult = await RakBukuService.getRakbuku(tag, idUser);
-      if (tag == 0) {
+      if (tag == 1) {
         rakBukuBeli.assignAll(rakBukuServiceResult as Iterable<RakBukuModel>);
         originalRakBukuBeli = rakBukuServiceResult.toList(); // Simpan daftar asli
-      } else if (tag == 1) {
+      } else if (tag == 2) {
         rakBukuSewa.assignAll(rakBukuServiceResult as Iterable<RakBukuModel>);
         originalRakBukuSewa = rakBukuServiceResult.toList(); // Simpan daftar asli
       }

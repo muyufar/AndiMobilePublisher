@@ -16,15 +16,20 @@ class HomeController extends GetxController {
 
   Rxn<LabelItemsMasterModel> newLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
+
   Rxn<LabelItemsMasterModel> bestSallerLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
-  Rxn<LabelItemsMasterModel> sewaSallerLabelItemsMasterModel =
-      Rxn<LabelItemsMasterModel>();
+
   Rxn<LabelItemsMasterModel> beliSallerLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
+
   Rxn<LabelEbookMasterModel> ebookNewLabelItemsMasterModel =
       Rxn<LabelEbookMasterModel>();
+
   Rxn<LabelEbookMasterModel> ebookLarisLabelItemsMasterModel =
+      Rxn<LabelEbookMasterModel>();
+
+  Rxn<LabelEbookMasterModel> sewaSallerLabelItemsMasterModel =
       Rxn<LabelEbookMasterModel>();
 
   RxInt currentBanner = 0.obs;
@@ -76,12 +81,6 @@ class HomeController extends GetxController {
     return bestSallerLabelItemsMasterModel.value!;
   }
 
-  Future<LabelItemsMasterModel> sewaSallerLabelItemsMaster() async {
-    sewaSallerLabelItemsMasterModel.value =
-        await ItemsService.getItemsMaster(link: 'sewa');
-    return sewaSallerLabelItemsMasterModel.value!;
-  }
-
   Future<LabelItemsMasterModel> beliSallerLabelItemsMaster() async {
     beliSallerLabelItemsMasterModel.value =
         await ItemsService.getItemsMaster(link: 'beli');
@@ -100,7 +99,7 @@ class HomeController extends GetxController {
   }
 
   Future<LabelEbookMasterModel> ebookTerlarisLabelItemsMaster() async {
-    Map<String, dynamic> body = {"tag": "terlaris"};
+    Map<String, dynamic> body = {"tag": "terlaris", "sortBy": "terlaris"};
 
     ebookLarisLabelItemsMasterModel.value =
         await EbookService.getEbookItemsMaster(
@@ -109,4 +108,17 @@ class HomeController extends GetxController {
     );
     return ebookLarisLabelItemsMasterModel.value!;
   }
+
+  Future<LabelEbookMasterModel> sewaSallerLabelItemsMaster() async {
+    Map<String, dynamic> body = {"tag": "sewa"};
+
+    sewaSallerLabelItemsMasterModel.value =
+        await EbookService.getEbookItemsMaster(
+      link: 'list',
+      body: body,
+    );
+    return sewaSallerLabelItemsMasterModel.value!;
+  }
+
+
 }
