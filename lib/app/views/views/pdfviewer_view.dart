@@ -21,7 +21,6 @@ class _PDFViewerViewState extends State<PDFViewerView> {
   void initState() {
     super.initState();
     pdfFile = File(widget.pdfFilePath);
-    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
 
   @override

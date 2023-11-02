@@ -1,3 +1,4 @@
+
 class PaymentEbookModel {
   //  final String? idtransaksiNew;
   final String idTransaksiLama;
@@ -15,6 +16,7 @@ class PaymentEbookModel {
   String token;
   String url;
    bool? voucherCode;
+   bool? isBuy;
 
   PaymentEbookModel({
     //  this.idtransaksiNew,
@@ -33,6 +35,7 @@ class PaymentEbookModel {
     this.token = "",
     this.url = "",
      this.voucherCode,
+     this.isBuy,
 
   });
 
@@ -55,7 +58,8 @@ class PaymentEbookModel {
         url: json["url"] ?? "",
         voucherCode:
             json["voucher"] != null && json["voucher"]["isVoucher"] == true,
-        
+        isBuy: json["isBuy"] ?? true, // Ganti dengan nama yang sesuai dari JSON
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -74,5 +78,7 @@ class PaymentEbookModel {
         "id": id,
         "token": token,
         "url": url,
+        "isBuy": isBuy,
+
       };
 }

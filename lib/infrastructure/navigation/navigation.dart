@@ -113,7 +113,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.CHECKOUT_EBOOK,
-      page: () => const CheckoutEbookScreen(),
+      page: () =>  CheckoutEbookScreen(),
       binding: CheckoutEbookControllerBinding(),
     ),
     GetPage(
@@ -143,7 +143,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.EBOOK_KATEGORI,
-      page: () => const EbookKategoriScreen(),
+      page: () =>  EbookKategoriScreen(),
       binding: EbookKategoriControllerBinding(),
     ),
     GetPage(

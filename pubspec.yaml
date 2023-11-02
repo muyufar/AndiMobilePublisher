@@ -29,10 +29,10 @@ dependencies:
   shared_preferences: ^2.2.1
   flutter_windowmanager: ^0.2.0
   animated_button: ^0.2.0
-  pspdfkit_flutter: ^3.7.0
   dio: ^5.3.3
   flutter_spinkit: ^5.2.0
   flutter_downloader: ^1.11.4
+  staggered_grid_view_flutter: ^0.0.4
 
 
 dev_dependencies: 

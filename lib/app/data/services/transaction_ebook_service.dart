@@ -21,9 +21,11 @@ class TransactionEbookService {
     };
     for (int i = 0; i < ids.length; i++) {
       body.addAll({'id[$i]': ids[i]});
-      body.addAll({'isBuy[]': isBuy[i] ? 'true' : 'false'});
-      // body.addAll({'isBuy[]': isBuy[i] ? 'true' : 'true' });
+      body.addAll({'isBuy[$i]': isBuy[i] ? 'true' : 'false'});
+
     }
+
+    print("DATA: ${body.toString()}");
 
     final result = await MainService()
         .postAPI(url: 'transaction/checkout/ebook', body: body);
@@ -50,6 +52,8 @@ class TransactionEbookService {
       
     );
 
+    print("DATA: $isBuy");
+    
     final result = await MainService()
         .postAPIBodyRaw(url: 'transaction/ebook', body: body.toJson());
 

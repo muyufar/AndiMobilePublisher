@@ -1,8 +1,10 @@
 import 'package:andipublisher/app/data/models/banner_model.dart';
+import 'package:andipublisher/app/data/models/ebook_campaign.dart';
 import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/label_items_master_model.dart';
 import 'package:andipublisher/app/data/services/banner_ebook_service.dart';
 import 'package:andipublisher/app/data/services/banner_service.dart';
+import 'package:andipublisher/app/data/services/ebook_campaign_service.dart';
 import 'package:andipublisher/app/data/services/items_service.dart';
 import 'package:andipublisher/app/data/services/ebook_services.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ class HomeController extends GetxController {
 
   RxList<BannerModel> bannerModel = RxList<BannerModel>();
   RxList<BannerModel> bannerModelebook = RxList<BannerModel>();
+  RxList<EbookCampaign> campaigns = RxList<EbookCampaign>();
 
   Rxn<LabelItemsMasterModel> newLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
@@ -57,6 +60,7 @@ class HomeController extends GetxController {
     await sewaSallerLabelItemsMaster();
     await beliSallerLabelItemsMaster();
     await ebookNewLabelItemsMaster();
+    await loadCampaigns();
   }
 
   Future<List<BannerModel>> fetchBannerEbook() async {
@@ -68,7 +72,6 @@ class HomeController extends GetxController {
     bannerModel.value = await BannerService.getBanner();
     return bannerModel;
   }
-
   Future<LabelItemsMasterModel> newLabelItemsMaster() async {
     newLabelItemsMasterModel.value =
         await ItemsService.getItemsMaster(link: 'new');
@@ -118,6 +121,15 @@ class HomeController extends GetxController {
       body: body,
     );
     return sewaSallerLabelItemsMasterModel.value!;
+  }
+
+  Future<void> loadCampaigns() async {
+    try {
+      final campaignList = await EbbokCampaignService.getCampaigns();
+      campaigns.assignAll(campaignList);
+    } catch (e) {
+      print('Error loading campaigns: $e');
+    }
   }
 
 

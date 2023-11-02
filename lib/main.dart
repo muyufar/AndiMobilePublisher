@@ -1,4 +1,5 @@
 import 'package:andipublisher/infrastructure/theme/theme_data.dart';
+import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail.controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -16,7 +17,9 @@ void main() async {
 
   var initialRoute = await Routes.initialRoute;
   runApp(Main(initialRoute));
+    Get.put(EbookDetailController());
 
+    Get.put(ProfileController());
 }
 
 class Main extends StatelessWidget {
@@ -32,4 +35,5 @@ class Main extends StatelessWidget {
       
     );
   }
+  
 }

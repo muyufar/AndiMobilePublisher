@@ -12,17 +12,24 @@ import 'package:get/get.dart';
 import 'package:andipublisher/presentation/payment_ebook/controllers/payment_ebook.controller.dart';
 
 class CheckoutEbookController extends GetxController {
+    final EbookDetailController ebookDetailController = Get.find();
+
   final TextEditingController textVoucher = TextEditingController();
-  final EbookDetailController isBuyValue =EbookDetailController();
+  // final EbookDetailController isBuyValue =EbookDetailController();
 
   CheckoutEbookModel checkoutEbookModel = Get.arguments;
+  
+
+
   RxInt hargaTotalProduct = 0.obs;
   RxInt diskonTotalProduct = 0.obs;
   RxList<int> totalDiscount = <int>[].obs;
   RxList<int> priceSubTotalItmes = <int>[].obs;
-  // RxBool isBuy = RxBool(EbookDetailController);
+  // RxBool isBuy = RxBool(EbookDetailController as bool);
   var voucher = 0.obs;
   var totalHarga = 0.obs;
+  // RxBool isBuy = false.obs;
+    // var isBuy = false.obs;
 
   //TODO: Implement CheckoutEbookController
 
@@ -32,6 +39,7 @@ class CheckoutEbookController extends GetxController {
     setPriceTotalItmes();
     calculateTotalDiscount();
     super.onInit();
+    Get.lazyPut(()=>EbookDetailController());
   }
 
   @override
@@ -40,6 +48,7 @@ class CheckoutEbookController extends GetxController {
         priceSubTotalItmes.reduce((value, element) => value + element);
     diskonTotalProduct.value =
         totalDiscount.reduce((value, element) => value + element);
+       Get.put(EbookDetailController());
     super.onReady();
   }
 
@@ -89,10 +98,9 @@ class CheckoutEbookController extends GetxController {
 
     List<DataEbookCheckoutMolde> dataEbookCheckout = [];
     List<Product> products = [];
-     
 
     for (var product in checkoutEbookModel.dataEbookCheckout[0].items) {
-      Product valueProduct = Product(idProduct: product.idBarang, isBuy: isBuyValue.isBuy);
+      Product valueProduct = Product(idProduct: product.idBarang, isBuy: ebookDetailController.isBuy.value);
       products.add(valueProduct);
     }
 
@@ -101,12 +109,14 @@ class CheckoutEbookController extends GetxController {
 
     dataEbookCheckout.add(valueDataEbookCheckoutMolde);
 
+    // print("DATA_BUY: ${isBuy}");
+
     PaymentEbookModel result = await TransactionEbookService.postPayment(
       usePoinUser: false,
       dataEbookCheckout: dataEbookCheckout,
       // isVoucher: true,
       voucherCode: textVoucher.text,
-      isBuy: isBuyValue.isBuy,
+     isBuy: ebookDetailController.isBuy.value,
       // product: ,
     );
     if (result.status) {

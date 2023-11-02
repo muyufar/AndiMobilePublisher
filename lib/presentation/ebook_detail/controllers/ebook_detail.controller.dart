@@ -24,13 +24,13 @@ class EbookDetailController extends GetxController {
 
   late bool bottomSheetOrderIsBuy;
   var voucherCode = "".obs;
-  late bool isBuy = false;
+  var isBuy = false.obs;
   // RxBool isBuy = RxBool(false);
 
   RxBool isInWishlist = false.obs;
 
   @override
-   void onInit() {
+  void onInit() {
     super.onInit();
     checkWishlistStatus();
     ever(ebookMasterDetailModel, (_) {
@@ -41,7 +41,6 @@ class EbookDetailController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    
   }
 
   @override
@@ -60,32 +59,30 @@ class EbookDetailController extends GetxController {
 
   Future<void> onTapBuyNow() async {
     Get.back();
-        isBuy = true;
+    isBuy.value = true ;
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
-            tag: 'direck',
-            ids: [ebookMasterDetailModel.value!.idBarang],
-            voucherCode: voucherCode.value, isBuy: [true]);
-            
+      tag: 'direck',
+      ids: [ebookMasterDetailModel.value!.idBarang],
+      voucherCode: voucherCode.value,
+      isBuy: [true],
+    );
 
     Get.toNamed(Routes.CHECKOUT_EBOOK, arguments: checkoutEbookModel);
-
   }
 
-    Future<void> onTapSewaNow() async {
+  Future<void> onTapSewaNow() async {
     Get.back();
-      isBuy = false;
+    isBuy.value = false ;
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
             tag: 'direck',
             ids: [ebookMasterDetailModel.value!.idBarang],
-            voucherCode: voucherCode.value, isBuy: [false]);
-            
+            voucherCode: voucherCode.value,
+            isBuy: [false]);
 
     Get.toNamed(Routes.CHECKOUT_EBOOK, arguments: checkoutEbookModel);
-  
   }
-
 
   Future<void> onTapAddCart() async {
     bool status = await EbookCartService.postAddCart(
@@ -122,51 +119,55 @@ class EbookDetailController extends GetxController {
     priceTotalOrder.value = (ebookMasterDetailModel.value!.harga.total);
   }
 
-Future<void> addToWishlist() async {
-  final idUser = utilsController.userModel.idUser;
-  final idEbook = ebookMasterDetailModel.value!.idBarang;
+  Future<void> addToWishlist() async {
+    final idUser = utilsController.userModel.idUser;
+    final idEbook = ebookMasterDetailModel.value!.idBarang;
 
-  // Check if the item is already in the wishlist
-  if (isInWishlist.value) {
-    final response = await EbookWishlistService.removeWishlist(
-      idUser: idUser,
-      idEbook: idEbook,
-    );
+    // Check if the item is already in the wishlist
+    if (isInWishlist.value) {
+      final response = await EbookWishlistService.removeWishlist(
+        idUser: idUser,
+        idEbook: idEbook,
+      );
 
-    handleWishlistResponse(response, successMessage: 'Berhasil dihapus dari wishlist');
-  } else {
-    final response = await EbookWishlistService.addWishlist(
-      idUser: idUser,
-      idEbook: idEbook,
-    );
+      handleWishlistResponse(response,
+          successMessage: 'Berhasil dihapus dari wishlist');
+    } else {
+      final response = await EbookWishlistService.addWishlist(
+        idUser: idUser,
+        idEbook: idEbook,
+      );
 
-    handleWishlistResponse(response, successMessage: 'Berhasil ditambahkan ke wishlist');
+      handleWishlistResponse(response,
+          successMessage: 'Berhasil ditambahkan ke wishlist');
+    }
   }
-}
 
-Future<void> removeFromWishlist() async {
-  final idUser = utilsController.userModel.idUser;
-  final idEbook = ebookMasterDetailModel.value!.idBarang;
+  Future<void> removeFromWishlist() async {
+    final idUser = utilsController.userModel.idUser;
+    final idEbook = ebookMasterDetailModel.value!.idBarang;
 
-  // Check if the item is already in the wishlist
-  if (isInWishlist.value) {
-    final response = await EbookWishlistService.removeWishlist(
-      idUser: idUser,
-      idEbook: idEbook,
-    );
+    // Check if the item is already in the wishlist
+    if (isInWishlist.value) {
+      final response = await EbookWishlistService.removeWishlist(
+        idUser: idUser,
+        idEbook: idEbook,
+      );
 
-    handleWishlistResponse(response, successMessage: 'Berhasil dihapus dari wishlist');
-  } else {
-    final response = await EbookWishlistService.addWishlist(
-      idUser: idUser,
-      idEbook: idEbook,
-    );
+      handleWishlistResponse(response,
+          successMessage: 'Berhasil dihapus dari wishlist');
+    } else {
+      final response = await EbookWishlistService.addWishlist(
+        idUser: idUser,
+        idEbook: idEbook,
+      );
 
-    handleWishlistResponse(response, successMessage: 'Berhasil ditambahkan ke wishlist');
+      handleWishlistResponse(response,
+          successMessage: 'Berhasil ditambahkan ke wishlist');
+    }
   }
-}
 
-Future<void> checkWishlistStatus() async {
+  Future<void> checkWishlistStatus() async {
     final idUser = utilsController.userModel.idUser;
     final idEbook = ebookMasterDetailModel.value?.idBarang;
 
@@ -184,23 +185,19 @@ Future<void> checkWishlistStatus() async {
     }
   }
 
-void handleWishlistResponse(dynamic response, {required String successMessage}) {
-  if (response is bool) {
-    if (response) {
-      // Wishlist status was changed successfully
-      isInWishlist.value = !isInWishlist.value; // Toggle wishlist status
+  void handleWishlistResponse(dynamic response,
+      {required String successMessage}) {
+    if (response is bool) {
+      if (response) {
+        // Wishlist status was changed successfully
+        isInWishlist.value = !isInWishlist.value; // Toggle wishlist status
+      } else {
+        // Handle the case where the API request failed
+        Get.snackbar('Error', 'Terjadi kesalahan');
+      }
     } else {
-      // Handle the case where the API request failed
-      Get.snackbar('Error', 'Terjadi kesalahan');
+      // Handle the case where the API response doesn't have the expected structure
+      Get.snackbar('Error', 'Terjadi kesalahan pada respons API');
     }
-  } else {
-    // Handle the case where the API response doesn't have the expected structure
-    Get.snackbar('Error', 'Terjadi kesalahan pada respons API');
   }
-}
-
-
-
-
-
 }

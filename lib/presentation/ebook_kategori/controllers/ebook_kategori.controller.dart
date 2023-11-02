@@ -1,73 +1,71 @@
-  import 'package:andipublisher/app/data/models/ebook_category_model.dart';
-  import 'package:andipublisher/app/data/services/ebook_category_service.dart';
-  import 'package:get/get.dart';
+import 'package:andipublisher/app/data/models/ebook_category_model.dart';
+import 'package:andipublisher/app/data/services/ebook_category_service.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
-  class EbookKategoriController extends GetxController {
-    final isLoading = true.obs;
-    final categories = <EbookCategoryModel>[].obs;
-    final currentPage = 1.obs;
-    bool hasMore = true;
+class EbookKategoriController extends GetxController {
+  final isLoading = true.obs;
+  final categories = <EbookCategoryModel>[].obs;
+  final currentPage = 1.obs;
+  bool hasMore = true;
 
-    // Properti tambahan untuk child category
-    final childCategories = <EbookCategoryModel>[].obs;
-    final currentCategoryId = ''.obs; // ID kategori saat ini
+  final childCategories = <EbookCategoryModel>[].obs;
+  final currentCategoryId = ''.obs;
+  final refreshKey = GlobalKey<RefreshIndicatorState>();
 
-    @override
-    void onInit() {
-      super.onInit();
-      _fetchCategories();
-    }
+  @override
+  void onInit() {
+    super.onInit();
+    _fetchCategories();
+  }
 
-    Future<void> _fetchCategories() async {
-      if (!hasMore) return;
+  Future<void > _fetchCategories() async {
+    if (!hasMore) return;
 
-      try {
-        isLoading.value = true;
-
-        if (currentCategoryId.isEmpty) {
-          // Jika ID kategori saat ini kosong, ambil kategori utama
-          final List<EbookCategoryModel> result = await EbookCategoryService.getListCategories(
-            limit: 100,
-            offset: (currentPage.value - 1) * 100,
-          );
-
-          if (result.isNotEmpty) {
-            categories.addAll(result);
-            currentPage.value++;
-          } else {
-            hasMore = false;
-          }
-        } else {
-          // Jika ID kategori saat ini tidak kosong, ambil child category
-          final List<EbookCategoryModel> result = await EbookCategoryService.getListChildCategories(
-            limit: 100,
-            offset: (currentPage.value - 1) * 100,
-            idParent: currentCategoryId.value,
-          );
-
-          if (result.isNotEmpty) {
-            childCategories.assignAll(result);
-          }
-        }
-      } finally {
-        isLoading.value = false;
-      }
-    }
-
-    // Fungsi untuk memuat child categories berdasarkan ID kategori parent
-      Future<void> loadChildCategories(String categoryId) async {
     try {
-      // Bersihkan daftar child categories saat ini
-      childCategories.clear();
-      
-      // Set isExpanded untuk parent kategori yang sedang terbuka
+      isLoading.value = true;
+
+      if (currentCategoryId.isEmpty) {
+        final List<EbookCategoryModel> result = await EbookCategoryService.getListCategories(
+          limit: 100,
+          offset: (currentPage.value - 1) * 100,
+        );
+
+        if (result.isNotEmpty) {
+          categories.addAll(result);
+          currentPage.value++;
+        } else {
+          hasMore = false;
+        }
+      } else {
+        final List<EbookCategoryModel> result = await EbookCategoryService.getListChildCategories(
+          limit: 100,
+          offset: (currentPage.value - 1) * 100,
+          idParent: currentCategoryId.value,
+        );
+
+        if (result.isNotEmpty) {
+          childCategories.assignAll(result);
+        }
+      }
+    } catch (e) {
+      // Tambahkan penanganan kesalahan di sini jika diperlukan
+      print('Error: $e');
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void > loadChildCategories(String categoryId) async {
+    try {
       for (final category in categories) {
         category.isExpanded = category.idKategori == categoryId;
       }
 
+      childCategories.clear();
       currentCategoryId.value = categoryId;
 
-      // Muat child categories berdasarkan ID kategori parent
       final List<EbookCategoryModel> result = await EbookCategoryService.getListChildCategories(
         limit: 100,
         offset: 0,
@@ -77,13 +75,31 @@
       if (result.isNotEmpty) {
         childCategories.assignAll(result);
       }
+    } catch (e) {
+      print('Error: $e');
     } finally {
       isLoading.value = false;
     }
   }
 
-    void clearChildCategories() {
+  Future<void >  onRefresh() async {
+    try {
+      currentPage.value = 1;
+      hasMore = true;
+      categories.clear();
+      childCategories.clear();
+      currentCategoryId.value = '';
+
+      await _fetchCategories();
+    } catch (e) {
+      print('Error: $e');
+    } finally {
+      refreshKey.currentState?.show(atTop: false);
+    }
+  }
+
+  void clearChildCategories() {
     childCategories.clear();
     currentCategoryId.value = '';
   }
-  }
+}

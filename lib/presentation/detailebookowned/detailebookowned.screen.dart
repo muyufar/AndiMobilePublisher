@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:pspdfkit_flutter/pspdfkit.dart';
+// import 'package:pspdfkit_flutter/pspdfkit.dart';
 
 class DetailebookownedScreen extends StatefulWidget {
   final RakBukuModel data;
@@ -40,7 +40,7 @@ class _DetailebookownedScreenState extends State<DetailebookownedScreen> {
 
     if (file.existsSync()) {
       // Jika file sudah ada, buka file PDF.
-      openPDF(file.path);
+      // openPDF(file.path);
     } else {
       // Jika file belum ada, download terlebih dahulu.
       await downloadPDF();
@@ -61,17 +61,17 @@ class _DetailebookownedScreenState extends State<DetailebookownedScreen> {
     }
   }
 
-  Future openPDF(String filePath) async {
-    try {
-      await Pspdfkit.present(filePath);
-      print("PDF: $filePath");
-      setState(() {
-        isRead = true;
-      });
-    } catch (e) {
-      print("PDF_ERROR: $e");
-    }
-  }
+  // Future openPDF(String filePath) async {
+  //   try {
+  //     await Pspdfkit.present(filePath);
+  //     print("PDF: $filePath");
+  //     setState(() {
+  //       isRead = true;
+  //     });
+  //   } catch (e) {
+  //     print("PDF_ERROR: $e");
+  //   }
+  // }
 
   Future download(Dio dio, String url, String savePath) async {
     try {
@@ -95,7 +95,7 @@ class _DetailebookownedScreenState extends State<DetailebookownedScreen> {
         didDownloadPDF = true;
       });
 
-      openPDF(file.path); // Buka PDF setelah selesai mengunduh.
+      // openPDF(file.path); // Buka PDF setelah selesai mengunduh.
     } catch (e) {
       setState(() {
         progressString = 'Failed to download the file';
@@ -154,7 +154,7 @@ class _DetailebookownedScreenState extends State<DetailebookownedScreen> {
                         var localPath = getLocalPath(); // Dapatkan lokasi penyimpanan lokal Anda.
                         var filePath = p.join(localPath as String, fileName);
 
-                        openPDF(filePath);
+                        // openPDF(filePath);
                       },
                 child: Text('Baca Buku'),
               ),

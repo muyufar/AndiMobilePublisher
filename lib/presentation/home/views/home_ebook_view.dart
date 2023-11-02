@@ -1,3 +1,5 @@
+import 'package:andipublisher/app/data/models/ebook_campaign.dart';
+import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
 import 'package:andipublisher/app/views/views/card_ebook_view.dart';
 import 'package:andipublisher/app/views/views/future_view.dart';
@@ -35,13 +37,20 @@ class HomeEbookView extends GetView {
           future: controller.ebookTerlarisLabelItemsMaster(),
           data: controller.ebookLarisLabelItemsMasterModel,
         ),
-         SizedBox(
+        SizedBox(
           height: 10,
         ),
         _labelEbookMaster(
           future: controller.sewaSallerLabelItemsMaster(),
           data: controller.sewaSallerLabelItemsMasterModel,
         ),
+        SizedBox(
+          height: 10,
+        ),
+        // _campaignList(context),
+        // SizedBox(
+        //   height: 10,
+        // ),
       ],
     );
   }
@@ -219,3 +228,9 @@ class HomeEbookView extends GetView {
     );
   }
 }
+
+
+// Widget _campaignList(BuildContext context){
+//   return FutureView(
+//     future: controller,)
+// }

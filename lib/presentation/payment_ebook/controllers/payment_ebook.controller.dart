@@ -8,6 +8,7 @@ class PaymentEbookController extends GetxController {
 
   late PaymentEbookModel paymentEbookModel;
     var voucherCode = "".obs;
+        
 
   @override
   void onInit() {

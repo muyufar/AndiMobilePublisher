@@ -26,7 +26,7 @@ class DataEbookCheckoutModel {
   Map<String, dynamic> toJson() => {
         'user': user.toJson(),
         // 'voucher': voucher.toJson(),
-        'voucherCode' : kodeVoucher,
+        'voucherCode': kodeVoucher,
         'dataCheckout':
             List<dynamic>.from(dataEbookCheckout!.map((x) => x.toJson())),
       };
@@ -53,11 +53,11 @@ class DataEbookCheckoutMolde {
 
 class Product {
   final String idProduct;
-   bool? isBuy;
+  final bool isBuy;
 
   Product({
     required this.idProduct,
-     this.isBuy,
+    required this.isBuy,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -103,8 +103,7 @@ class VoucherEbook {
   factory VoucherEbook.fromJson(Map<String, dynamic> json) => VoucherEbook(
         isVoucher: json['isVoucher'],
         // voucherCode: json['voucherCode'],
-            // json["voucher"] != null && json["voucher"]["isVoucher"] == true,
-
+        // json["voucher"] != null && json["voucher"]["isVoucher"] == true,
       );
 
   Map<String, dynamic> toJson() => {

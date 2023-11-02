@@ -44,6 +44,7 @@ class EbookTransactionDetailController extends GetxController {
         iduser: '',
         // voucherCode: ,
         subTotal: 0,
+   
         discTotal: 0,
         grandTotal: 0,
         status: true,

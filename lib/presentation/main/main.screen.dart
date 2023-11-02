@@ -159,6 +159,7 @@ class MainScreen extends GetView<MainController> {
           ),
           bottom: TabBar(
             isScrollable: true,
+            
             labelColor: Colors.white,
             unselectedLabelColor: colorTextGrey,
             tabs: const [

@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:dio/dio.dart';
-import 'package:pspdfkit_flutter/pspdfkit.dart';
+// import 'package:pspdfkit_flutter/pspdfkit.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
@@ -81,12 +82,16 @@ Future<bool> _downloadEbook(String ebookUrl, String idEbook) async {
 
 
 
-  Future<String> _getLocalPDFPath(String idEbook) async {
-    final tempDir = await Pspdfkit.getTemporaryDirectory();
-    final fileName = '$idEbook.pdf';
-    return '${tempDir.path}/$fileName';
-  }
-
+  // Future<String> _getLocalPDFPath(String idEbook) async {
+  //   final tempDir = await Pspdfkit.getTemporaryDirectory();
+  //   final fileName = '$idEbook.pdf';
+  //   return '${tempDir.path}/$fileName';
+  // }
+Future<String> _getLocalPDFPath(String idEbook) async {
+  final tempDir = await getTemporaryDirectory();
+  final fileName = '$idEbook.pdf';
+  return '${tempDir.path}/$fileName';
+}
   @override
   Widget build(BuildContext context) {
     return InkWell(

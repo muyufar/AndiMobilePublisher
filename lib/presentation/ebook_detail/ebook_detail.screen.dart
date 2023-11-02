@@ -1,6 +1,8 @@
 import 'package:andipublisher/app/views/views/badge_cart_view.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
+import 'package:andipublisher/presentation/checkout_ebook/checkout_ebook.screen.dart';
+import 'package:andipublisher/presentation/checkout_ebook/controllers/checkout_ebook.controller.dart';
 import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail.controller.dart';
 import 'package:andipublisher/presentation/ebook_detail/views/ebook_content_view.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +69,7 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
                         } else {
                           // Jika pengguna sudah login dan ebook siap, lakukan tindakan pembelian
                           if (isEbookReady) {
+          
                             controller.onTapBuyNow();
                           }
                         }
