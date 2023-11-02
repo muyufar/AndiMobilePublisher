@@ -15,7 +15,6 @@ import 'package:get/get.dart';
 class HomeEbookView extends GetView {
   HomeEbookView({Key? key}) : super(key: key);
 
-  @override
   final HomeController controller = Get.put(HomeController());
 
   @override
@@ -47,10 +46,10 @@ class HomeEbookView extends GetView {
         SizedBox(
           height: 10,
         ),
-        // _campaignList(context),
-        // SizedBox(
-        //   height: 10,
-        // ),
+        _labelCampaigns(),
+        SizedBox(
+          height: 10,
+        ),
       ],
     );
   }
@@ -64,8 +63,7 @@ class HomeEbookView extends GetView {
           if (controller.bannerModelebook.isEmpty) {
             // Tampilkan banner default jika tidak ada banner
             return ImageNetworkView(
-              url: Assets.images.banerDefault
-                  .path, // Ganti dengan URL banner default Anda
+              url: Assets.images.banerDefault.path, // Ganti dengan URL banner default Anda
             );
           }
 
@@ -106,15 +104,15 @@ class HomeEbookView extends GetView {
                                 : 6.0,
                             height: 6.0,
                             margin: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
+                              vertical: 8.0,
+                              horizontal: 4.0,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(18),
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withOpacity(controller.currentBanner.value ==
-                                          entry.key
+                              color: (Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black)
+                                  .withOpacity(controller.currentBanner.value == entry.key
                                       ? 0.9
                                       : 0.4),
                             ),
@@ -137,12 +135,10 @@ class HomeEbookView extends GetView {
                         Get.to(() => EbookKategoriScreen());
                       },
                       style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 55, vertical: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 55, vertical: 16),
                         elevation: 5, // Efek bayangan
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              8), // Konfigurasi border-radius
+                          borderRadius: BorderRadius.circular(8), // Konfigurasi border-radius
                         ),
                       ),
                       child: Text(
@@ -159,12 +155,10 @@ class HomeEbookView extends GetView {
                         Get.to(() => EbookPenerbitScreen());
                       },
                       style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 55, vertical: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 55, vertical: 16),
                         elevation: 5, // Efek bayangan
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              8), // Konfigurasi border-radius
+                          borderRadius: BorderRadius.circular(8), // Konfigurasi border-radius
                         ),
                       ),
                       child: Text(
@@ -187,9 +181,7 @@ class HomeEbookView extends GetView {
     );
   }
 
-  Widget _labelEbookMaster(
-      {required Future<Object> future,
-      required Rxn<LabelEbookMasterModel> data}) {
+  Widget _labelEbookMaster({required Future<Object> future, required Rxn<LabelEbookMasterModel> data}) {
     return FutureView(
       future: future,
       widgetEmpty: const SizedBox(),
@@ -202,11 +194,8 @@ class HomeEbookView extends GetView {
                   const SizedBox(width: 10),
                   Text(
                     data.value!.label,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  // const Spacer(),
-                  // TextButton(onPressed: () {}, child: const Text('Lainnya')),
                   SizedBox(width: 15),
                 ],
               ),
@@ -227,10 +216,47 @@ class HomeEbookView extends GetView {
       ),
     );
   }
+
+  Widget _labelCampaigns() {
+    return Obx(
+      () {
+        final List<EbookCampaign> campaigns = controller.campaigns;
+
+        if (campaigns.isEmpty) {
+          return const SizedBox();
+        }
+
+        return Column(
+          children: campaigns.map((campaign) {
+            if (campaign.value.isNotEmpty) {
+              return Column(
+                children: [
+                  ListTile(
+                    title: Text(campaign.label),
+                    subtitle: Text(campaign.deskripsi),
+                  ),
+                  SizedBox(
+                    height: 340,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: campaign.value.length,
+                      itemBuilder: (context, index) {
+                        final book = campaign.value[index];
+                        return CardEbookView(book);
+                      },
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              // Jika kampanye tidak memiliki buku, jangan tampilkan
+              return const SizedBox();
+            }
+          }).toList(),
+        );
+      },
+    );
+  }
 }
-
-
-// Widget _campaignList(BuildContext context){
-//   return FutureView(
-//     future: controller,)
-// }

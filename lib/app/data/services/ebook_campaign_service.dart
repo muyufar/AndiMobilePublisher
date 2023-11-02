@@ -7,7 +7,7 @@ class EbbokCampaignService {
   static Future<List<EbookCampaign>> getCampaigns() async {
     final result = await MainService().getAPI(url: 'ebook/campaign');
 
-return List<EbookCampaign>.from(((result != null) ? result['data'] : [])
+return List<EbookCampaign>.from(((result != null) ? result['data'] : ['value'])
         .map((e) => EbookCampaign.fromJson(e)));
   }
 }

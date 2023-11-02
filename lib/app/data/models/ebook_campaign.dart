@@ -9,7 +9,7 @@ class EbookCampaign {
   final String createdAt;
   final String updatedAt;
   final String? deleteAt;
-  final List<EbookCampaignValue> value;
+  late final List<EbookCampaignValue> value;
 
   EbookCampaign({
     required this.id,
