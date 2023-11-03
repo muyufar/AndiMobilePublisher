@@ -1,15 +1,17 @@
+import 'package:andipublisher/app/data/models/ebook_master_model.dart';
+
 class EbookCampaign {
   final String id;
   final String label;
   final String deskripsi;
   final String jenis;
-  final String tipeTransaksi;
+  final int tipeTransaksi;
   final String startDate;
   final String endDate;
   final String createdAt;
   final String updatedAt;
   final String? deleteAt;
-  late final List<EbookCampaignValue> value;
+  final List<EbookMasterModel> value; 
 
   EbookCampaign({
     required this.id,
@@ -25,13 +27,8 @@ class EbookCampaign {
     required this.value,
   });
 
-  factory EbookCampaign.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> valueList = json['value'];
-    final List<EbookCampaignValue> campaignValueList = valueList
-        .map((value) => EbookCampaignValue.fromJson(value))
-        .toList();
-
-    return EbookCampaign(
+  factory EbookCampaign.fromJson(Map<String, dynamic> json) =>
+  EbookCampaign(
       id: json['id'],
       label: json['label'],
       deskripsi: json['deskripsi'],
@@ -42,39 +39,8 @@ class EbookCampaign {
       createdAt: json['created_at'],
       updatedAt: json['update_at'],
       deleteAt: json['delete_at'],
-      value: campaignValueList,
-    );
-  }
-}
-
-class EbookCampaignValue {
-  final String idBarang;
-  final String slugBarang;
-  final String gambar1;
-  final String judul;
-  final String diskon;
-  final String harga;
-  final String hargaAsli;
-
-  EbookCampaignValue({
-    required this.idBarang,
-    required this.slugBarang,
-    required this.gambar1,
-    required this.judul,
-    required this.diskon,
-    required this.harga,
-    required this.hargaAsli,
-  });
-
-  factory EbookCampaignValue.fromJson(Map<String, dynamic> json) {
-    return EbookCampaignValue(
-      idBarang: json['id_barang'],
-      slugBarang: json['slug_barang'],
-      gambar1: json['gambar1'],
-      judul: json['judul'],
-      diskon: json['diskon'],
-      harga: json['harga'],
-      hargaAsli: json['harga_asli'],
-    );
-  }
+      value:  List<EbookMasterModel>.from(
+            ((json['value'] != null) ? json['value'] : [])
+                .map((e) => EbookMasterModel.fromJson(e))),
+      );
 }

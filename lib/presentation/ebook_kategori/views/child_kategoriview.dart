@@ -2,26 +2,31 @@ import 'package:andipublisher/presentation/ebook_kategori/controllers/ebook_kate
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChildEbookKategoriScreen extends StatelessWidget {
+class ChildEbookKategoriScreen extends StatefulWidget {
   final String childCategoryId;
-  final refreshKey = GlobalKey<RefreshIndicatorState>();
 
   ChildEbookKategoriScreen({required this.childCategoryId});
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.find<EbookKategoriController>();
+  _ChildEbookKategoriScreenState createState() => _ChildEbookKategoriScreenState();
+}
 
+class _ChildEbookKategoriScreenState extends State<ChildEbookKategoriScreen> {
+  final refreshKey = GlobalKey<RefreshIndicatorState>();
+  final controller = Get.find<EbookKategoriController>();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           controller.categories
-              .firstWhere((cat) => cat.idKategori == childCategoryId)
+              .firstWhere((cat) => cat.idKategori == widget.childCategoryId)
               .namaKategori,
         ),
       ),
       body: FutureBuilder(
-        future: controller.loadChildCategories(childCategoryId),
+        future: controller.loadChildCategories(widget.childCategoryId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());

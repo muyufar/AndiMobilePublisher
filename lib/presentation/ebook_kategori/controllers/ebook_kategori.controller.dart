@@ -1,5 +1,6 @@
 import 'package:andipublisher/app/data/models/ebook_category_model.dart';
 import 'package:andipublisher/app/data/services/ebook_category_service.dart';
+import 'package:andipublisher/presentation/ebook_kategori/views/child_kategoriview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -17,10 +18,10 @@ class EbookKategoriController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _fetchCategories();
+    fetchCategories();
   }
 
-  Future<void > _fetchCategories() async {
+  Future<void> fetchCategories() async {
     if (!hasMore) return;
 
     try {
@@ -90,7 +91,7 @@ class EbookKategoriController extends GetxController {
       childCategories.clear();
       currentCategoryId.value = '';
 
-      await _fetchCategories();
+      await fetchCategories();
     } catch (e) {
       print('Error: $e');
     } finally {
@@ -103,3 +104,10 @@ class EbookKategoriController extends GetxController {
     currentCategoryId.value = '';
   }
 }
+
+  void onCategoryTap(category){
+                    if (category.isHasChild == 1) {
+                      Get.to(() => ChildEbookKategoriScreen(
+                          childCategoryId: category.idKategori));
+                    } else {}
+                  }

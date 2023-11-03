@@ -106,40 +106,44 @@ class CardEbookView extends GetView {
                         )
                       ],
                     )),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        data.judul,
-                        maxLines: 2,
-                        style: const TextStyle(fontSize: 12),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      (data.diskon != 0)
-                          ? Text(
-                              data.harga.parceRp(), // Harga awal di sini
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: colorTextGrey,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                            )
-                          : const SizedBox(
-                              height: 10,
-                            ),
-                      Text(
-                        hargatotal.parceRp(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),SizedBox(height:  3),
-                      Text(
-                        'Terjual: $jumlah',
-                        style: const TextStyle(fontWeight: FontWeight.normal),
-                        ),
-                    ],
-                  ),
-                )
+Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        data.judul,
+        maxLines: 2,
+        style: const TextStyle(fontSize: 12),
+        overflow: TextOverflow.ellipsis,
+      ),
+      if (jumlah != 0) // Periksa jika jumlah buku terjual tidak sama dengan 0
+        Text(
+          data.diskon != 0
+              ? data.harga.parceRp()
+              : '', // Hanya tampilkan harga awal jika diskon tidak 0
+          style: TextStyle(
+            fontSize: 12,
+            color: colorTextGrey,
+            decoration: TextDecoration.lineThrough,
+          ),
+        )
+      else
+        const SizedBox(height: 10), // Sembunyikan teks jika jumlah = 0
+      Text(
+        hargatotal.parceRp(),
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      SizedBox(height: 3),
+      if (jumlah != 0) // Periksa jika jumlah buku terjual tidak sama dengan 0
+        Text(
+          'Terjual: $jumlah',
+          style: const TextStyle(fontWeight: FontWeight.normal),
+        ),
+    ],
+  ),
+)
+
               ],
             ),
           )),

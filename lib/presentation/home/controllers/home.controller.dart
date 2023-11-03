@@ -15,7 +15,7 @@ class HomeController extends GetxController {
 
   RxList<BannerModel> bannerModel = RxList<BannerModel>();
   RxList<BannerModel> bannerModelebook = RxList<BannerModel>();
-  RxList<EbookCampaign> campaigns = RxList<EbookCampaign>();
+RxList<EbookCampaign> campaigns = RxList<EbookCampaign>();
 
   Rxn<LabelItemsMasterModel> newLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
@@ -72,6 +72,7 @@ class HomeController extends GetxController {
     bannerModel.value = await BannerService.getBanner();
     return bannerModel;
   }
+
   Future<LabelItemsMasterModel> newLabelItemsMaster() async {
     newLabelItemsMasterModel.value =
         await ItemsService.getItemsMaster(link: 'new');
@@ -123,14 +124,8 @@ class HomeController extends GetxController {
     return sewaSallerLabelItemsMasterModel.value!;
   }
 
-  Future<void> loadCampaigns() async {
-    try {
-      final campaignList = await EbbokCampaignService.getCampaigns();
-      campaigns.assignAll(campaignList);
-    } catch (e) {
-      print('Error loading campaigns: $e');
-    }
+  Future<RxList<EbookCampaign>> loadCampaigns() async {
+  campaigns.value = await EbbokCampaignService.getCampaigns();
+    return campaigns;
   }
-
-
 }
