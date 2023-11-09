@@ -15,7 +15,7 @@ class HomeController extends GetxController {
 
   RxList<BannerModel> bannerModel = RxList<BannerModel>();
   RxList<BannerModel> bannerModelebook = RxList<BannerModel>();
-RxList<EbookCampaign> campaigns = RxList<EbookCampaign>();
+  RxList<EbookCampaign> campaigns = RxList<EbookCampaign>();
 
   Rxn<LabelItemsMasterModel> newLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
@@ -36,6 +36,10 @@ RxList<EbookCampaign> campaigns = RxList<EbookCampaign>();
       Rxn<LabelEbookMasterModel>();
 
   RxInt currentBanner = 0.obs;
+  int endTime =
+      DateTime(0000, 00, 00, 00, 00).millisecondsSinceEpoch + 1000 * 30;
+
+  final listEbookCampaign = <EbookCampaign>[].obs;
 
   @override
   void onInit() {
@@ -124,8 +128,20 @@ RxList<EbookCampaign> campaigns = RxList<EbookCampaign>();
     return sewaSallerLabelItemsMasterModel.value!;
   }
 
-  Future<RxList<EbookCampaign>> loadCampaigns() async {
-  campaigns.value = await EbbokCampaignService.getCampaigns();
-    return campaigns;
+  Future<List<EbookCampaign>> loadCampaigns() async {
+    Map<String, dynamic> body = {
+      "limit_campaign": 10,
+      "offset_campaign": 1,
+      "limit_item": 10,
+      "offset_item": 1
+    };
+    campaigns.value = await EbookCampaignService.getCampaigns(
+      body: body,
+      limit_campaign: '',
+      offset_campaign: '',
+      limit_item: '',
+      offset_item: '',
+    );
+    return campaigns.value!;
   }
 }

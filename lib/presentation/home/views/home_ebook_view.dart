@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'package:andipublisher/app/data/models/ebook_campaign.dart';
 import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
@@ -10,11 +11,13 @@ import 'package:andipublisher/presentation/ebook_penerbit/ebook_penerbit.screen.
 import 'package:andipublisher/presentation/home/controllers/home.controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:ionicons/ionicons.dart';
 
 class HomeEbookView extends GetView {
   HomeEbookView({Key? key}) : super(key: key);
-
   final HomeController controller = Get.put(HomeController());
 
   @override
@@ -25,6 +28,19 @@ class HomeEbookView extends GetView {
         SizedBox(
           height: 10,
         ),
+        // _campaignList(controller.campaigns),
+        // SizedBox(height: 10),
+
+        // SizedBox(
+        //   height: 10,
+        // ),
+        // _labelEbookCampaign1(
+        //   future: controller.loadCampaigns(),
+        //   data: controller.campaigns,
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
         _labelEbookMaster(
           future: controller.ebookNewLabelItemsMaster(),
           data: controller.ebookNewLabelItemsMasterModel,
@@ -42,13 +58,6 @@ class HomeEbookView extends GetView {
         _labelEbookMaster(
           future: controller.sewaSallerLabelItemsMaster(),
           data: controller.sewaSallerLabelItemsMasterModel,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        _labelEbookCampaign(
-          future: controller.loadCampaigns(),
-          data: controller.campaigns,
         ),
         SizedBox(
           height: 10,
@@ -209,6 +218,17 @@ class HomeEbookView extends GetView {
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
+                  const Spacer(),
+                  TextButton(
+                      onPressed: () => Get,
+                      style: TextButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 12)),
+                      child: Row(
+                        children: const [
+                          Text('Lihat Semua'),
+                          Icon(Ionicons.chevron_forward_outline, size: 16)
+                        ],
+                      )),
                   SizedBox(width: 15),
                 ],
               ),
@@ -230,42 +250,235 @@ class HomeEbookView extends GetView {
     );
   }
 
-  Widget _labelEbookCampaign(
-      {required Future<Object> future, 
-      required RxList<EbookCampaign> data}) {
-    return FutureView(
-      future: future,
-      widgetEmpty: const SizedBox(),
-      widgetBuilder: Obx(
-        () => Column(
-          children: [
-            if (data.value != null)
-              Row(
-                children: [
-                  const SizedBox(width: 10),
-                  Text(
-                    data.value[0].label,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(width: 15),
-                ],
-              ),
-            SizedBox(
-              height: 340,
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: data.value[0].value.length ?? 0,
-                itemBuilder: (context, index) {
-                  return CardEbookView(data.value[0].value[index]);
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+//  Widget _campaignList(List<EbookCampaign> campaigns) {
+//   return Column(
+//     children: [
+//       Row(
+//         children: [
+//           const SizedBox(width: 10),
+//           Text(
+//             "Campaigns", // Label untuk bagian Campaigns Anda
+//             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//           ),
+//           const Spacer(),
+//           TextButton(
+//             onPressed: () {
+//               // Handle tombol "Lihat Semua"
+//             },
+//             style: TextButton.styleFrom(
+//               textStyle: const TextStyle(fontSize: 12),
+//             ),
+//             child: Row(
+//               children: const [
+//                 Text('Lihat Semua'),
+//                 Icon(Ionicons.chevron_forward_outline, size: 16)
+//               ],
+//             ),
+//           ),
+//           SizedBox(width: 15),
+//         ],
+//       ),
+//       SizedBox(
+//         height: 340,
+//         child: ListView.builder(
+//           shrinkWrap: true,
+//           physics: const BouncingScrollPhysics(),
+//           scrollDirection: Axis.horizontal,
+//           itemCount: controller.campaigns.length,
+//           itemBuilder: (context, index) {
+//             final campaign = controller.campaigns.[index];
+//             return CampaignCard(campaign: campaign);
+//           },
+//         ),
+//       ),
+//     ],
+//   );
+// }
+
+// class CampaignCard extends StatelessWidget {
+//   final Campaign campaign;
+
+//   CampaignCard({required this.campaign});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       child: Column(
+//         children: [
+//           ListTile(
+//             title: Text(controller.campaigns),
+//             subtitle: Text(campaign.description),
+//           ),
+//           ListView.builder(
+//             shrinkWrap: true,
+//             physics: NeverScrollableScrollPhysics(),
+//             itemCount: campaign.eBooks.length,
+//             itemBuilder: (context, index) {
+//               final eBook = campaign.eBooks[index];
+//               return CardEbookView(eBook: eBook);
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+  // Widget _labelEbookCampaign1({
+  //   required Future<Object> future,
+  //   required RxList<EbookCampaign> data,
+  // }) {
+  //   if (data.isEmpty) {
+  //     return SizedBox();
+  //   }
+
+  //   DateTime endDate = data[1].endDate;
+
+  //   return Column(
+  //     children: [
+  //       Row(
+  //         children: [
+  //           const SizedBox(width: 10),
+  //           Text(
+  //             data[1].label,
+  //             style: const TextStyle(
+  //               fontSize: 18,
+  //               fontWeight: FontWeight.bold,
+  //             ),
+  //           ),
+  //           const Spacer(),
+  //           TextButton(
+  //               onPressed: () => Get,
+  //               style: TextButton.styleFrom(
+  //                   textStyle: const TextStyle(fontSize: 12)),
+  //               child: Row(
+  //                 children: const [
+  //                   Text('Lihat Semua'),
+  //                   Icon(Ionicons.chevron_forward_outline, size: 16)
+  //                 ],
+  //               )),
+  //         ],
+  //       ),
+  //       Row(
+  //         children: [
+  //           SizedBox(
+  //             width: 10,
+  //           ),
+  //           Text(
+  //             'Berakhir dalam ',
+  //             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+  //           ),
+  //           CountdownTimer(
+  //             endTime: endDate.millisecondsSinceEpoch,
+  //             widgetBuilder: (context, time) {
+  //               return Row(
+  //                 // mainAxisAlignment: MainAxisAlignment.start,
+  //                 children: [
+  //                   const SizedBox(width: 5),
+  //                   Visibility(
+  //                     visible: time?.days != null,
+  //                     child: Container(
+  //                       padding: const EdgeInsets.all(2),
+  //                       decoration: BoxDecoration(
+  //                         color: const Color(0xFF0473BD),
+  //                         borderRadius: BorderRadius.circular(4),
+  //                       ),
+  //                       child: Text(
+  //                         ((time?.days ?? 0) < 10)
+  //                             ? '0${time?.days ?? 00}'
+  //                             : '${time?.days ?? 00}',
+  //                         style: const TextStyle(
+  //                           fontWeight: FontWeight.bold,
+  //                           color: Colors.white,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   Visibility(
+  //                     visible: time?.days != null,
+  //                     child: const Text(
+  //                       ' : ',
+  //                       style: TextStyle(
+  //                           fontWeight: FontWeight.bold, fontSize: 15),
+  //                     ),
+  //                   ),
+  //                   Container(
+  //                     padding: const EdgeInsets.all(2),
+  //                     decoration: BoxDecoration(
+  //                       color: const Color(0xFF0473BD),
+  //                       borderRadius: BorderRadius.circular(4),
+  //                     ),
+  //                     child: Text(
+  //                       ((time?.hours ?? 0) < 10)
+  //                           ? '0${time?.hours ?? 00}'
+  //                           : '${time?.hours ?? 00}',
+  //                       style: const TextStyle(
+  //                         fontWeight: FontWeight.bold,
+  //                         color: Colors.white,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   const Text(
+  //                     ' : ',
+  //                     style:
+  //                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+  //                   ),
+  //                   Container(
+  //                     padding: const EdgeInsets.all(2),
+  //                     decoration: BoxDecoration(
+  //                       color: const Color(0xFF0473BD),
+  //                       borderRadius: BorderRadius.circular(4),
+  //                     ),
+  //                     child: Text(
+  //                       ((time?.min ?? 0) < 10)
+  //                           ? '0${time?.min ?? 00}'
+  //                           : '${time?.min ?? 00}',
+  //                       style: const TextStyle(
+  //                         fontWeight: FontWeight.bold,
+  //                         color: Colors.white,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   const Text(
+  //                     ' : ',
+  //                     style:
+  //                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+  //                   ),
+  //                   Container(
+  //                     padding: const EdgeInsets.all(2),
+  //                     decoration: BoxDecoration(
+  //                       color: const Color(0xFF0473BD),
+  //                       borderRadius: BorderRadius.circular(4),
+  //                     ),
+  //                     child: Text(
+  //                       ((time?.sec ?? 0) < 10)
+  //                           ? '0${time?.sec ?? 00}'
+  //                           : '${time?.sec ?? 00}',
+  //                       style: const TextStyle(
+  //                         fontWeight: FontWeight.bold,
+  //                         color: Colors.white,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               );
+  //             },
+  //           ),
+  //         ],
+  //       ),
+  //       SizedBox(
+  //         height: 340,
+  //         child: ListView.builder(
+  //           shrinkWrap: true,
+  //           physics: const BouncingScrollPhysics(),
+  //           scrollDirection: Axis.horizontal,
+  //           itemCount: data[1].value.length ?? 1,
+  //           itemBuilder: (context, index) {
+  //             return CardEbookView(data[1].value[index]);
+  //           },
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

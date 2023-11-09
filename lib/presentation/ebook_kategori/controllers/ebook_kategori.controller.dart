@@ -105,9 +105,4 @@ class EbookKategoriController extends GetxController {
   }
 }
 
-  void onCategoryTap(category){
-                    if (category.isHasChild == 1) {
-                      Get.to(() => ChildEbookKategoriScreen(
-                          childCategoryId: category.idKategori));
-                    } else {}
-                  }
+  

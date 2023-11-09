@@ -6,8 +6,8 @@ class EbookCampaign {
   final String deskripsi;
   final String jenis;
   final int tipeTransaksi;
-  final String startDate;
-  final String endDate;
+  final DateTime startDate;
+  final DateTime endDate;
   final String createdAt;
   final String updatedAt;
   final String? deleteAt;
@@ -34,8 +34,8 @@ class EbookCampaign {
       deskripsi: json['deskripsi'],
       jenis: json['jenis'],
       tipeTransaksi: json['tipe_transaksi'],
-      startDate: json['start_date'],
-      endDate: json['end_date'],
+      startDate: DateTime.parse(json['start_date'] ?? '0000-00-00 00:00:00'),
+      endDate: DateTime.parse(json['end_date'] ?? '0000-00-00 00:00:00') ,
       createdAt: json['created_at'],
       updatedAt: json['update_at'],
       deleteAt: json['delete_at'],

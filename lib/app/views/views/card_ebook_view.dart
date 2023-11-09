@@ -1,3 +1,4 @@
+import 'package:andipublisher/app/data/models/ebook_campaign.dart';
 import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
@@ -26,7 +27,7 @@ import 'package:get/get.dart';
 
 class CardEbookView extends GetView {
   final EbookMasterModel data;
-  const CardEbookView(this.data, {Key? key}) : super(key: key);
+  const CardEbookView(this.data,{Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +52,9 @@ class CardEbookView extends GetView {
                     aspectRatio: 0.75 / 1,
                     child: Stack(
                       children: [
-                        
                         ImageNetworkView(
-                          url: data.gambar1, fit: BoxFit.fill,
+                          url: data.gambar1,
+                          fit: BoxFit.fill,
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(10))),
@@ -106,44 +107,46 @@ class CardEbookView extends GetView {
                         )
                       ],
                     )),
-Padding(
-  padding: const EdgeInsets.all(8.0),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        data.judul,
-        maxLines: 2,
-        style: const TextStyle(fontSize: 12),
-        overflow: TextOverflow.ellipsis,
-      ),
-      if (jumlah != 0) // Periksa jika jumlah buku terjual tidak sama dengan 0
-        Text(
-          data.diskon != 0
-              ? data.harga.parceRp()
-              : '', // Hanya tampilkan harga awal jika diskon tidak 0
-          style: TextStyle(
-            fontSize: 12,
-            color: colorTextGrey,
-            decoration: TextDecoration.lineThrough,
-          ),
-        )
-      else
-        const SizedBox(height: 10), // Sembunyikan teks jika jumlah = 0
-      Text(
-        hargatotal.parceRp(),
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      SizedBox(height: 3),
-      if (jumlah != 0) // Periksa jika jumlah buku terjual tidak sama dengan 0
-        Text(
-          'Terjual: $jumlah',
-          style: const TextStyle(fontWeight: FontWeight.normal),
-        ),
-    ],
-  ),
-)
-
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data.judul,
+                        maxLines: 2,
+                        style: const TextStyle(fontSize: 12),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (jumlah !=
+                          0) // Periksa jika jumlah buku terjual tidak sama dengan 0
+                        Text(
+                          data.diskon != 0
+                              ? data.harga.parceRp()
+                              : '', // Hanya tampilkan harga awal jika diskon tidak 0
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: colorTextGrey,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        )
+                      else
+                        const SizedBox(
+                            height: 10), // Sembunyikan teks jika jumlah = 0
+                      Text(
+                        hargatotal.parceRp(),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 3),
+                      if (jumlah !=
+                          0) // Periksa jika jumlah buku terjual tidak sama dengan 0
+                        Text(
+                          'Terjual: $jumlah',
+                          style: const TextStyle(fontWeight: FontWeight.normal),
+                        ),
+                    ],
+                  ),
+                )
               ],
             ),
           )),
