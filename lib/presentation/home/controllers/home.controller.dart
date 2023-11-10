@@ -96,7 +96,7 @@ class HomeController extends GetxController {
   }
 
   Future<LabelEbookMasterModel> ebookNewLabelItemsMaster() async {
-    Map<String, dynamic> body = {"tag": "terbaru"};
+    Map<String, dynamic> body = {"tag": "terbaru", "sortBy": "terbaru"};
 
     ebookNewLabelItemsMasterModel.value =
         await EbookService.getEbookItemsMaster(

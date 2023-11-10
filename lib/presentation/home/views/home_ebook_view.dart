@@ -8,6 +8,7 @@ import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/gen/assets.gen.dart';
 import 'package:andipublisher/presentation/ebook_kategori/ebook_kategori.screen.dart';
 import 'package:andipublisher/presentation/ebook_penerbit/ebook_penerbit.screen.dart';
+import 'package:andipublisher/presentation/ebook_viewall/ebook_viewall.screen.dart';
 import 'package:andipublisher/presentation/home/controllers/home.controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,28 @@ class HomeEbookView extends GetView {
         // SizedBox(
         //   height: 10,
         // ),
+        // _labelEbookCampaign(
+        //   future: controller.loadCampaigns(),
+        //   data: controller.campaigns,
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
         // _labelEbookCampaign1(
+        //   future: controller.loadCampaigns(),
+        //   data: controller.campaigns,
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
+        // _labelEbookCampaign2(
+        //   future: controller.loadCampaigns(),
+        //   data: controller.campaigns,
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
+        // _labelEbookCampaign3(
         //   future: controller.loadCampaigns(),
         //   data: controller.campaigns,
         // ),
@@ -55,13 +77,13 @@ class HomeEbookView extends GetView {
         SizedBox(
           height: 10,
         ),
-        _labelEbookMaster(
-          future: controller.sewaSallerLabelItemsMaster(),
-          data: controller.sewaSallerLabelItemsMasterModel,
-        ),
-        SizedBox(
-          height: 10,
-        ),
+        // _labelEbookMaster(
+        //   future: controller.sewaSallerLabelItemsMaster(),
+        //   data: controller.sewaSallerLabelItemsMasterModel,
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
       ],
     );
   }
@@ -220,15 +242,17 @@ class HomeEbookView extends GetView {
                   ),
                   const Spacer(),
                   TextButton(
-                      onPressed: () => Get,
-                      style: TextButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 12)),
-                      child: Row(
-                        children: const [
-                          Text('Lihat Semua'),
-                          Icon(Ionicons.chevron_forward_outline, size: 16)
-                        ],
-                      )),
+                    onPressed: () => Get.to(EbookViewallScreen()),
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 12),
+                    ),
+                    child: Row(
+                      children: const [
+                        Text('Lihat Semua'),
+                        Icon(Ionicons.chevron_forward_outline, size: 16)
+                      ],
+                    ),
+                  ),
                   SizedBox(width: 15),
                 ],
               ),
@@ -324,161 +348,635 @@ class HomeEbookView extends GetView {
 //   }
 // }
 
-  // Widget _labelEbookCampaign1({
-  //   required Future<Object> future,
-  //   required RxList<EbookCampaign> data,
-  // }) {
-  //   if (data.isEmpty) {
-  //     return SizedBox();
-  //   }
+  Widget _labelEbookCampaign({
+    required Future<Object> future,
+    required RxList<EbookCampaign> data,
+  }) {
+    if (data.isEmpty) {
+      return SizedBox();
+    }
 
-  //   DateTime endDate = data[1].endDate;
+    DateTime endDate = data[0].endDate;
 
-  //   return Column(
-  //     children: [
-  //       Row(
-  //         children: [
-  //           const SizedBox(width: 10),
-  //           Text(
-  //             data[1].label,
-  //             style: const TextStyle(
-  //               fontSize: 18,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //           ),
-  //           const Spacer(),
-  //           TextButton(
-  //               onPressed: () => Get,
-  //               style: TextButton.styleFrom(
-  //                   textStyle: const TextStyle(fontSize: 12)),
-  //               child: Row(
-  //                 children: const [
-  //                   Text('Lihat Semua'),
-  //                   Icon(Ionicons.chevron_forward_outline, size: 16)
-  //                 ],
-  //               )),
-  //         ],
-  //       ),
-  //       Row(
-  //         children: [
-  //           SizedBox(
-  //             width: 10,
-  //           ),
-  //           Text(
-  //             'Berakhir dalam ',
-  //             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-  //           ),
-  //           CountdownTimer(
-  //             endTime: endDate.millisecondsSinceEpoch,
-  //             widgetBuilder: (context, time) {
-  //               return Row(
-  //                 // mainAxisAlignment: MainAxisAlignment.start,
-  //                 children: [
-  //                   const SizedBox(width: 5),
-  //                   Visibility(
-  //                     visible: time?.days != null,
-  //                     child: Container(
-  //                       padding: const EdgeInsets.all(2),
-  //                       decoration: BoxDecoration(
-  //                         color: const Color(0xFF0473BD),
-  //                         borderRadius: BorderRadius.circular(4),
-  //                       ),
-  //                       child: Text(
-  //                         ((time?.days ?? 0) < 10)
-  //                             ? '0${time?.days ?? 00}'
-  //                             : '${time?.days ?? 00}',
-  //                         style: const TextStyle(
-  //                           fontWeight: FontWeight.bold,
-  //                           color: Colors.white,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   Visibility(
-  //                     visible: time?.days != null,
-  //                     child: const Text(
-  //                       ' : ',
-  //                       style: TextStyle(
-  //                           fontWeight: FontWeight.bold, fontSize: 15),
-  //                     ),
-  //                   ),
-  //                   Container(
-  //                     padding: const EdgeInsets.all(2),
-  //                     decoration: BoxDecoration(
-  //                       color: const Color(0xFF0473BD),
-  //                       borderRadius: BorderRadius.circular(4),
-  //                     ),
-  //                     child: Text(
-  //                       ((time?.hours ?? 0) < 10)
-  //                           ? '0${time?.hours ?? 00}'
-  //                           : '${time?.hours ?? 00}',
-  //                       style: const TextStyle(
-  //                         fontWeight: FontWeight.bold,
-  //                         color: Colors.white,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ' : ',
-  //                     style:
-  //                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-  //                   ),
-  //                   Container(
-  //                     padding: const EdgeInsets.all(2),
-  //                     decoration: BoxDecoration(
-  //                       color: const Color(0xFF0473BD),
-  //                       borderRadius: BorderRadius.circular(4),
-  //                     ),
-  //                     child: Text(
-  //                       ((time?.min ?? 0) < 10)
-  //                           ? '0${time?.min ?? 00}'
-  //                           : '${time?.min ?? 00}',
-  //                       style: const TextStyle(
-  //                         fontWeight: FontWeight.bold,
-  //                         color: Colors.white,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ' : ',
-  //                     style:
-  //                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-  //                   ),
-  //                   Container(
-  //                     padding: const EdgeInsets.all(2),
-  //                     decoration: BoxDecoration(
-  //                       color: const Color(0xFF0473BD),
-  //                       borderRadius: BorderRadius.circular(4),
-  //                     ),
-  //                     child: Text(
-  //                       ((time?.sec ?? 0) < 10)
-  //                           ? '0${time?.sec ?? 00}'
-  //                           : '${time?.sec ?? 00}',
-  //                       style: const TextStyle(
-  //                         fontWeight: FontWeight.bold,
-  //                         color: Colors.white,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               );
-  //             },
-  //           ),
-  //         ],
-  //       ),
-  //       SizedBox(
-  //         height: 340,
-  //         child: ListView.builder(
-  //           shrinkWrap: true,
-  //           physics: const BouncingScrollPhysics(),
-  //           scrollDirection: Axis.horizontal,
-  //           itemCount: data[1].value.length ?? 1,
-  //           itemBuilder: (context, index) {
-  //             return CardEbookView(data[1].value[index]);
-  //           },
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+    return Column(
+      children: [
+        Row(
+          children: [
+            const SizedBox(width: 10),
+            Text(
+              data[0].label,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+                onPressed: () => Get,
+                style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 12)),
+                child: Row(
+                  children: const [
+                    Text('Lihat Semua'),
+                    Icon(Ionicons.chevron_forward_outline, size: 16)
+                  ],
+                )),
+          ],
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Berakhir dalam ',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            CountdownTimer(
+              endTime: endDate.millisecondsSinceEpoch,
+              widgetBuilder: (context, time) {
+                return Row(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(width: 5),
+                    Visibility(
+                      visible: time?.days != null,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF0473BD),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          ((time?.days ?? 0) < 10)
+                              ? '0${time?.days ?? 00}'
+                              : '${time?.days ?? 00}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: time?.days != null,
+                      child: const Text(
+                        ' : ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.hours ?? 0) < 10)
+                            ? '0${time?.hours ?? 00}'
+                            : '${time?.hours ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' : ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.min ?? 0) < 10)
+                            ? '0${time?.min ?? 00}'
+                            : '${time?.min ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' : ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.sec ?? 0) < 10)
+                            ? '0${time?.sec ?? 00}'
+                            : '${time?.sec ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 340,
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: data[0].value.length ?? 0,
+            itemBuilder: (context, index) {
+              return CardEbookView(data[0].value[index]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _labelEbookCampaign1({
+    required Future<Object> future,
+    required RxList<EbookCampaign> data,
+  }) {
+    if (data.isEmpty) {
+      return SizedBox();
+    }
+
+    DateTime endDate = data[1].endDate;
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            const SizedBox(width: 10),
+            Text(
+              data[1].label,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+                onPressed: () => Get,
+                style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 12)),
+                child: Row(
+                  children: const [
+                    Text('Lihat Semua'),
+                    Icon(Ionicons.chevron_forward_outline, size: 16)
+                  ],
+                )),
+          ],
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Berakhir dalam ',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            CountdownTimer(
+              endTime: endDate.millisecondsSinceEpoch,
+              widgetBuilder: (context, time) {
+                return Row(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(width: 5),
+                    Visibility(
+                      visible: time?.days != null,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF0473BD),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          ((time?.days ?? 0) < 10)
+                              ? '0${time?.days ?? 00}'
+                              : '${time?.days ?? 00}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: time?.days != null,
+                      child: const Text(
+                        ' : ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.hours ?? 0) < 10)
+                            ? '0${time?.hours ?? 00}'
+                            : '${time?.hours ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' : ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.min ?? 0) < 10)
+                            ? '0${time?.min ?? 00}'
+                            : '${time?.min ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' : ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.sec ?? 0) < 10)
+                            ? '0${time?.sec ?? 00}'
+                            : '${time?.sec ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 340,
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: data[1].value.length ?? 0,
+            itemBuilder: (context, index) {
+              return CardEbookView(data[1].value[index]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _labelEbookCampaign2({
+    required Future<Object> future,
+    required RxList<EbookCampaign> data,
+  }) {
+    if (data.isEmpty) {
+      return SizedBox();
+    }
+
+    DateTime endDate = data[2].endDate;
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            const SizedBox(width: 10),
+            Text(
+              data[2].label,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+                onPressed: () => Get,
+                style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 12)),
+                child: Row(
+                  children: const [
+                    Text('Lihat Semua'),
+                    Icon(Ionicons.chevron_forward_outline, size: 16)
+                  ],
+                )),
+          ],
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Berakhir dalam ',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            CountdownTimer(
+              endTime: endDate.millisecondsSinceEpoch,
+              widgetBuilder: (context, time) {
+                return Row(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(width: 5),
+                    Visibility(
+                      visible: time?.days != null,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF0473BD),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          ((time?.days ?? 0) < 10)
+                              ? '0${time?.days ?? 00}'
+                              : '${time?.days ?? 00}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: time?.days != null,
+                      child: const Text(
+                        ' : ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.hours ?? 0) < 10)
+                            ? '0${time?.hours ?? 00}'
+                            : '${time?.hours ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' : ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.min ?? 0) < 10)
+                            ? '0${time?.min ?? 00}'
+                            : '${time?.min ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' : ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.sec ?? 0) < 10)
+                            ? '0${time?.sec ?? 00}'
+                            : '${time?.sec ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 340,
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: data[2].value.length ?? 0,
+            itemBuilder: (context, index) {
+              return CardEbookView(data[2].value[index]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _labelEbookCampaign3({
+    required Future<Object> future,
+    required RxList<EbookCampaign> data,
+  }) {
+    if (data.isEmpty) {
+      return SizedBox();
+    }
+
+    DateTime endDate = data[3].endDate;
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            const SizedBox(width: 10),
+            Text(
+              data[3].label,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+                onPressed: () => Get,
+                style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 12)),
+                child: Row(
+                  children: const [
+                    Text('Lihat Semua'),
+                    Icon(Ionicons.chevron_forward_outline, size: 16)
+                  ],
+                )),
+          ],
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Berakhir dalam ',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            CountdownTimer(
+              endTime: endDate.millisecondsSinceEpoch,
+              widgetBuilder: (context, time) {
+                return Row(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(width: 5),
+                    Visibility(
+                      visible: time?.days != null,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF0473BD),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          ((time?.days ?? 0) < 10)
+                              ? '0${time?.days ?? 00}'
+                              : '${time?.days ?? 00}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: time?.days != null,
+                      child: const Text(
+                        ' : ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.hours ?? 0) < 10)
+                            ? '0${time?.hours ?? 00}'
+                            : '${time?.hours ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' : ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.min ?? 0) < 10)
+                            ? '0${time?.min ?? 00}'
+                            : '${time?.min ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' : ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0473BD),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ((time?.sec ?? 0) < 10)
+                            ? '0${time?.sec ?? 00}'
+                            : '${time?.sec ?? 00}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 340,
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: data[3].value.length ?? 0,
+            itemBuilder: (context, index) {
+              return CardEbookView(data[3].value[index]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
 }

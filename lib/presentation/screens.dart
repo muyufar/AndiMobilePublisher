@@ -6,6 +6,7 @@ export 'package:andipublisher/presentation/ebook_kategori/ebook_kategori.screen.
 export 'package:andipublisher/presentation/ebook_penerbit/ebook_penerbit.screen.dart';
 export 'package:andipublisher/presentation/ebook_transaction/ebook_transaction.screen.dart';
 export 'package:andipublisher/presentation/ebook_transaction_detail/ebook_transaction_detail.screen.dart';
+export 'package:andipublisher/presentation/ebook_viewall/ebook_viewall.screen.dart';
 export 'package:andipublisher/presentation/forgot_password/forgot_password.screen.dart';
 export 'package:andipublisher/presentation/home/home.screen.dart';
 export 'package:andipublisher/presentation/item_detail/item_detail.screen.dart';

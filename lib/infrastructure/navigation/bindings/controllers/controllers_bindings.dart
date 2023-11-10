@@ -6,6 +6,7 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebo
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_penerbit.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction_detail.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_viewall.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/forgot_password.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/home.controller.binding.dart';
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/item_detail.controller.binding.dart'; 
