@@ -127,7 +127,7 @@ class MainScreen extends GetView<MainController> {
                     icon: Icon(Ionicons.file_tray_full_outline),
                     label: 'Transaksi'),
                 BottomNavigationBarItem(
-                    icon: Icon(Ionicons.book_sharp), label: 'Rak Buku'),
+                    icon: Icon(Ionicons.book_outline), label: 'Rak Buku'),
                 BottomNavigationBarItem(
                     icon: Icon(Ionicons.ellipsis_horizontal_outline),
                     label: 'Profile'),

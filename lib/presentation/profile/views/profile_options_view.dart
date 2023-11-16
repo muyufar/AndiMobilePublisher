@@ -70,6 +70,17 @@ class ProfileOptionsView extends GetView {
               Get.to(FaqAndi());
             },
           ),
+          // (!controller.utilsController.isLogin.value)
+          //     ? _listTile(
+          //         title: 'Beri Penilaian',
+          //         icon: Ionicons.chatbubble_outline,
+          //         onTap: () => Get.toNamed(Routes.LOGIN),
+          //       )
+          //     : _listTile(
+          //         title: 'Beri Penilaian',
+          //         icon: Ionicons.chatbubble_outline,
+          //         onTap: () => Get.toNamed(Routes.TRANSACTION),
+          //       ),
           const Divider(),
           (!controller.utilsController.isLogin.value)
               ? _listTile(
@@ -87,21 +98,20 @@ class ProfileOptionsView extends GetView {
     );
   }
 
- ListTile _listTile(
-  {required String title,
-  required IconData icon,
-  required Function() onTap}) {
-  return ListTile(
-    horizontalTitleGap: 0,
-    onTap: onTap,
-    leading: Icon(
-      icon,
-      color: Colors.black, // Ubah warna ikon sesuai kebutuhan
-    ),
-    title: Text(title),
-  );
-}
-
+  ListTile _listTile(
+      {required String title,
+      required IconData icon,
+      required Function() onTap}) {
+    return ListTile(
+      horizontalTitleGap: 0,
+      onTap: onTap,
+      leading: Icon(
+        icon,
+        color: Colors.black, // Ubah warna ikon sesuai kebutuhan
+      ),
+      title: Text(title),
+    );
+  }
 
   void _launchBlogLink() async {
     const url = 'https://andipublisher.com/blog/list';

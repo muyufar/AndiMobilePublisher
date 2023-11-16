@@ -64,6 +64,7 @@ class HomeController extends GetxController {
     await sewaSallerLabelItemsMaster();
     await beliSallerLabelItemsMaster();
     await ebookNewLabelItemsMaster();
+    await ebookTerlarisLabelItemsMaster();
     await loadCampaigns();
   }
 
