@@ -3,23 +3,27 @@ class EbookDetailHistoryTransactionModel {
   final Transaksi transaksi;
   final List<Items> items;
   final RincianHarga rincianHarga;
+  final bool isAllReviewed;
 
   EbookDetailHistoryTransactionModel({
     required this.transaksi,
     required this.items,
     required this.rincianHarga,
+    required this.isAllReviewed,
   });
   factory EbookDetailHistoryTransactionModel.fromJson(Map<String, dynamic> json) =>
   EbookDetailHistoryTransactionModel(
     transaksi: Transaksi.fromJson(json['transaksi']),
     items: List<Items>.from(json['items'].map((x) => Items.fromJson(x))),
     rincianHarga: RincianHarga.fromJson(json['rincian_harga']),
+    isAllReviewed: json['isAllReviewed'],
   );
 
   Map<String, dynamic> toJson() => {
     'transaksi' : transaksi.toJson(),
     'items' : List<dynamic>.from(items.map((x) => x.toJson())),
      'rincian_harga': rincianHarga.toJson(),
+     'isAllReviewed': isAllReviewed,
   };
 }
 
@@ -65,6 +69,7 @@ class Items {
   final int subTotal;
   final String gambar1;
    String? namaVoucher;
+   final bool isReviewed;
 
   Items({
     required this.idBarang,
@@ -75,6 +80,7 @@ class Items {
     required this.subTotal,
     required this.gambar1,
    this.namaVoucher,
+   required this.isReviewed,
   });
 
   factory Items.fromJson(Map<String, dynamic> json) => Items(
@@ -86,6 +92,7 @@ class Items {
         subTotal: json['sub_total'],
         gambar1: json['gambar1'],
         namaVoucher: json['voucher_name'],
+        isReviewed: json['isReviewed'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,6 +104,7 @@ class Items {
         'sub_total': subTotal,
         'gambar1': gambar1,
         'voucher_name' : namaVoucher,
+        'isReviewed' : isReviewed,
       };
 }
 

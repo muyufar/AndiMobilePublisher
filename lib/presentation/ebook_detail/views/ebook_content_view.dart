@@ -1,5 +1,7 @@
+import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/views/views/future_view.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
+import 'package:andipublisher/app/views/views/rating_product_view.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail.controller.dart';
@@ -7,12 +9,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 class EbookContentView extends GetView {
-  EbookContentView({Key? key}) : super(key: key);
+   EbookContentView({Key? key}) : super(key: key);
 
   @override
   final EbookDetailController controller = Get.put(EbookDetailController());
@@ -31,7 +32,16 @@ class EbookContentView extends GetView {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+
                   _priceAndPromo(),
+                 Container(
+                              // You can set constraints for the container if needed
+                              child: RatingProductView(
+                                double.tryParse(controller.ebookMasterDetailModel.value!.rating) ?? 0.0,
+                                starHalf: true,
+                              ),
+                            ),
                   _infoItem(),
                 ],
               ),
@@ -73,7 +83,7 @@ class EbookContentView extends GetView {
                     children: [
                       TableCell(
                           child: Text(controller.ebookMasterDetailModel.value!
-                              .info[index].label)),
+                              .info[index].label.capitalizeFirst??'')),
                       TableCell(
                           child: Text(controller.ebookMasterDetailModel.value!
                               .info[index].value)),

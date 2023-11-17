@@ -1,6 +1,7 @@
 import 'package:andipublisher/app/data/models/ebook_campaign.dart';
 import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
+import 'package:andipublisher/app/views/views/rating_product_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
@@ -27,7 +28,7 @@ import 'package:get/get.dart';
 
 class CardEbookView extends GetView {
   final EbookMasterModel data;
-  const CardEbookView(this.data,{Key? key}) : super(key: key);
+  const CardEbookView(this.data, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,8 @@ class CardEbookView extends GetView {
     String? jumlah = data.jumlah;
     // Hitung harga awal jika ada diskon
 
+
+    // return Padding(padding: const EdgeInsets.symmetric(horizontal: 6))
     return InkWell(
       onTap: () => Get.toNamed(Routes.EBOOK_DETAIL, arguments: data.idBarang),
       child: AspectRatio(
@@ -108,7 +111,7 @@ class CardEbookView extends GetView {
                       ],
                     )),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -116,7 +119,6 @@ class CardEbookView extends GetView {
                         data.judul,
                         maxLines: 2,
                         style: const TextStyle(fontSize: 12),
-                        overflow: TextOverflow.ellipsis,
                       ),
                       if (jumlah !=
                           0) // Periksa jika jumlah buku terjual tidak sama dengan 0
@@ -125,25 +127,45 @@ class CardEbookView extends GetView {
                               ? data.harga.parceRp()
                               : '', // Hanya tampilkan harga awal jika diskon tidak 0
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 10,
                             color: colorTextGrey,
                             decoration: TextDecoration.lineThrough,
                           ),
                         )
                       else
-                        const SizedBox(
-                            height: 10), // Sembunyikan teks jika jumlah = 0
+                        const SizedBox
+                            .shrink(), // Sembunyikan teks jika jumlah = 0
                       Text(
                         hargatotal.parceRp(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize:
+                              12, // Sesuaikan ukuran font harga sesuai preferensi Anda
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(height: 3),
                       if (jumlah !=
-                          0) // Periksa jika jumlah buku terjual tidak sama dengan 0
+                          '0') // Periksa jika jumlah buku terjual tidak sama dengan 0
                         Text(
                           'Terjual: $jumlah',
                           style: const TextStyle(fontWeight: FontWeight.normal),
                         ),
+                      const SizedBox(height: 5),
+                      SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              // You can set constraints for the container if needed
+                              child: RatingProductView(
+                                double.tryParse(data.rating) ?? 0.0,
+                                starHalf: false,
+                              ),
+                            ),
+                            // Other widgets or elements in the column
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 )

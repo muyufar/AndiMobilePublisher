@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class EbookMasterModel {
   final String idBarang;
   final String slugBarang;
@@ -8,6 +10,7 @@ class EbookMasterModel {
   final int jenisTransaksi;
   final String? jumlah;
   final bool statusStok;
+  final String rating;
 
   EbookMasterModel({
     required this.idBarang,
@@ -19,6 +22,7 @@ class EbookMasterModel {
     required this.jenisTransaksi,
     this.jumlah,
     required this.statusStok,
+    required this.rating,
   });
 
   factory EbookMasterModel.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +36,7 @@ class EbookMasterModel {
         jenisTransaksi: json['jenis_transaksi'],
         jumlah: json["jumlah"],
         statusStok: json["status_stok"],
+        rating: json["rating"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -44,5 +49,6 @@ class EbookMasterModel {
         "jenis_transaksi": jenisTransaksi,
         "jumlah": jumlah,
         "status_stok": statusStok,
+        "rating": rating,
       };
 }

@@ -30,7 +30,7 @@ class EbookKategoriController extends GetxController {
       if (currentCategoryId.isEmpty) {
         final List<EbookCategoryModel> result = await EbookCategoryService.getListCategories(
           limit: 100,
-          offset: (currentPage.value - 1) * 100,
+          offset: 0,
         );
 
         if (result.isNotEmpty) {
@@ -42,7 +42,7 @@ class EbookKategoriController extends GetxController {
       } else {
         final List<EbookCategoryModel> result = await EbookCategoryService.getListChildCategories(
           limit: 100,
-          offset: (currentPage.value - 1) * 100,
+          offset: 0,
           idParent: currentCategoryId.value,
         );
 

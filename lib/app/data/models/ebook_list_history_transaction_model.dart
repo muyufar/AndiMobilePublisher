@@ -1,4 +1,5 @@
 class EbookListHistoryTransactionModel {
+  final bool isAllReviewd;
   final String idTransaksi;
   final String statusTransaksi;
   final DateTime tanggalTransaksi;
@@ -7,6 +8,7 @@ class EbookListHistoryTransactionModel {
   final List<Barang> barang; // Perubahan disini
 
   EbookListHistoryTransactionModel({
+    required this.isAllReviewd,
     required this.idTransaksi,
     required this.statusTransaksi,
     required this.tanggalTransaksi,
@@ -17,6 +19,7 @@ class EbookListHistoryTransactionModel {
 
   factory EbookListHistoryTransactionModel.fromJson(Map<String, dynamic> json) =>
       EbookListHistoryTransactionModel(
+        isAllReviewd: json['isAllReviewd'],
         idTransaksi: json['id_transaksi'],
         statusTransaksi: json['status_transaksi'],
         tanggalTransaksi: DateTime.parse(json['tanggal_transaksi']),
@@ -26,6 +29,7 @@ class EbookListHistoryTransactionModel {
       );
 
   Map<String, dynamic> toJson() => {
+        'isAllReviewd': isAllReviewd,
         'id_transaksi': idTransaksi,
         'status_transaksi': statusTransaksi,
         'tanggal_transaksi': tanggalTransaksi.toIso8601String(),
@@ -41,6 +45,7 @@ class Barang {
   final String gambar1;
   final String judul;
   final int subTotal;
+  final bool isReviewd;
 
   Barang({
     required this.idBarang,
@@ -48,6 +53,7 @@ class Barang {
     required this.gambar1,
     required this.judul,
     required this.subTotal,
+    required this.isReviewd,
   });
 
   factory Barang.fromJson(Map<String, dynamic> json) => Barang(
@@ -56,6 +62,7 @@ class Barang {
         gambar1: json['gambar1'],
         judul: json['judul'],
         subTotal: json['sub_total'],
+        isReviewd: json['isReviewd'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,5 +71,6 @@ class Barang {
         'gambar1': gambar1,
         'judul': judul,
         'sub_total': subTotal,
+        'isReviewd': isReviewd,
       };
 }

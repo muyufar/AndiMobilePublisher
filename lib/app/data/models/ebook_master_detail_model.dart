@@ -16,6 +16,8 @@ class EbookMasterDetailModel {
   final List<String> images;
   final Kategori kategori;
   final List<Info> info;
+  final String rating;
+
 
   EbookMasterDetailModel({
     required this.idBarang,
@@ -33,6 +35,8 @@ class EbookMasterDetailModel {
     required this.images,
     required this.kategori,
     required this.info,
+    required this.rating,
+
   });
 
   factory EbookMasterDetailModel.fromJson(Map<String, dynamic> json) =>
@@ -52,6 +56,8 @@ class EbookMasterDetailModel {
         images: List<String>.from(json['images']),
         kategori: Kategori.fromJson(json['kategori']),
         info: List<Info>.from(json['info'].map((x) => Info.fromJson(x))),
+        rating: json["rating"],
+
       );
 }
 

@@ -4,6 +4,7 @@ export 'package:andipublisher/presentation/checkout_ebook/checkout_ebook.screen.
 export 'package:andipublisher/presentation/ebook_detail/ebook_detail.screen.dart';
 export 'package:andipublisher/presentation/ebook_kategori/ebook_kategori.screen.dart';
 export 'package:andipublisher/presentation/ebook_penerbit/ebook_penerbit.screen.dart';
+export 'package:andipublisher/presentation/ebook_ratings/ebook_ratings.screen.dart';
 export 'package:andipublisher/presentation/ebook_transaction/ebook_transaction.screen.dart';
 export 'package:andipublisher/presentation/ebook_transaction_detail/ebook_transaction_detail.screen.dart';
 export 'package:andipublisher/presentation/ebook_viewall/ebook_viewall.screen.dart';

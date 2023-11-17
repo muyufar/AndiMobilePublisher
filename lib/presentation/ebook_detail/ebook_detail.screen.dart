@@ -1,4 +1,6 @@
+import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/views/views/badge_cart_view.dart';
+import 'package:andipublisher/app/views/views/rating_product_view.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:andipublisher/presentation/checkout_ebook/checkout_ebook.screen.dart';
@@ -16,7 +18,6 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
   @override
   Widget build(BuildContext context) {
     Get.put(EbookDetailController());
-
     return Scaffold(
       body: Column(
         children: [
@@ -41,26 +42,26 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(
-                    width: Get.width / 2.5,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (!controller.utilsController.isLogin.value) {
-                          // Jika pengguna belum login, arahkan ke layar login
-                          Get.toNamed(Routes.LOGIN);
-                        } else {
-                          // Jika pengguna sudah login dan ebook siap, lakukan tindakan pembelian
-                          if (isEbookReady) {
-                            controller.onTapSewaNow();
-                          }
-                        }
-                      },
-                      child: const Text('Sewa'),
+                  // SizedBox(
+                  //   width: Get.width / 2.5,
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
+                  //       if (!controller.utilsController.isLogin.value) {
+                  //         // Jika pengguna belum login, arahkan ke layar login
+                  //         Get.toNamed(Routes.LOGIN);
+                  //       } else {
+                  //         // Jika pengguna sudah login dan ebook siap, lakukan tindakan pembelian
+                  //         if (isEbookReady) {
+                  //           controller.onTapSewaNow();
+                  //         }
+                  //       }
+                  //     },
+                  //     child: const Text('Sewa'),
                       
-                    ),
-                  ),
+                  //   ),
+                  // ),
                    SizedBox(
-                    width: Get.width / 2.5,
+                    width: Get.width / 1.1,
                     child: ElevatedButton(
                       onPressed: () {
                         if (!controller.utilsController.isLogin.value) {
