@@ -1,4 +1,5 @@
 import 'package:andipublisher/app/data/models/ebook_master_model.dart';
+import 'package:andipublisher/app/data/models/ebook_rating_model.dart';
 import 'package:andipublisher/app/views/views/future_view.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/app/views/views/rating_product_view.dart';
@@ -13,7 +14,7 @@ import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 class EbookContentView extends GetView {
-   EbookContentView({Key? key}) : super(key: key);
+  EbookContentView({Key? key}) : super(key: key);
 
   @override
   final EbookDetailController controller = Get.put(EbookDetailController());
@@ -32,17 +33,18 @@ class EbookContentView extends GetView {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-
                   _priceAndPromo(),
-                 Container(
-                              // You can set constraints for the container if needed
-                              child: RatingProductView(
-                                double.tryParse(controller.ebookMasterDetailModel.value!.rating) ?? 0.0,
-                                starHalf: true,
-                              ),
-                            ),
+                  Container(
+                    // You can set constraints for the container if needed
+                    child: RatingProductView(
+                      double.tryParse(controller
+                              .ebookMasterDetailModel.value!.rating) ??
+                          0.0,
+                      starHalf: true,
+                    ),
+                  ),
                   _infoItem(),
+                  _listReviews(),
                 ],
               ),
             ),
@@ -51,6 +53,8 @@ class EbookContentView extends GetView {
       ),
     );
   }
+ 
+
 
   Column _infoItem() {
     return Column(
@@ -83,7 +87,8 @@ class EbookContentView extends GetView {
                     children: [
                       TableCell(
                           child: Text(controller.ebookMasterDetailModel.value!
-                              .info[index].label.capitalizeFirst??'')),
+                                  .info[index].label.capitalizeFirst ??
+                              '')),
                       TableCell(
                           child: Text(controller.ebookMasterDetailModel.value!
                               .info[index].value)),
@@ -91,8 +96,7 @@ class EbookContentView extends GetView {
                   ),
                 ],
               );
-            } else {
-            }
+            } else {}
           },
         ),
         const SizedBox(height: 20),
@@ -212,49 +216,47 @@ class EbookContentView extends GetView {
           ],
         ),
         const Spacer(),
-Obx(() {
-  final isInWishlist = controller.isInWishlist.value;
+        Obx(() {
+          final isInWishlist = controller.isInWishlist.value;
 
-  return InkWell(
-    onTap: () async {
-      // Tambahkan atau hapus item dari Wishlist di sini
-      if (isInWishlist) {
-        await controller.removeFromWishlist();
-      } else {
-        await controller.addToWishlist();
-      }
-      
-      // Setelah menambahkan atau menghapus dari Wishlist, perbarui status Wishlist
-      await controller.checkWishlistStatus();
+          return InkWell(
+            onTap: () async {
+              // Tambahkan atau hapus item dari Wishlist di sini
+              if (isInWishlist) {
+                await controller.removeFromWishlist();
+              } else {
+                await controller.addToWishlist();
+              }
 
-      // Setelah selesai, tutup halaman
-      Get.back();
-    },
-    child: AnimatedContainer(
-      duration: Duration(milliseconds: 500),
-      curve: Curves.elasticInOut,
-      decoration: BoxDecoration(
-        color: isInWishlist ? Colors.red : Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: isInWishlist ? Colors.red : colorBlack,
-          width: 2,
-        ),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      child: Row(
-        children: [
-          Icon(
-            Ionicons.heart,
-            color: isInWishlist ? Colors.white : colorBlack,
-          ),
-        ],
-      ),
-    ),
-  );
-}),
+              // Setelah menambahkan atau menghapus dari Wishlist, perbarui status Wishlist
+              await controller.checkWishlistStatus();
 
-
+              // Setelah selesai, tutup halaman
+              Get.back();
+            },
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              curve: Curves.elasticInOut,
+              decoration: BoxDecoration(
+                color: isInWishlist ? Colors.red : Colors.transparent,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: isInWishlist ? Colors.red : colorBlack,
+                  width: 2,
+                ),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              child: Row(
+                children: [
+                  Icon(
+                    Ionicons.heart,
+                    color: isInWishlist ? Colors.white : colorBlack,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }),
         Visibility(
           visible: (controller.ebookMasterDetailModel.value!.flashsale.status !=
                   null &&
@@ -280,4 +282,75 @@ Obx(() {
       ],
     );
   }
+   Widget _listReviews() {
+    final reviews = controller.ebookMasterDetailModel.value!.rating;
+    
+    if (reviews.isEmpty) {
+      return const SizedBox(); // Tidak ada review, tampilkan widget kosong atau pesan.
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20),
+        const Text(
+          'Ulasan Pengguna',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        const SizedBox(height: 10),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: reviews.length,
+          itemBuilder: (context, index) {
+            final review = reviews[index];
+            return _buildReviewItem(review as EbookRatingItem);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildReviewItem(EbookRatingItem review) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              review.namaUser,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(width: 8),
+            RatingProductView(double.tryParse(review.value) ?? 0.0),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          review.createdAt,
+          style: TextStyle(color: Colors.grey),
+        ),
+        const SizedBox(height: 4),
+        ReadMoreText(
+          review.description ?? '',
+          trimMode: TrimMode.Line,
+          trimCollapsedText: 'Baca Selengkapnya',
+          trimExpandedText: ' Sembunyikan',
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Icon(
+              Ionicons.thumbs_up,
+              size: 16,
+            ),
+            const SizedBox(width: 4),
+            Text('${review.likes} Suka'),
+          ],
+        ),
+        const Divider(height: 20),
+      ],
+    );
+  }
 }
+

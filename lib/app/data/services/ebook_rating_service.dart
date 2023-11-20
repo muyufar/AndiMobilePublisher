@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:andipublisher/app/data/models/ebook_rating_model.dart';
 import 'package:andipublisher/app/data/services/main_service.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -28,5 +29,16 @@ class EbookratingService {
     Get.back();
     var data = json.decode(response.body);
     return data['data'];
+  }
+
+  static Future<List<EbookRatingModel>> getRatingEbook({
+    required String idEbook,
+  }) async {
+    final result = await MainService().postAPI(url: 'review/list', body: {'idEbook': idEbook});
+    
+    // Sesuaikan dengan struktur respons yang sebenarnya
+    return List<EbookRatingModel>.from(result['data']['list'])
+        .map((e) => EbookRatingModel.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 }

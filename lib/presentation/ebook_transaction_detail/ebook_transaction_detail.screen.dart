@@ -1,3 +1,4 @@
+import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:andipublisher/app/views/views/future_view.dart';
 import 'package:get/get.dart';
@@ -10,16 +11,17 @@ import 'controllers/ebook_transaction_detail.controller.dart';
 class EbookTransactionDetailScreen
     extends GetView<EbookTransactionDetailController> {
   const EbookTransactionDetailScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-     Get.put(EbookTransactionDetailController());
+    Get.put(EbookTransactionDetailController());
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ebook Transaksi Detail'),
-        centerTitle: true,
-      ),
-      body: FutureView(
+        appBar: AppBar(
+          title: const Text('Ebook Transaksi Detail'),
+          centerTitle: true,
+        ),
+        body: FutureView(
           future: controller.ebookfetchDetailTransaction(),
           widgetBuilder: Obx(
             () => Column(
@@ -28,22 +30,22 @@ class EbookTransactionDetailScreen
                     child: ListView(
                   padding: EdgeInsets.symmetric(
                       horizontal: marginHorizontal, vertical: 10),
-                  children: [
-                    _transaction(),
-                    _product(),
-                    _rincianPembayaran()
-                  ],
+                  children: [_transaction(), _product(), _rincianPembayaran()],
                 )),
                 _buttom(
-                    statusTransaction: controller.ebookdetailHistoryTransactionModel
-                        .value!.transaksi.statusTransaksi),
+                    statusTransaction: controller
+                        .ebookdetailHistoryTransactionModel
+                        .value!
+                        .transaksi
+                        .statusTransaksi),
+                _buttomreview(),
               ],
             ),
           ),
         ));
   }
 
-   Container _rincianPembayaran() {
+  Container _rincianPembayaran() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 12),
       padding: EdgeInsets.symmetric(horizontal: marginHorizontal, vertical: 8),
@@ -60,8 +62,8 @@ class EbookTransactionDetailScreen
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Total Barang'),
-              Text(controller.ebookdetailHistoryTransactionModel.value?.rincianHarga
-                      .totalHargaSebelumDiskon
+              Text(controller.ebookdetailHistoryTransactionModel.value
+                      ?.rincianHarga.totalHargaSebelumDiskon
                       .parceRp() ??
                   '-'),
             ],
@@ -70,8 +72,8 @@ class EbookTransactionDetailScreen
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Biaya Penanganan'),
-              Text(controller.ebookdetailHistoryTransactionModel.value?.rincianHarga
-                      .biayaPenaganan
+              Text(controller.ebookdetailHistoryTransactionModel.value
+                      ?.rincianHarga.biayaPenaganan
                       .parceRp() ??
                   '-'),
             ],
@@ -88,8 +90,8 @@ class EbookTransactionDetailScreen
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Total Harga'),
-              Text(controller.ebookdetailHistoryTransactionModel.value?.rincianHarga
-                      .totalHargaFinal
+              Text(controller.ebookdetailHistoryTransactionModel.value
+                      ?.rincianHarga.totalHargaFinal
                       .parceRp() ??
                   '-'),
             ],
@@ -98,7 +100,6 @@ class EbookTransactionDetailScreen
       ),
     );
   }
-
 
   ListView _product() {
     return ListView.builder(
@@ -125,13 +126,12 @@ class EbookTransactionDetailScreen
                     Text(controller.ebookdetailHistoryTransactionModel.value
                             ?.items[index].judul ??
                         ''),
-                   
                     Text(
                         controller.ebookdetailHistoryTransactionModel.value!
                             .items[index].hargaNormal
                             .parceRp(),
-                        style: (controller.ebookdetailHistoryTransactionModel.value!
-                                    .items[index].diskon !=
+                        style: (controller.ebookdetailHistoryTransactionModel
+                                    .value!.items[index].diskon !=
                                 0)
                             ? TextStyle(
                                 color: colorGrey,
@@ -154,7 +154,7 @@ class EbookTransactionDetailScreen
         });
   }
 
- Container _transaction() {
+  Container _transaction() {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.symmetric(horizontal: marginHorizontal, vertical: 8),
@@ -198,7 +198,8 @@ class EbookTransactionDetailScreen
       ),
     );
   }
-Widget _buttom({required String statusTransaction}) {
+
+  Widget _buttom({required String statusTransaction}) {
     return (statusTransaction == '1')
         ? Container(
             padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
@@ -220,5 +221,32 @@ Widget _buttom({required String statusTransaction}) {
           )
         : const SizedBox();
   }
+
+Widget _buttomreview() {
+  return Visibility(
+    visible: (controller.ebookdetailHistoryTransactionModel.value?.transaksi.statusTransaksi == '5'),
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(top: BorderSide(color: colorGrey)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+            width: Get.width - 50,
+            child: ElevatedButton(
+              onPressed: () => Get.toNamed(Routes.EBOOK_RATINGS,
+              arguments: controller.ebookdetailHistoryTransactionModel.value?.transaksi.idTransaksi), // Ganti dengan rute ke EbookRatingsScreen
+              child: const Text('Beri Penilaian'),
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+
 
 }
