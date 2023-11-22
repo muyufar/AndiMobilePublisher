@@ -23,14 +23,13 @@ class EbookDetailController extends GetxController {
       Rxn<EbookMasterDetailModel>();
 
   RxInt priceTotalOrder = 0.obs;
-  RxList<EbookRatingItem> ebookRatings = <EbookRatingItem>[].obs;
-
   late bool bottomSheetOrderIsBuy;
   var voucherCode = "".obs;
   var isBuy = false.obs;
   // RxBool isBuy = RxBool(false);
 
   RxBool isInWishlist = false.obs;
+  Rxn<EbookRatingModel> ebookRatings = Rxn<EbookRatingModel>();
 
   @override
   void onInit() {
@@ -38,8 +37,8 @@ class EbookDetailController extends GetxController {
     checkWishlistStatus();
     ever(ebookMasterDetailModel, (_) {
       checkWishlistStatus();
+      ambilDataReview();
     });
-    fetchRatings();
   }
 
   @override
@@ -54,6 +53,12 @@ class EbookDetailController extends GetxController {
     super.onClose();
   }
 
+  Future<EbookRatingModel> ambilDataReview() async {
+    ebookRatings.value =
+        await EbookratingService.getRatingEbook(idEbook: Get.arguments);
+    return ebookRatings.value!;
+  }
+
   Future<EbookMasterDetailModel> fetchDetailItem() async {
     ebookMasterDetailModel.value =
         await EbookService.getEbookItemMasterDetail(id: Get.arguments);
@@ -63,7 +68,7 @@ class EbookDetailController extends GetxController {
 
   Future<void> onTapBuyNow() async {
     Get.back();
-    isBuy.value = true ;
+    isBuy.value = true;
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
       tag: 'direck',
@@ -77,7 +82,7 @@ class EbookDetailController extends GetxController {
 
   Future<void> onTapSewaNow() async {
     Get.back();
-    isBuy.value = false ;
+    isBuy.value = false;
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
             tag: 'direck',
@@ -120,7 +125,7 @@ class EbookDetailController extends GetxController {
   }
 
   void countPriceTotalOrder() {
-    priceTotalOrder.value = (ebookMasterDetailModel.value!.harga.total);
+    priceTotalOrder.value = (ebookMasterDetailModel.value!.harga!.total);
   }
 
   Future<void> addToWishlist() async {
@@ -202,19 +207,6 @@ class EbookDetailController extends GetxController {
     } else {
       // Handle the case where the API response doesn't have the expected structure
       Get.snackbar('Error', 'Terjadi kesalahan pada respons API');
-    }
-  }
-
-  Future<void> fetchRatings() async {
-    try {
-      final ratings = await EbookratingService.getRatingEbook(
-        idEbook: ebookMasterDetailModel.value?.idBarang ?? '',
-      );
-
-      ebookRatings.assignAll(ratings as Iterable<EbookRatingItem>);
-    } catch (e) {
-      print('Error fetching ebook ratings: $e');
-      // Handle error as needed
     }
   }
 }

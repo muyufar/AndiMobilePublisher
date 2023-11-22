@@ -1,7 +1,7 @@
 class EbookRatingModel {
   final bool status;
   final String message;
-  final EbookRatingData data;
+ final EbookRatingData? data;
 
   EbookRatingModel({
     required this.status,
@@ -11,9 +11,11 @@ class EbookRatingModel {
 
   factory EbookRatingModel.fromJson(Map<String, dynamic> json) {
     return EbookRatingModel(
-      status: json['status'],
-      message: json['message'],
-      data: EbookRatingData.fromJson(json['data']),
+      status: json['status']as bool? ?? false,
+      message: json['message'] as String? ?? '',
+      data: json['data'] != null
+          ? EbookRatingData.fromJson(json['data'] as Map<String, dynamic>)
+          : null,
     );
   }
 }
@@ -31,10 +33,12 @@ class EbookRatingData {
 
   factory EbookRatingData.fromJson(Map<String, dynamic> json) {
     return EbookRatingData(
-      totals: json['totals'],
-      jumlah: json['jumlah'],
+      totals: json['totals'] as String,
+      jumlah: json['jumlah'] as int,
       list: List<EbookRatingItem>.from(
-        json['list'].map((item) => EbookRatingItem.fromJson(item)),
+        (json['list'] as List).map(
+          (item) => EbookRatingItem.fromJson(item as Map<String, dynamic>),
+        ),
       ),
     );
   }
@@ -44,8 +48,8 @@ class EbookRatingItem {
   final String idReview;
   final String namaUser;
   final String idUser;
-  final String value;
-  final String? description;
+  final double value;
+  final String description;
   final String createdAt;
   final int likes;
   final bool isNameHidden;
@@ -63,14 +67,14 @@ class EbookRatingItem {
 
   factory EbookRatingItem.fromJson(Map<String, dynamic> json) {
     return EbookRatingItem(
-      idReview: json['idReview'],
-      namaUser: json['nama_user'],
-      idUser: json['id_user'],
-      value: json['value'],
-      description: json['description'],
-      createdAt: json['created_at'],
-      likes: json['likes'],
-      isNameHidden: json['isNameHidden'], // Convert "0" or "1" to boolean
+      idReview: json['idReview'] as String,
+      namaUser: json['nama_user'] as String,
+      idUser: json['id_user'] as String,
+      value: (json['value'] as num).toDouble(),
+      description: json['description'] as String,
+      createdAt: json['created_at'] as String,
+      likes: json['likes'] as int,
+      isNameHidden: json['isNameHidden'] as bool,
     );
   }
 }

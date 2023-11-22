@@ -44,7 +44,7 @@ class EbookContentView extends GetView {
                     ),
                   ),
                   _infoItem(),
-                  _listReviews(),
+                  _reviewsSection(),
                 ],
               ),
             ),
@@ -53,8 +53,6 @@ class EbookContentView extends GetView {
       ),
     );
   }
- 
-
 
   Column _infoItem() {
     return Column(
@@ -66,7 +64,7 @@ class EbookContentView extends GetView {
           style: const TextStyle(fontSize: 16),
         ),
         Text(
-          controller.ebookMasterDetailModel.value!.kategori.label,
+          controller.ebookMasterDetailModel.value!.kategori!.label,
           style: TextStyle(color: colorTextGrey),
         ),
         const SizedBox(height: 30),
@@ -184,17 +182,17 @@ class EbookContentView extends GetView {
             Row(
               children: [
                 Text(
-                  controller.ebookMasterDetailModel.value!.harga.total
+                  controller.ebookMasterDetailModel.value!.harga!.total
                       .parceRp(),
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Visibility(
-                  visible:
-                      (controller.ebookMasterDetailModel.value!.diskon.persen !=
-                          0),
+                  visible: (controller
+                          .ebookMasterDetailModel.value!.diskon!.persen !=
+                      0),
                   child: Text(
-                    ' ${controller.ebookMasterDetailModel.value!.diskon.persen}% OFF ',
+                    ' ${controller.ebookMasterDetailModel.value!.diskon!.persen}% OFF ',
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -206,7 +204,7 @@ class EbookContentView extends GetView {
             Visibility(
               visible: (controller.ebookMasterDetailModel.value!.diskon != 0),
               child: Text(
-                controller.ebookMasterDetailModel.value!.harga.original
+                controller.ebookMasterDetailModel.value!.harga!.original
                     .parceRp(),
                 style: TextStyle(
                     decoration: TextDecoration.lineThrough,
@@ -257,56 +255,51 @@ class EbookContentView extends GetView {
             ),
           );
         }),
-        Visibility(
-          visible: (controller.ebookMasterDetailModel.value!.flashsale.status !=
-                  null &&
-              controller.ebookMasterDetailModel.value!.flashsale.status),
-          child: Column(
-            children: [
-              const Text('Berkhir Dalam'),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: colorRad,
-                  borderRadius: borderRadius,
-                ),
-                child: const Text(
-                  'Jam 100 : 44 : 20',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Visibility(
+        //   visible: (controller.ebookMasterDetailModel.value!.flashsale!.status !=
+        //           null &&
+        //       controller.ebookMasterDetailModel.value!.flashsale!.status),
+        //   child: Column(
+        //     children: [
+        //       const Text('Berkhir Dalam'),
+        //       Container(
+        //         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        //         decoration: BoxDecoration(
+        //           color: colorRad,
+        //           borderRadius: borderRadius,
+        //         ),
+        //         child: const Text(
+        //           'Jam 100 : 44 : 20',
+        //           style: TextStyle(
+        //               fontWeight: FontWeight.bold, color: Colors.white),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }
-   Widget _listReviews() {
-    final reviews = controller.ebookMasterDetailModel.value!.rating;
-    
-    if (reviews.isEmpty) {
-      return const SizedBox(); // Tidak ada review, tampilkan widget kosong atau pesan.
-    }
 
+  Widget _reviewsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 20),
         const Text(
-          'Ulasan Pengguna',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          'Ulasan',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         const SizedBox(height: 10),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: reviews.length,
-          itemBuilder: (context, index) {
-            final review = reviews[index];
-            return _buildReviewItem(review as EbookRatingItem);
-          },
-        ),
+        // Periksa apakah nilai ebookRatings dan data.list tidak null dan data.list.isNotEmpty
+        if (controller.ebookRatings.value?.data?.list?.isNotEmpty ?? false)
+          Column(
+            children: controller.ebookRatings.value!.data!.list
+                .map((review) => _buildReviewItem(review))
+                .toList(),
+          )
+        else
+          const Text('Belum ada ulasan'),
       ],
     );
   }
@@ -315,42 +308,14 @@ class EbookContentView extends GetView {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              review.namaUser,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(width: 8),
-            RatingProductView(double.tryParse(review.value) ?? 0.0),
-          ],
-        ),
-        const SizedBox(height: 4),
         Text(
-          review.createdAt,
-          style: TextStyle(color: Colors.grey),
+          review.namaUser ?? '',
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 4),
-        ReadMoreText(
-          review.description ?? '',
-          trimMode: TrimMode.Line,
-          trimCollapsedText: 'Baca Selengkapnya',
-          trimExpandedText: ' Sembunyikan',
-        ),
+        RatingProductView(double.tryParse(review.value as String) ?? 0.0),
+        Text(review.description ?? ''),
         const SizedBox(height: 10),
-        Row(
-          children: [
-            Icon(
-              Ionicons.thumbs_up,
-              size: 16,
-            ),
-            const SizedBox(width: 4),
-            Text('${review.likes} Suka'),
-          ],
-        ),
-        const Divider(height: 20),
       ],
     );
   }
 }
-

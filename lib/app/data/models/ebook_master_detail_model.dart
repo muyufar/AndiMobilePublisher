@@ -1,42 +1,38 @@
 import 'dart:core';
 
 class EbookMasterDetailModel {
-  final String idBarang;
-  final int jenisTransaksi; 
-  final String slugBarang;
-  final String judul;
-  final String deskripsi;
-  final bool isDisplay;
-  final bool isEbook;
-  final bool isReady;
-  final bool isWishlisted;
-  final Harga harga;
-  final Diskon diskon;
-  final Flashsale flashsale;
-  final List<String> images;
-  final Kategori kategori;
-  final List<Info> info;
-  final String rating;
-
+  String idBarang;
+  int jenisTransaksi;
+  String slugBarang;
+  String judul;
+  String deskripsi;
+  bool isDisplay;
+  bool isEbook;
+  bool isReady;
+  bool isWishlisted;
+  Harga? harga;
+  Diskon? diskon;
+  List<String> images;
+  Kategori? kategori;
+  List<Info> info;
+  String rating;
 
   EbookMasterDetailModel({
-    required this.idBarang,
-    required this.jenisTransaksi,
-    required this.slugBarang,
-    required this.judul,
-    required this.deskripsi,
-    required this.isDisplay,
-    required this.isEbook,
-    required this.isReady,
-    required this.isWishlisted,
-    required this.harga,
-    required this.diskon,
-    required this.flashsale,
-    required this.images,
-    required this.kategori,
-    required this.info,
-    required this.rating,
-
+    this.idBarang = '',
+    this.jenisTransaksi = 0,
+    this.slugBarang = '',
+    this.judul = '',
+    this.deskripsi = '',
+    this.isDisplay = false,
+    this.isEbook = false,
+    this.isReady = false,
+    this.isWishlisted = false,
+    this.harga,
+    this.diskon,
+    this.images = const [],
+    this.kategori,
+    this.info = const [],
+    this.rating = '',
   });
 
   factory EbookMasterDetailModel.fromJson(Map<String, dynamic> json) =>
@@ -52,12 +48,10 @@ class EbookMasterDetailModel {
         isWishlisted: json['isWishlisted'],
         harga: Harga.fromJson(json['harga']),
         diskon: Diskon.fromJson(json['diskon']),
-        flashsale: Flashsale.fromJson(json['flashsale']),
         images: List<String>.from(json['images']),
         kategori: Kategori.fromJson(json['kategori']),
         info: List<Info>.from(json['info'].map((x) => Info.fromJson(x))),
         rating: json["rating"],
-
       );
 }
 
@@ -67,9 +61,9 @@ class Harga {
   final int total;
 
   Harga({
-    required this.original,
-    required this.sewa,
-    required this.total,
+    this.original = 0,
+    this.sewa = 0,
+    this.total = 0,
   });
 
   factory Harga.fromJson(Map<String, dynamic> json) => Harga(
@@ -85,9 +79,9 @@ class Diskon {
   final int harga;
 
   Diskon({
-    required this.status,
-    required this.persen,
-    required this.harga,
+    this.status = false,
+    this.persen = 0,
+    this.harga = 0,
   });
 
   factory Diskon.fromJson(Map<String, dynamic> json) => Diskon(
@@ -97,26 +91,26 @@ class Diskon {
       );
 }
 
-class Flashsale {
-  final bool status;
-  final int harga;
-  final String? start;
-  final String? end;
+// class Flashsale {
+//   final bool status;
+//   final int harga;
+//   final String? start;
+//   final String? end;
 
-  Flashsale({
-    required this.status,
-    required this.harga,
-    this.start,
-    this.end,
-  });
+//   Flashsale({
+//     required this.status,
+//     required this.harga,
+//     this.start,
+//     this.end,
+//   });
 
-  factory Flashsale.fromJson(Map<String, dynamic> json) => Flashsale(
-        status: json['status'],
-        harga: json['harga'],
-        start: json['start'],
-        end: json['end'],
-      );
-}
+//   factory Flashsale.fromJson(Map<String, dynamic> json) => Flashsale(
+//         status: json['status'],
+//         harga: json['harga'],
+//         start: json['start'] ?? '',
+//         end: json['end'] ?? '',
+//       );
+// }
 
 class Kategori {
   final String id;

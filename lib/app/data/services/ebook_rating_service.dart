@@ -15,7 +15,7 @@ class EbookratingService {
       required bool isHide,
       http.Client? client}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.parse('${MainService().urlAPIMain}review/create'));
+        'POST', Uri.parse('${MainService.urlAPIMain}review/create'));
 
     request.fields['idUser'] = GetStorage().read('idUser');
     request.fields['idEbook'] = idEbook;
@@ -31,14 +31,13 @@ class EbookratingService {
     return data['data'];
   }
 
-  static Future<List<EbookRatingModel>> getRatingEbook({
+  static Future<EbookRatingModel> getRatingEbook({
     required String idEbook,
   }) async {
-    final result = await MainService().postAPI(url: 'review/list', body: {'idEbook': idEbook});
-    
-    // Sesuaikan dengan struktur respons yang sebenarnya
-    return List<EbookRatingModel>.from(result['data']['list'])
-        .map((e) => EbookRatingModel.fromJson(e as Map<String, dynamic>))
-        .toList();
+    final result = await MainService().getAPI(
+      url: 'review/list',
+      body: {'idEbook': idEbook},
+    );
+    return EbookRatingModel.fromJson((result['data']));
   }
 }
