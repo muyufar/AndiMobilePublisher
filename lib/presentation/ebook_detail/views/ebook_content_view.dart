@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/ebook_rating_model.dart';
 import 'package:andipublisher/app/views/views/future_view.dart';
@@ -44,7 +46,7 @@ class EbookContentView extends GetView {
                     ),
                   ),
                   _infoItem(),
-                  _reviewsSection(),
+                  // _reviewsSection(),
                 ],
               ),
             ),
@@ -281,41 +283,46 @@ class EbookContentView extends GetView {
     );
   }
 
-  Widget _reviewsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 20),
-        const Text(
-          'Ulasan',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        const SizedBox(height: 10),
-        // Periksa apakah nilai ebookRatings dan data.list tidak null dan data.list.isNotEmpty
-        if (controller.ebookRatings.value?.data?.list?.isNotEmpty ?? false)
-          Column(
-            children: controller.ebookRatings.value!.data!.list
-                .map((review) => _buildReviewItem(review))
-                .toList(),
-          )
-        else
-          const Text('Belum ada ulasan'),
-      ],
-    );
-  }
+  // Widget _reviewsSection() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       const SizedBox(height: 20),
+  //       const Text(
+  //         'Ulasan',
+  //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+  //       ),
+  //       const SizedBox(height: 10),
+  //       // Periksa apakah nilai ebookRatings dan data.list tidak null dan data.list.isNotEmpty
+  //       if (controller.ebookRatings.value?.data?.list?.isNotEmpty ?? false)
+  //         ListView.builder(
+  //           shrinkWrap: true,
+  //           physics: const NeverScrollableScrollPhysics(),
+  //           itemCount: controller.ebookRatings.value!.data!.list.length,
+  //           itemBuilder: (context, index) {
+  //             return _buildReviewItem(
+  //               controller.ebookRatings.value!.data!.list[index],
+  //             );
+  //           },
+  //         )
+  //       else
+  //         const Text('Belum ada ulasan'),
+  //     ],
+  //   );
+  // }
 
-  Widget _buildReviewItem(EbookRatingItem review) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          review.namaUser ?? '',
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        RatingProductView(double.tryParse(review.value as String) ?? 0.0),
-        Text(review.description ?? ''),
-        const SizedBox(height: 10),
-      ],
-    );
-  }
+  // Widget _buildReviewItem(EbookRatingItem review) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Text(
+  //         review.namaUser ?? '',
+  //         style: const TextStyle(fontWeight: FontWeight.bold),
+  //       ),
+  //       RatingProductView(double.tryParse(review.value as String) ?? 0.0),
+  //       Text(review.description ?? ''),
+  //       const SizedBox(height: 10),
+  //     ],
+  //   );
+  // }
 }
