@@ -1,3 +1,4 @@
+export 'package:andipublisher/presentation/EbookPrimaryRatingsDetailScreen/ebook_primary_ratings_detail_screen.screen.dart';
 export 'package:andipublisher/presentation/cart/cart.screen.dart';
 export 'package:andipublisher/presentation/checkout/checkout.screen.dart';
 export 'package:andipublisher/presentation/checkout_ebook/checkout_ebook.screen.dart';

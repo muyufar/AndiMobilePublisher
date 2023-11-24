@@ -5,8 +5,8 @@ import '../../../../presentation/ebook_ratings/controllers/ebook_ratings.control
 class EbookRatingsControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<EbookRatingsController>(
-      () => EbookRatingsController(),
+    Get.lazyPut<EbookRatingController>(
+      () => EbookRatingController(),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:andipublisher/app/data/models/ebook_detail_history_transaction_model.dart';
+import 'package:andipublisher/app/data/models/ebook_list_history_transaction_model.dart';
 import 'package:andipublisher/app/data/models/ebook_rating_model.dart';
 import 'package:andipublisher/app/data/services/main_service.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,51 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 class EbookratingService {
+
+  static Future<List<EbookListHistoryTransactionModel>> getNotRatedList({required String tag,required String offset}
+      ) async {
+    Map<String, String> body = {
+      'idUser': MainService().utilsController.userModel.idUser,
+      'tag': tag,
+      'offset': offset,
+      'limit': '10',
+    };
+
+    final result = await MainService().getAPI(
+      url: 'transaction/history/ebook',
+      body: body,
+    );
+
+    // Filter items where "isAllReviewd" is false
+    List<Map<String, dynamic>> filteredData =
+        ((result != null) ? result['data'] : [])
+            .where(
+              (barang) => barang['isAllReviewd'] == false,
+            )
+            .toList();
+
+    return List<EbookListHistoryTransactionModel>.from(
+      filteredData.map(
+        (e) => EbookListHistoryTransactionModel.fromJson(e),
+      ),
+    );
+  }
+
+    static Future<EbookDetailHistoryTransactionModel> getDetailNotRatedList(
+      {required String idTransaksi}) async {
+         Map<String, dynamic> body = {
+      'idUser': MainService().utilsController.userModel.idUser,
+      'idTransaksi': idTransaksi};
+       print('Request Body: $body');
+      
+   final result = await MainService()
+        .getAPI(url: 'Transaction/detail',body: body);
+print('Response Data: $result');
+    return EbookDetailHistoryTransactionModel.fromJson(result['data']);
+   
+  }
+
+
   static Future<String> addRating(
       {required String idTransaksi,
       required String idUser,
@@ -17,7 +64,7 @@ class EbookratingService {
     var request = http.MultipartRequest(
         'POST', Uri.parse('${MainService.urlAPIMain}review/create'));
 
-    request.fields['idUser'] = GetStorage().read('idUser');
+    request.fields['idUser'] = idUser;
     request.fields['idEbook'] = idEbook;
     request.fields['idTransaction'] = idTransaksi;
     request.fields['description'] = Deskripsi ?? '';
@@ -31,13 +78,13 @@ class EbookratingService {
     return data['data'];
   }
 
-  static Future<EbookRatingModel> getRatingEbook({
+  static Future<EbookRatingData> getRatingEbook({
     required String idEbook,
   }) async {
     final result = await MainService().getAPI(
       url: 'review/list',
       body: {'idEbook': idEbook},
     );
-    return EbookRatingModel.fromJson((result['data']));
+    return EbookRatingData.fromJson((result['data']));
   }
 }

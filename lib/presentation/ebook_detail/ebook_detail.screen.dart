@@ -27,6 +27,7 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
                 _appBar(),
                 EbookContentView(),
               ],
+              
             ),
           ),
           Container(
@@ -94,8 +95,10 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
         IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(Ionicons.chevron_back),
-          color: colorBlack,
+          color: colorPrimary,
+          
         ),
+        
         const Spacer(),
         // if (controller.utilsController.isLogin.value)
         //   BadgeCartView(

@@ -168,6 +168,7 @@ class MainScreen extends GetView<MainController> {
               // Tab(text: 'Produk Digital'),
             ],
           ),
+          backgroundColor: colorPrimary,
           // actions: [
           //   (controller.utilsController.isLogin.value)
           //       ?

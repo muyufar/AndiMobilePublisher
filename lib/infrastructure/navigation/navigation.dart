@@ -158,8 +158,13 @@ class Nav {
     ),
     GetPage(
       name: Routes.EBOOK_RATINGS,
-      page: () => const EbookRatingsScreen(),
+      page: () => EbookRatingsScreen(),
       binding: EbookRatingsControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_PRIMARY_RATINGS_DETAIL_SCREEN,
+      page: () => const EbookPrimaryRatingsDetailScreenScreen(),
+      binding: EbookPrimaryRatingsDetailScreenControllerBinding(),
     ),
   ];
 }

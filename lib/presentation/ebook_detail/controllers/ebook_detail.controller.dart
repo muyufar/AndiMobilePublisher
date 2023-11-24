@@ -29,7 +29,7 @@ class EbookDetailController extends GetxController {
   // RxBool isBuy = RxBool(false);
 
   RxBool isInWishlist = false.obs;
-  Rxn<EbookRatingModel> ebookRatings = Rxn<EbookRatingModel>();
+  Rxn<EbookRatingData> ebookRatings = Rxn<EbookRatingData>();
 
   @override
   void onInit() {
@@ -53,7 +53,7 @@ class EbookDetailController extends GetxController {
     super.onClose();
   }
 
-  Future<EbookRatingModel> ambilDataReview() async {
+  Future<EbookRatingData> ambilDataReview() async {
     ebookRatings.value =
         await EbookratingService.getRatingEbook(idEbook: Get.arguments);
     return ebookRatings.value!;

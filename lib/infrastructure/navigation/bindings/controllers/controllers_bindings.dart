@@ -4,6 +4,7 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/che
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_detail.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_kategori.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_penerbit.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_primary_ratings_detail_screen.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_ratings.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction_detail.controller.binding.dart'; 
