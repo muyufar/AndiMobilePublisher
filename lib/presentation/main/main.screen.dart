@@ -162,8 +162,8 @@ class MainScreen extends GetView<MainController> {
             labelColor: Colors.white,
             unselectedLabelColor: colorTextGrey,
             tabs: const [
-              Tab(text: 'Menu'),
               Tab(text: 'E Book'),
+              Tab(text: 'Buku Fisik'),
               // Tab(text: 'Kategori'),
               // Tab(text: 'Produk Digital'),
             ],

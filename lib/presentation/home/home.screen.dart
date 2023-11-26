@@ -16,8 +16,8 @@ class HomeScreen extends GetView<HomeController> {
 
     return TabBarView(
       children: [
-        HomeMenuView(),
         HomeEbookView(),
+        HomeMenuView(),
         // HomeCategoryView(),
         // HomeProductDigitalView(),
       ],

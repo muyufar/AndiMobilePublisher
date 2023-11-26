@@ -51,9 +51,9 @@ Widget _buildRakBukuList(List<RakBukuModel> rakBukuList) {
           physics: NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.all(20),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
+            maxCrossAxisExtent: 150,
             childAspectRatio: 1 / 1,
-            mainAxisExtent: Get.height / 2.6,
+            mainAxisExtent: Get.height / 4,
             mainAxisSpacing: 0,
           ),
           itemCount: rakBukuList.length,

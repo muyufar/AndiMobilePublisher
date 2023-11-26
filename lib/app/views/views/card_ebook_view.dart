@@ -40,7 +40,6 @@ class CardEbookView extends GetView {
     String? jumlah = data.jumlah;
     // Hitung harga awal jika ada diskon
 
-
     // return Padding(padding: const EdgeInsets.symmetric(horizontal: 6))
     return InkWell(
       onTap: () => Get.toNamed(Routes.EBOOK_DETAIL, arguments: data.idBarang),
@@ -120,21 +119,21 @@ class CardEbookView extends GetView {
                         maxLines: 2,
                         style: const TextStyle(fontSize: 12),
                       ),
-                      if (jumlah !=
-                          0) // Periksa jika jumlah buku terjual tidak sama dengan 0
-                        Text(
-                          data.diskon != 0
-                              ? data.harga.parceRp()
-                              : '', // Hanya tampilkan harga awal jika diskon tidak 0
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: colorTextGrey,
-                            decoration: TextDecoration.lineThrough,
-                          ),
-                        )
-                      else
-                        const SizedBox
-                            .shrink(), // Sembunyikan teks jika jumlah = 0
+                      // if (jumlah !=
+                      //     0) // Periksa jika jumlah buku terjual tidak sama dengan 0
+                      //   Text(
+                      //     data.diskon != 0
+                      //         ? data.harga.parceRp()
+                      //         : '', // Hanya tampilkan harga awal jika diskon tidak 0
+                      //     style: TextStyle(
+                      //       fontSize: 10,
+                      //       color: colorTextGrey,
+                      //       decoration: TextDecoration.lineThrough,
+                      //     ),
+                      //   )
+                      // else
+                      //   const SizedBox
+                      //       .shrink(), // Sembunyikan teks jika jumlah = 0
                       Text(
                         hargatotal.parceRp(),
                         style: const TextStyle(

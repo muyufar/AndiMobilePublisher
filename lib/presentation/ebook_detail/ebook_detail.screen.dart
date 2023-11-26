@@ -27,14 +27,13 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
                 _appBar(),
                 EbookContentView(),
               ],
-              
             ),
           ),
           Container(
             height: 58,
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border(top: BorderSide(color: colorGrey)),
+              // border: Border(top: BorderSide(color: colorGrey)),
             ),
             child: Obx(() {
               final isEbookReady =
@@ -43,26 +42,39 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // SizedBox(
-                  //   width: Get.width / 2.5,
-                  //   child: ElevatedButton(
-                  //     onPressed: () {
-                  //       if (!controller.utilsController.isLogin.value) {
-                  //         // Jika pengguna belum login, arahkan ke layar login
-                  //         Get.toNamed(Routes.LOGIN);
-                  //       } else {
-                  //         // Jika pengguna sudah login dan ebook siap, lakukan tindakan pembelian
-                  //         if (isEbookReady) {
-                  //           controller.onTapSewaNow();
-                  //         }
-                  //       }
-                  //     },
-                  //     child: const Text('Sewa'),
-                      
-                  //   ),
-                  // ),
-                   SizedBox(
-                    width: Get.width / 1.1,
+                  // Tombol Chat
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      // Implementasikan logika untuk membuka WhatsApp di sini
+                      controller.utilsController.onTapChatWa();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary:
+                          Colors.green, // Ganti warna sesuai keinginan Anda
+                      onPrimary: Colors.white,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
+                      ), // Sesuaikan sesuai keinginan Anda
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            13), // Sesuaikan dengan keinginan Anda
+                      ),
+                    ),
+                    icon: Icon(
+                      Icons.chat,
+                      size: 24, // Sesuaikan ukuran ikon sesuai keinginan Anda
+                    ),
+                    label: SizedBox.shrink(), // Hapus label
+                  ),
+
+                  // Spasi di antara tombol
+                  // SizedBox(width: 5),
+
+                  // Tombol Beli
+                  SizedBox(
+                    width: Get.width / 1.5,
+                    height: 48,
                     child: ElevatedButton(
                       onPressed: () {
                         if (!controller.utilsController.isLogin.value) {
@@ -71,13 +83,25 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
                         } else {
                           // Jika pengguna sudah login dan ebook siap, lakukan tindakan pembelian
                           if (isEbookReady) {
-          
                             controller.onTapBuyNow();
                           }
                         }
                       },
-                      child: const Text('Beli'),
-                      
+                      style: ElevatedButton.styleFrom(
+                        primary: colorPrimary,
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              13), // Sesuaikan dengan keinginan Anda
+                        ),
+                      ),
+                      child: const Text(
+                        'Beli Sekarang',
+                        style: TextStyle(
+                          fontSize:
+                              15, // Ganti ukuran teks sesuai keinginan Anda
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -96,16 +120,15 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
           onPressed: () => Get.back(),
           icon: const Icon(Ionicons.chevron_back),
           color: colorPrimary,
-          
         ),
-        
+
         const Spacer(),
         // if (controller.utilsController.isLogin.value)
         //   BadgeCartView(
         //     color: colorBlack,
         //   )
         // else
-          const SizedBox(),
+        const SizedBox(),
       ],
     );
   }

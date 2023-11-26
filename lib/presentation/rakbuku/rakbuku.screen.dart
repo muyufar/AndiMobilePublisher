@@ -47,17 +47,17 @@ class RakbukuScreen extends StatelessWidget {
               ),
             ],
           ),
-          bottom: TabBar(
-            isScrollable: true,
-            tabs: [
-              Tab(
-                text: 'Buku Beli',
-              ),
-              Tab(
-                text: 'Buku Sewa',
-              ),
-            ],
-          ),
+          // bottom: TabBar(
+          //   isScrollable: true,
+          //   tabs: [
+          //     Tab(
+          //       text: 'Buku Beli',
+          //     ),
+          //     Tab(
+          //       text: 'Buku Sewa',
+          //     ),
+          //   ],
+          // ),
         ),
         body: Obx(
           () => (!rakBukuController.utilsController.isLogin.value)

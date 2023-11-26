@@ -112,7 +112,9 @@ class HomeEbookView extends GetView {
                       if (controller.bannerModelebook.isNotEmpty) {
                         return ImageNetworkView(
                           url: controller.bannerModelebook[index].gambarBanner,
+                          
                         );
+                        
                       } else {
                         return const SizedBox();
                       }
@@ -122,10 +124,12 @@ class HomeEbookView extends GetView {
                       aspectRatio: 2 / 1,
                       enlargeCenterPage: true,
                       viewportFraction: 1,
+                      
                       onPageChanged: (index, reason) {
                         controller.currentBanner.value = index;
                       },
                     ),
+                    
                   ),
                   Visibility(
                     visible: (controller.bannerModelebook.length != 1),
@@ -161,7 +165,7 @@ class HomeEbookView extends GetView {
                 ],
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -173,8 +177,8 @@ class HomeEbookView extends GetView {
                       },
                       style: ElevatedButton.styleFrom(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 55, vertical: 16),
-                        elevation: 5, // Efek bayangan
+                            EdgeInsets.symmetric(horizontal: 55, vertical: 13),
+                        elevation: 2, // Efek bayangan
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                               8), // Konfigurasi border-radius
@@ -195,8 +199,8 @@ class HomeEbookView extends GetView {
                       },
                       style: ElevatedButton.styleFrom(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 55, vertical: 16),
-                        elevation: 5, // Efek bayangan
+                            EdgeInsets.symmetric(horizontal: 55, vertical: 13),
+                        elevation: 2, // Efek bayangan
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                               8), // Konfigurasi border-radius
@@ -212,9 +216,9 @@ class HomeEbookView extends GetView {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 15,
-              ),
+              // SizedBox(
+              //   height: ,
+              // ),
             ],
           );
         },
@@ -257,7 +261,7 @@ class HomeEbookView extends GetView {
                 ],
               ),
             SizedBox(
-              height: 340,
+              height: 290,
               child: ListView.builder(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),

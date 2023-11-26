@@ -8,6 +8,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GlobalKeyManager {
   static final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -108,5 +109,10 @@ class UtilsController extends GetxController {
 
   Future<void> getCountCart() async {
     countCart.value = await CartService.getCartCount();
+  }
+
+   void onTapChatWa() {
+    launchUrl(Uri.parse('https://api.whatsapp.com/send?phone=628112936865'),
+        mode: LaunchMode.externalApplication);
   }
 }
