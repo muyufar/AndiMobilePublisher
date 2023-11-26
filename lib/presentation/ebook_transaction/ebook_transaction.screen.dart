@@ -14,6 +14,7 @@ import 'controllers/ebook_transaction.controller.dart';
 
 class EbookTransactionScreen extends GetView<EbookTransactionController> {
   const EbookTransactionScreen({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     Get.put(EbookTransactionController());

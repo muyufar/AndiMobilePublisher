@@ -51,7 +51,7 @@ Widget _buildReviewItem(EbookRatingItem review) {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBox(width: 5),
-          // const Spacer(),
+          const Spacer(),
           Text(
             '${timeago.format(review.createdAt ?? DateTime.now(), )}',
             style: TextStyle(color: Colors.grey),

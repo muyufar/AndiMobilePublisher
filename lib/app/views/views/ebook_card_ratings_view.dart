@@ -1,142 +1,77 @@
 import 'package:andipublisher/app/data/models/ebook_list_history_transaction_model.dart';
+import 'package:andipublisher/app/views/views/image_network_view.dart';
+import 'package:andipublisher/extensions/date_time_extension.dart';
+import 'package:andipublisher/extensions/int_extension.dart';
+import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
-
 
 class CardEbookPrimaryRatingView extends GetView {
   final EbookListHistoryTransactionModel data;
   const CardEbookPrimaryRatingView({required this.data, Key? key})
       : super(key: key);
 
-      @override
-      Widget build(BuildContext context){
-        return GestureDetector(
-         onTap: () => Get.toNamed(Routes.EBOOK_PRIMARY_RATINGS_DETAIL_SCREEN,
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Get.toNamed(Routes.EBOOK_RATINGS_DETAIL,
           arguments: data.idTransaksi),
-          child: Container(
+      child: Container(
+        height: 145,
         color: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+        margin: EdgeInsets.symmetric(vertical: 6),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              children: [
-                CachedNetworkImage(
-                  imageUrl: data.barang[0].gambar1,
-                  imageBuilder: (context, imageProvider) {
-                    return Container(
-                      height: 100,
-                      width: 100,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 14),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10),
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //       color: Colors.grey.shade300,
-                          //       blurRadius: 4,
-                          //       offset: const Offset(0, 2))
-                          // ],
-                          image: DecorationImage(image: imageProvider)),
-                    );
-                  },
-                  errorWidget: (context, url, error) {
-                    return Container(
-                      height: 100,
-                      width: 100,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 14),
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.shade300,
-                                blurRadius: 4,
-                                offset: const Offset(0, 2))
-                          ]),
-                    );
-                  },
-                  placeholder: (context, url) {
-                    return Container(
-                      height: 100,
-                      width: 100,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 14),
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.shade300,
-                                blurRadius: 4,
-                                offset: const Offset(0, 2))
-                          ]),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 100,
-                  width: Get.width - (140),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        data.statusTransaksi,
-                        style: const TextStyle(
-                            fontSize: 16, color: Colors.redAccent),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
+            Text(
+              'Tanggal ${data.tanggalTransaksi.toCustomFormat()}',
+              style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  color: colorTextGrey,
+                  fontSize: 12),
+            ),
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ImageNetworkView(
+                      height: 80,
+                      width: 80,
+                      margin: const EdgeInsets.only(right: 8),
+                      url: data.barang[0].gambar1),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
                           data.barang[0].judul,
-                          maxLines: 1,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      // Text(
-                      //   data.barang[0].subTotal,
-                      //   style: const TextStyle(fontSize: 16),
-                      // ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const SizedBox(width: 8),
-                          // Text(
-                          //   data.totalHargaFinal,
-                          //   style: const TextStyle(
-                          //       fontSize: 16, color: Colors.redAccent),
-                          // ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                        Text(data.jumlahBarang),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Total Harga'),
+                            Text(
+                              data.totalHargaFinal.parceRp(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: colorTextPrimary),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-            const Divider(),
-            Row(
-              children: [
-                const Text('Produk'),
-                const Spacer(flex: 4),
-                const Text(
-                  'Total Pesanan : ',
-                  style: TextStyle(color: Colors.grey),
-                ),
-                const Spacer(),
-                // Text(
-                //   data.totalHargaFinal,
-                //   style: const TextStyle(fontSize: 16, color: Colors.redAccent),
-                // ),
-              ],
-            ),
-            const Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -154,7 +89,7 @@ class CardEbookPrimaryRatingView extends GetView {
                 ),
                 ElevatedButton(
                     onPressed: () => Get.toNamed(
-                        Routes.EBOOK_PRIMARY_RATINGS_DETAIL_SCREEN,
+                        Routes.EBOOK_RATINGS_DETAIL,
                         arguments: data.idTransaksi),
                     style:
                         ElevatedButton.styleFrom(shape: const StadiumBorder()),
@@ -164,6 +99,6 @@ class CardEbookPrimaryRatingView extends GetView {
           ],
         ),
       ),
-        );
-      }
+    );
+  }
 }

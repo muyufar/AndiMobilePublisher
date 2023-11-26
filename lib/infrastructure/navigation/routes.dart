@@ -31,6 +31,6 @@ class Routes {
   static const TRANSACTION = '/transaction';
   static const TRANSACTION_DETAIL = '/transaction-detail';
   static const WISHLIST = '/wishlist';
-  static const EBOOK_PRIMARY_RATINGS_DETAIL_SCREEN =
-      '/ebook-primary-ratings-detail-screen';
+  static const EBOOK_RATINGS_DETAIL =
+      '/ebook-rating-detail-screen';
 }

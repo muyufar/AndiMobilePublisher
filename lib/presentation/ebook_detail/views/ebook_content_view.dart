@@ -45,11 +45,14 @@ class EbookContentView extends GetView {
                     ),
                   ),
                   _infoItem(),
+                  // _ReviewSection(),
                   ReviewsSection(
                     ebookRatingModel:
                         controller.ebookRatings?.value ?? EbookRatingData(),
                     controller: controller,
+
                   ),
+
                 ],
               ),
             ),
@@ -58,6 +61,8 @@ class EbookContentView extends GetView {
       ),
     );
   }
+
+  
 
   Column _infoItem() {
     return Column(
@@ -285,4 +290,7 @@ class EbookContentView extends GetView {
       ],
     );
   }
+
+  // Column _ReviewSection{ B}
+  
 }

@@ -11,31 +11,20 @@ class EbookratingService {
 
   static Future<List<EbookListHistoryTransactionModel>> getNotRatedList({required String tag,required String offset}
       ) async {
-    Map<String, String> body = {
-      'idUser': MainService().utilsController.userModel.idUser,
+      Map<String, String> body = {
       'tag': tag,
       'offset': offset,
       'limit': '10',
+      'idUser': MainService().utilsController.userModel.idUser,
     };
 
-    final result = await MainService().getAPI(
-      url: 'transaction/history/ebook',
-      body: body,
-    );
+    final result = await MainService()
+        .getAPI(url: 'transaction/history/ebook', body: body,);
 
-    // Filter items where "isAllReviewd" is false
-    List<Map<String, dynamic>> filteredData =
-        ((result != null) ? result['data'] : [])
-            .where(
-              (barang) => barang['isAllReviewd'] == false,
-            )
-            .toList();
 
     return List<EbookListHistoryTransactionModel>.from(
-      filteredData.map(
-        (e) => EbookListHistoryTransactionModel.fromJson(e),
-      ),
-    );
+        ((result != null) ? result['data'] : [])
+            .map((e) => EbookListHistoryTransactionModel.fromJson(e)));
   }
 
     static Future<EbookDetailHistoryTransactionModel> getDetailNotRatedList(
