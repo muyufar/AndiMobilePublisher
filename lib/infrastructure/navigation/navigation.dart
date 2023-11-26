@@ -166,5 +166,10 @@ class Nav {
       page: () => const EbookRatingTransactionDetailScreen(),
       binding: EbookPrimaryRatingsDetailScreenControllerBinding(),
     ),
+    GetPage(
+      name: Routes.EBOOK_RATINGS_INPUT,
+      page: () => const EbookRatingsInputScreen(),
+      binding: EbookRatingsInputControllerBinding(),
+    ),
   ];
 }
