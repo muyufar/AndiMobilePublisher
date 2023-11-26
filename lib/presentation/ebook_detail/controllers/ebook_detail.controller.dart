@@ -3,7 +3,9 @@ import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/data/models/data_checkout_model.dart';
 import 'package:andipublisher/app/data/models/data_ebook_checkout_model.dart';
 import 'package:andipublisher/app/data/models/ebook_master_detail_model.dart';
+import 'package:andipublisher/app/data/models/ebook_rating_model.dart';
 import 'package:andipublisher/app/data/services/ebook_cart_service.dart';
+import 'package:andipublisher/app/data/services/ebook_rating_service.dart';
 import 'package:andipublisher/app/data/services/ebook_services.dart';
 import 'package:andipublisher/app/data/services/ebook_wislist.dart';
 import 'package:andipublisher/app/data/services/transaction_ebook_service.dart';
@@ -21,13 +23,13 @@ class EbookDetailController extends GetxController {
       Rxn<EbookMasterDetailModel>();
 
   RxInt priceTotalOrder = 0.obs;
-
   late bool bottomSheetOrderIsBuy;
   var voucherCode = "".obs;
   var isBuy = false.obs;
   // RxBool isBuy = RxBool(false);
 
   RxBool isInWishlist = false.obs;
+  Rxn<EbookRatingData> ebookRatings = Rxn<EbookRatingData>();
 
   @override
   void onInit() {
@@ -35,6 +37,7 @@ class EbookDetailController extends GetxController {
     checkWishlistStatus();
     ever(ebookMasterDetailModel, (_) {
       checkWishlistStatus();
+      ambilDataReview();
     });
   }
 
@@ -50,6 +53,12 @@ class EbookDetailController extends GetxController {
     super.onClose();
   }
 
+  Future<EbookRatingData> ambilDataReview() async {
+    ebookRatings.value =
+        await EbookratingService.getRatingEbook(idEbook: Get.arguments);
+    return ebookRatings.value!;
+  }
+
   Future<EbookMasterDetailModel> fetchDetailItem() async {
     ebookMasterDetailModel.value =
         await EbookService.getEbookItemMasterDetail(id: Get.arguments);
@@ -59,7 +68,7 @@ class EbookDetailController extends GetxController {
 
   Future<void> onTapBuyNow() async {
     Get.back();
-    isBuy.value = true ;
+    isBuy.value = true;
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
       tag: 'direck',
@@ -73,7 +82,7 @@ class EbookDetailController extends GetxController {
 
   Future<void> onTapSewaNow() async {
     Get.back();
-    isBuy.value = false ;
+    isBuy.value = false;
     CheckoutEbookModel checkoutEbookModel =
         await TransactionEbookService.postCheckout(
             tag: 'direck',
@@ -116,7 +125,7 @@ class EbookDetailController extends GetxController {
   }
 
   void countPriceTotalOrder() {
-    priceTotalOrder.value = (ebookMasterDetailModel.value!.harga.total);
+    priceTotalOrder.value = (ebookMasterDetailModel.value!.harga!.total);
   }
 
   Future<void> addToWishlist() async {

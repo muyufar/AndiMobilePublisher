@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 
 class LabelEbookMasterModel {
@@ -6,17 +7,19 @@ class LabelEbookMasterModel {
   final List<EbookMasterModel> value;
 
   LabelEbookMasterModel({
-    required this.label,
-    required this.link,
-    required this.value,
+    this.label = '',
+    this.link = '',
+    this.value = const [],
   });
 
-  factory LabelEbookMasterModel.fromJson(Map<String, dynamic> json) =>
-      LabelEbookMasterModel(
-        label: json['label'],
-        link: json['link'],
-        value: List<EbookMasterModel>.from(
-            ((json['value'] != null) ? json['value'] : [])
-                .map((e) => EbookMasterModel.fromJson(e))),
-      );
+  factory LabelEbookMasterModel.fromJson(Map<String, dynamic> json) {
+    List<dynamic>? valueJson = json['value'];
+    List<EbookMasterModel>? ebookMasters = valueJson!.map((item) => EbookMasterModel.fromJson(item)).toList();
+
+    return LabelEbookMasterModel(
+      label: json['label'],
+      link: json['link'],
+      value: ebookMasters,
+    );
+  }
 }

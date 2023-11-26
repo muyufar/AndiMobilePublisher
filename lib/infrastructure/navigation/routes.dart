@@ -10,8 +10,10 @@ class Routes {
   static const EBOOK_DETAIL = '/ebook_detail';
   static const EBOOK_KATEGORI = '/ebook-kategori';
   static const EBOOK_PENERBIT = '/ebook-penerbit';
+  static const EBOOK_RATINGS = '/ebook-ratings';
   static const EBOOK_TRANSACTION = '/ebook-transaction';
   static const EBOOK_TRANSACTION_DETAIL = '/ebook-transaction-detail';
+  static const EBOOK_VIEWALL = '/ebook-viewall';
   static const FORGOT = '/forgot';
   static const FORGOT_PASSWORD = '/forgot-password';
   static const HOME = '/home';
@@ -29,5 +31,6 @@ class Routes {
   static const TRANSACTION = '/transaction';
   static const TRANSACTION_DETAIL = '/transaction-detail';
   static const WISHLIST = '/wishlist';
-  static const EBOOK_VIEWALL = '/ebook-viewall';
+  static const EBOOK_PRIMARY_RATINGS_DETAIL_SCREEN =
+      '/ebook-primary-ratings-detail-screen';
 }

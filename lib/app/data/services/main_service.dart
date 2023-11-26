@@ -30,8 +30,8 @@ class MainService {
 
   final UtilsController utilsController = Get.put(UtilsController());
 
-  String urlAPIMain = 'https://api.andipublisher.com/';
-  late String urlRedirect = '${urlAPIMain}api/dev/';
+  static const String urlAPIMain = 'https://api.andipublisher.com/';
+  static const String urlRedirect = '${urlAPIMain}api/dev/';
 
   String username = 'admin';
   String password = '1234';
@@ -64,7 +64,7 @@ class MainService {
         },
       ));
       return;
-    } 
+    }
 
     return result;
   }

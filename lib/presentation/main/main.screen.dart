@@ -23,7 +23,7 @@ class MainScreen extends GetView<MainController> {
         () => DefaultTabController(
           length: 2,
           child: Scaffold(
-             key: controller.scaffoldKey,
+            key: controller.scaffoldKey,
             appBar: _appBar(),
             drawer: (controller.utilsController.isLogin.value)
                 ? Drawer(
@@ -62,8 +62,8 @@ class MainScreen extends GetView<MainController> {
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                            Text(controller.utilsController.userModel.emailUser),
-
+                            Text(
+                                controller.utilsController.userModel.emailUser),
                           ],
                         ),
                       ),
@@ -104,11 +104,11 @@ class MainScreen extends GetView<MainController> {
                 onPageChanged: (index) =>
                     controller.onPageChangedPageView(index),
                 children: const [
-                   HomeScreen(),
-                    WishlistScreen(),
-                   MainTransactionScreen(),
-                   RakbukuScreen(),
-                   ProfileScreen(),
+                  HomeScreen(),
+                  WishlistScreen(),
+                  MainTransactionScreen(),
+                  RakbukuScreen(),
+                  ProfileScreen(),
                 ],
               ),
             ),
@@ -146,20 +146,19 @@ class MainScreen extends GetView<MainController> {
           leading: (controller.utilsController.isLogin.value)
               ? IconButton(
                   icon: const Icon(Ionicons.person_circle_outline),
-                   onPressed: () {
-                if (controller.scaffoldKey?.currentState != null) {
-                  controller.scaffoldKey?.currentState!.openDrawer();
-                }
-              },
-            )
-          : null,
+                  onPressed: () {
+                    if (controller.scaffoldKey?.currentState != null) {
+                      controller.scaffoldKey?.currentState!.openDrawer();
+                    }
+                  },
+                )
+              : null,
           title: const TextField(
             readOnly: true,
             decoration: InputDecoration(hintText: 'Cari Sesuatu ...'),
           ),
           bottom: TabBar(
             isScrollable: true,
-            
             labelColor: Colors.white,
             unselectedLabelColor: colorTextGrey,
             tabs: const [
@@ -169,6 +168,7 @@ class MainScreen extends GetView<MainController> {
               // Tab(text: 'Produk Digital'),
             ],
           ),
+          backgroundColor: colorPrimary,
           // actions: [
           //   (controller.utilsController.isLogin.value)
           //       ?

@@ -70,17 +70,17 @@ class ProfileOptionsView extends GetView {
               Get.to(FaqAndi());
             },
           ),
-          // (!controller.utilsController.isLogin.value)
-          //     ? _listTile(
-          //         title: 'Beri Penilaian',
-          //         icon: Ionicons.chatbubble_outline,
-          //         onTap: () => Get.toNamed(Routes.LOGIN),
-          //       )
-          //     : _listTile(
-          //         title: 'Beri Penilaian',
-          //         icon: Ionicons.chatbubble_outline,
-          //         onTap: () => Get.toNamed(Routes.TRANSACTION),
-          //       ),
+          (!controller.utilsController.isLogin.value)
+              ? _listTile(
+                  title: 'Beri Penilaian',
+                  icon: Ionicons.chatbubble_outline,
+                  onTap: () => Get.toNamed(Routes.LOGIN),
+                )
+              : _listTile(
+                  title: 'Beri Penilaian',
+                  icon: Ionicons.chatbubble_outline,
+                  onTap: () => Get.toNamed(Routes.EBOOK_RATINGS),
+                ),
           const Divider(),
           (!controller.utilsController.isLogin.value)
               ? _listTile(

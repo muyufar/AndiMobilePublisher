@@ -13,10 +13,9 @@ import 'package:ionicons/ionicons.dart';
 import 'package:andipublisher/presentation/checkout_ebook/controllers/checkout_ebook.controller.dart';
 
 class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
-  
-   CheckoutEbookScreen({Key? key}) : super(key: key);
+  CheckoutEbookScreen({Key? key}) : super(key: key);
 
-      final EbookDetailController ebookDetailController = Get.find();
+  final EbookDetailController ebookDetailController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -560,43 +559,102 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
           TextField(
             controller: controller.textVoucher,
           ),
-          ElevatedButton(
-            onPressed: () {
-              var voucher = controller.textVoucher.text;
+ElevatedButton(
+  onPressed: () async {
+    var voucher = controller.textVoucher.text;
 
-              print("DATA_VOUCHER: $voucher");
+    print("DATA_VOUCHER: $voucher");
 
-              List<String> produk = [];
-              for (int i = 0;
-                  i < controller.checkoutEbookModel.dataEbookCheckout.length;
-                  i++) {
-                produk.add(controller
-                    .checkoutEbookModel.dataEbookCheckout[i].items[i].idBarang);
-              }
+    List<String> produk = [];
+    for (int i = 0;
+        i < controller.checkoutEbookModel.dataEbookCheckout.length;
+        i++) {
+      produk.add(controller
+          .checkoutEbookModel.dataEbookCheckout[i].items[i].idBarang);
+    }
 
-              TransactionEbookService.postCheckout(
-                tag: "direck",
-                ids: produk,
-                voucherCode: voucher,
-                isBuy: [ebookDetailController.isBuy.value],
-              ).then((value) {
-                print("DATA_RESULT: $value");
+    try {
+      var value = await TransactionEbookService.postCheckout(
+        tag: "direck",
+        ids: produk,
+        voucherCode: voucher,
+        isBuy: [ebookDetailController.isBuy.value],
+      );
 
-                CheckoutEbookModel checkoutEbook = value;
+      print("DATA_RESULT: $value");
 
-                print("RESULT: ${checkoutEbook.subtotal.diskon.voucher}");
+      CheckoutEbookModel checkoutEbook = value;
 
-                controller.voucher.value =
-                    checkoutEbook.subtotal.diskon.voucher;
-                controller.totalHarga.value = checkoutEbook.subtotal.total;
+      print("RESULT: ${checkoutEbook.subtotal.diskon.voucher}");
 
-                Get.back();
-              }).catchError((Object e) {
-                print("DATA_ERROR: $e");
-              });
-            },
-            child: Text("Claim"),
+      controller.voucher.value = checkoutEbook.subtotal.diskon.voucher;
+      controller.totalHarga.value = checkoutEbook.subtotal.total;
+
+      Get.back();
+      Get.back();
+
+      // Tampilkan dialog status klaim voucher
+      if 
+      (checkoutEbook.subtotal.diskon.voucher > 0)
+       {
+        // Voucher berhasil di-klaim
+        Get.dialog(
+          AlertDialog(
+            title: const Text('Voucher Valid'),
+            content: Text(
+                'Voucher dengan kode $voucher berhasil di-klaim. Diskon sebesar ${checkoutEbook.subtotal.diskon.voucher.parceRp()} akan diterapkan pada total belanja.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text('OK'),
+              ),
+            ],
           ),
+        );
+      } else {
+        // Voucher tidak valid
+        Get.dialog(
+          AlertDialog(
+            title: const Text('Voucher Tidak Valid'),
+            content:  Text('Voucher dengan kode $voucher  tidak valid.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle error ketika melakukan klaim voucher
+      print("DATA_ERROR: $e");
+      // Tampilkan dialog error jika diperlukan
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Voucher Tidak Valid'),
+          content:  Text('Voucher dengan kode $voucher  tidak valid.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.back();
+                Get.back();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  },
+  child: const Text("Claim"),
+),
+
+
         ],
       ),
     );
