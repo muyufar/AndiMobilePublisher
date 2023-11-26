@@ -235,7 +235,7 @@ Widget _buttomreview() {
           SizedBox(
             width: Get.width - 50,
             child: ElevatedButton(
-              onPressed: () => Get.toNamed(Routes.EBOOK_RATINGS,
+              onPressed: () => Get.toNamed(Routes.EBOOK_RATINGS_INPUT,
               arguments: controller.ebookdetailHistoryTransactionModel.value?.transaksi.idTransaksi), // Ganti dengan rute ke EbookRatingsScreen
               child: const Text('Beri Penilaian'),
             ),

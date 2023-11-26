@@ -211,16 +211,16 @@ class EbookContentView extends GetView {
                 ),
               ],
             ),
-            Visibility(
-              visible: (controller.ebookMasterDetailModel.value!.diskon != 0),
-              child: Text(
-                controller.ebookMasterDetailModel.value!.harga!.original
-                    .parceRp(),
-                style: TextStyle(
-                    decoration: TextDecoration.lineThrough,
-                    color: colorTextGrey),
-              ),
-            ),
+            // Visibility(
+            //   visible: (controller.ebookMasterDetailModel.value!.diskon != 0),
+            //   child: Text(
+            //     controller.ebookMasterDetailModel.value!.harga!.original
+            //         .parceRp(),
+            //     style: TextStyle(
+            //         decoration: TextDecoration.lineThrough,
+            //         color: colorTextGrey),
+            //   ),
+            // ),
           ],
         ),
         const Spacer(),

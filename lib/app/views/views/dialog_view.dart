@@ -32,7 +32,9 @@ import 'package:flutter/material.dart';
 
 AlertDialog dialogView(
     {required String title,
-     required String content,
+    required String content,
+    String textN = 'Kembali',
+    String textY = 'Oke',
     required Function() onTapOke,
     Function()? onTapBack}) {
   return AlertDialog(
