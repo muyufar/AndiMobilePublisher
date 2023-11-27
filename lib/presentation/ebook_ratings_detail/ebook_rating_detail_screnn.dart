@@ -19,8 +19,8 @@ class EbookRatingTransactionDetailScreen
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Ebook Transaksi Detail'),
-          centerTitle: true,
+          title: const Text('Ebook Detail'),
+          // centerTitle: true,
         ),
         body: FutureView(
           future: controller.ebookfetchDetailTransaction(),
@@ -212,7 +212,6 @@ class EbookRatingTransactionDetailScreen
               children: [
                 SizedBox(
                   width: Get.width - 50,
-                 
                 )
               ],
             ),
@@ -220,31 +219,40 @@ class EbookRatingTransactionDetailScreen
         : const SizedBox();
   }
 
-Widget _buttomreview() {
-  return Visibility(
-    visible: (controller.ebookdetailHistoryTransactionModel.value?.transaksi.statusTransaksi == '5'),
-    child: Container(
-      padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: colorGrey)),
+  Widget _buttomreview() {
+    return Visibility(
+      visible: (controller.ebookdetailHistoryTransactionModel.value?.transaksi
+              .statusTransaksi ==
+          '5'),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: colorGrey)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              width: Get.width - 50,
+              child: ElevatedButton(
+                onPressed: () => Get.toNamed(Routes.EBOOK_RATINGS_INPUT,
+                    arguments: controller.ebookdetailHistoryTransactionModel
+                        .value?.transaksi.idTransaksi),
+                style: ElevatedButton.styleFrom(
+                  primary: colorPrimary,
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        13), // Sesuaikan dengan keinginan Anda
+                  ),
+                ), // Ganti dengan rute ke EbookRatingsScreen
+                child: const Text('Beri Penilaian'),
+              ),
+            )
+          ],
+        ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SizedBox(
-            width: Get.width - 50,
-            child: ElevatedButton(
-              onPressed: () => Get.toNamed(Routes.EBOOK_RATINGS_INPUT,
-              arguments: controller.ebookdetailHistoryTransactionModel.value?.transaksi.idTransaksi), // Ganti dengan rute ke EbookRatingsScreen
-              child: const Text('Beri Penilaian'),
-            ),
-          )
-        ],
-      ),
-    ),
-  );
-}
-
-
+    );
+  }
 }

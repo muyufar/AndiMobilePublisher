@@ -16,8 +16,8 @@ class CardEbookPrimaryRatingView extends GetView {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(Routes.EBOOK_RATINGS_DETAIL,
-          arguments: data.idTransaksi),
+      onTap: () =>
+          Get.toNamed(Routes.EBOOK_RATINGS_DETAIL, arguments: data.idTransaksi),
       child: Container(
         height: 145,
         color: Colors.white,
@@ -80,20 +80,29 @@ class CardEbookPrimaryRatingView extends GetView {
                   children: [
                     SizedBox(
                       width: Get.width / 2,
-                      // child: Text(
-                      //   'Nilai Produk sebelum ${data.}',
-                      //   style: const TextStyle(color: Colors.grey),
-                      // ),
+                      child: Text(
+                        'Nilai Produk sebelum ',
+                        style: const TextStyle(color: Colors.grey),
+                      ),
                     ),
                   ],
                 ),
                 ElevatedButton(
-                    onPressed: () => Get.toNamed(
-                        Routes.EBOOK_RATINGS_DETAIL,
-                        arguments: data.idTransaksi),
-                    style:
-                        ElevatedButton.styleFrom(shape: const StadiumBorder()),
-                    child: const Text('   Nilai   ')),
+                  onPressed: () => Get.toNamed(
+                    Routes.EBOOK_RATINGS_DETAIL,
+                    arguments: data.idTransaksi,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: colorPrimary,
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    // fixedSize: Size.fromHeight(
+                    //     25), // Sesuaikan tinggi sesuai keinginan Anda
+                  ),
+                  child: const Text('  Beri  Nilai   '),
+                )
               ],
             )
           ],

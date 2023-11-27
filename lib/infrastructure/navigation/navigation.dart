@@ -171,5 +171,15 @@ class Nav {
       page: () => const EbookRatingsInputScreen(),
       binding: EbookRatingsInputControllerBinding(),
     ),
+    GetPage(
+      name: Routes.EBOOK_KATEGORI_CHILD,
+      page: () => const EbookKategoriChildScreen(),
+      binding: EbookKategoriChildControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_KATEGORI_LIST,
+      page: () => const EbookKategoriListScreen(),
+      binding: EbookKategoriListControllerBinding(),
+    ),
   ];
 }

@@ -231,7 +231,7 @@ class EbookRatingsInputScreen extends GetView<EbookRatingsInputController> {
       backgroundColor: Colors.transparent,
       foregroundColor: Colors.black,
       elevation: 0,
-      title: const Text('Nilai Produk'),
+      title: const Text('Nilai Ebook'),
       centerTitle: false,
       leading: IconButton(
         onPressed: () => Get.back(),

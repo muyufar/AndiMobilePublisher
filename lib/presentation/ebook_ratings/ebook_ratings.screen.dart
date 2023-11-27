@@ -12,8 +12,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 
-class EbookRatingsScreen
-    extends GetView<EbookRatingController> {
+class EbookRatingsScreen extends GetView<EbookRatingController> {
   const EbookRatingsScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,43 +23,15 @@ class EbookRatingsScreen
       () => (!controller.utilsController.isLogin.value)
           ? Scaffold(
               appBar: AppBar(
-                foregroundColor: colorBlack,
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                title: const Text(''),
-                centerTitle: true,
+                title: const Text('Penilaian'),
               ),
-              body: const RequestLoginView())
-          : DefaultTabController(
-              length: 1,
-              child: Scaffold(
-                appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(50), // Menghilangkan tinggi AppBar
-                  child: AppBar(
-                    // Setting padding sisi atas ke nol
-                    titleSpacing: 0,
-                    foregroundColor: colorBlack,
-                    backgroundColor: Colors.transparent,
-                   
-                    elevation: 0,
-                    bottom: TabBar(
-                       labelColor: Colors.black,
-                      isScrollable: true,
-                      tabs: [
-                        Tab(text: 'Penilaian'),
-                      ],
-                    ),
-                  ),
-                ),
-                body: TabBarView(
-                  dragStartBehavior: DragStartBehavior.down,
-                  children: [
-                    // EbookTransactionProcessView(),
-                    // EbookTransactionSendView(),
-                    EbookRatingView(),
-                  ],
-                ),
+              body: const RequestLoginView(),
+            )
+          : Scaffold(
+              appBar: AppBar(
+                title: const Text('Penilaian'),
               ),
+              body: EbookRatingView(),
             ),
     );
   }

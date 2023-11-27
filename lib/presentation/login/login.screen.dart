@@ -89,6 +89,14 @@ class LoginScreen extends GetView<LoginController> {
                             width: Get.width,
                             child: ElevatedButton(
                               onPressed: () => controller.oTapLogin(),
+                              style: ElevatedButton.styleFrom(
+                                primary: colorPrimary,
+                                onPrimary: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      13), // Sesuaikan dengan keinginan Anda
+                                ),
+                              ),
                               child: const Text('Masuk'),
                             ),
                           ),

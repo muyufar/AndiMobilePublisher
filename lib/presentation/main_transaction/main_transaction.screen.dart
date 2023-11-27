@@ -1,3 +1,4 @@
+import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:andipublisher/presentation/ebook_transaction/ebook_transaction.screen.dart';
 import 'package:andipublisher/presentation/transaction/transaction.screen.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +45,8 @@ class MainTransactionScreen extends GetView<MainTransactionController> {
               // Efek bayangan di bawah bottomNavigationBar
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 4,
+                spreadRadius: 1,
+                blurRadius: 1,
                 offset: Offset(0, -1),
               ),
             ],
@@ -54,9 +55,10 @@ class MainTransactionScreen extends GetView<MainTransactionController> {
             labelColor: Colors.white,
             unselectedLabelColor: Colors.black,
             indicator: BoxDecoration(
-              // borderRadius: BorderRadius.circular(40),
-              color: Colors.blueAccent,
+              color: colorPrimary,
             ),
+            indicatorSize:
+                TabBarIndicatorSize.tab, // Ini yang perlu ditambahkan
             tabs: [
               Tab(text: 'Transaksi Produk'),
               Tab(text: 'Transaksi Ebook'),

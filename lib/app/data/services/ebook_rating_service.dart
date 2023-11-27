@@ -23,6 +23,7 @@ class EbookratingService {
     required String offset,
   }) async {
     Map<String, String> body = {
+      'isReviewed': 'false',
       'tag': tag,
       'offset': offset,
       'limit': '10',

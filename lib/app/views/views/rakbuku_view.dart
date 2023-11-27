@@ -17,8 +17,6 @@ import 'package:readmore/readmore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
 
-
-
 class RakBukuView extends StatefulWidget {
   final RakBukuModel data;
 
@@ -35,63 +33,62 @@ class _RakBukuViewState extends State<RakBukuView> {
   bool downloading = false; // Menambahkan flag `downloading`
   double downloadProgress = 0.0;
   bool showIndicator = false;
- // Menambahkan `downloadProgress`
+  // Menambahkan `downloadProgress`
 
-Future<bool> _downloadEbook(String ebookUrl, String idEbook) async {
-  final pdfFile = File(await _getLocalPDFPath(idEbook));
+  Future<bool> _downloadEbook(String ebookUrl, String idEbook) async {
+    final pdfFile = File(await _getLocalPDFPath(idEbook));
 
-  try {
-    final dio = Dio();
-    dio.interceptors.add(LogInterceptor());
+    try {
+      final dio = Dio();
+      dio.interceptors.add(LogInterceptor());
 
-    final response = await dio.download(
-      ebookUrl,
-      pdfFile.path,
-      onReceiveProgress: (received, total) {
-        if (total != -1) {
-          setState(() {
-            downloadProgress = (received / total) * 100;
-          });
-          if (downloadProgress == 100) {
-            downloading = true;
+      final response = await dio.download(
+        ebookUrl,
+        pdfFile.path,
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            setState(() {
+              downloadProgress = (received / total) * 100;
+            });
+            if (downloadProgress == 100) {
+              downloading = true;
+            }
           }
-        }
-      },
-    );
+        },
+      );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to download PDF');
+      if (response.statusCode != 200) {
+        throw Exception('Failed to download PDF');
+      }
+
+      // Get.to(
+      //   Scaffold(
+      //     appBar: AppBar(
+      //       title: Text('Ebook Viewer'),
+      //     ),
+      //     body: SfPdfViewer.file(
+      //       pdfFile, // Gunakan File lokal yang sudah diunduh
+      //     ),
+      //   ),
+      // );
+      return true;
+    } catch (e) {
+      print("PDF_ERROR: $e");
+      return false;
     }
-
-    // Get.to(
-    //   Scaffold(
-    //     appBar: AppBar(
-    //       title: Text('Ebook Viewer'),
-    //     ),
-    //     body: SfPdfViewer.file(
-    //       pdfFile, // Gunakan File lokal yang sudah diunduh
-    //     ),
-    //   ),
-    // );
-    return true;
-  } catch (e) {
-    print("PDF_ERROR: $e");
-    return false;
   }
-}
-
-
 
   // Future<String> _getLocalPDFPath(String idEbook) async {
   //   final tempDir = await Pspdfkit.getTemporaryDirectory();
   //   final fileName = '$idEbook.pdf';
   //   return '${tempDir.path}/$fileName';
   // }
-Future<String> _getLocalPDFPath(String idEbook) async {
-  final tempDir = await getTemporaryDirectory();
-  final fileName = '$idEbook.pdf';
-  return '${tempDir.path}/$fileName';
-}
+  Future<String> _getLocalPDFPath(String idEbook) async {
+    final tempDir = await getTemporaryDirectory();
+    final fileName = '$idEbook.pdf';
+    return '${tempDir.path}/$fileName';
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -189,8 +186,8 @@ Future<String> _getLocalPDFPath(String idEbook) async {
                           child: ImageNetworkView(
                             url: widget.data.gambar1,
                             fit: BoxFit.fill,
-                            decoration:
-                                BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
                           ),
                         ),
                       ),
@@ -253,96 +250,93 @@ Future<String> _getLocalPDFPath(String idEbook) async {
   }
 
   Future<bool> _checkIfFileExists(String idEbook) async {
-  final localPath = await _getLocalPDFPath(idEbook);
-  final file = File(localPath);
-  return await file.exists();
-}
+    final localPath = await _getLocalPDFPath(idEbook);
+    final file = File(localPath);
+    return await file.exists();
+  }
 
+  Widget _buildDownloadButton(String idEbook) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (downloading)
+          Container(
+            height: 100, // Adjust the height as needed
+            width: 100, // Adjust the width as needed
+            child: Lottie.asset(
+              Assets.lottie
+                  .ebookdownload, // Replace with the correct path to your Lottie animation file
+              repeat: true,
+              animate: true,
+            ),
+          ),
+        ElevatedButton(
+          onPressed: () async {
+            setState(() {
+              downloading = true;
+            });
 
-Widget _buildDownloadButton(String idEbook) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      if (downloading)
-        Container(
-          height: 100, // Adjust the height as needed
-          width: 100,  // Adjust the width as needed
-          child: Lottie.asset(
-            Assets.lottie.ebookdownload, // Replace with the correct path to your Lottie animation file
-            repeat: true,
-            animate: true,
+            // Use Navigator to push the DownloadLoading screen
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return DownloadLoading(); // Replace with the actual name of your DownloadLoading screen
+                },
+              ),
+            );
+
+            // Start the download in the background
+            await _downloadEbook(widget.data.file, idEbook);
+
+            // Once the download is complete, navigate to the PDFViewerView
+            setState(() {
+              downloading = false;
+            });
+
+            final pdfFilePath = await _getLocalPDFPath(idEbook);
+            Get.to(PDFViewerView(pdfFilePath: pdfFilePath));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (!downloading)
+                Text(
+                  'Unduh Ebook',
+                  style: TextStyle(fontSize: 16),
+                ),
+            ],
           ),
         ),
-      ElevatedButton(
-        onPressed: () async {
-          setState(() {
-            downloading = true;
-          });
+      ],
+    );
+  }
 
-          // Use Navigator to push the DownloadLoading screen
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return DownloadLoading(); // Replace with the actual name of your DownloadLoading screen
-              },
-            ),
-          );
+  Widget _buildOpenButton(String idEbook) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ElevatedButton(
+          onPressed: () async {
+            final localPath = await _getLocalPDFPath(idEbook);
 
-          // Start the download in the background
-          await _downloadEbook(widget.data.file, idEbook);
-
-          // Once the download is complete, navigate to the PDFViewerView
-          setState(() {
-            downloading = false;
-          });
-
-          final pdfFilePath = await _getLocalPDFPath(idEbook);
-          Get.to(PDFViewerView(pdfFilePath: pdfFilePath));
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (!downloading)
+            if (localPath != null) {
+              Get.to(PDFViewerView(pdfFilePath: localPath));
+            } else {
+              // Handle the case when localPath is null
+              print('PDF file path is null');
+            }
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               Text(
-                'Unduh Ebook',
+                'Buka Ebook',
                 style: TextStyle(fontSize: 16),
               ),
-          ],
+            ],
+          ),
         ),
-      ),
-    ],
-  );
-}
-
-
-Widget _buildOpenButton(String idEbook) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      ElevatedButton(
-        onPressed: () async {
-          final localPath = await _getLocalPDFPath(idEbook);
-
-          if (localPath != null) {
-            Get.to(PDFViewerView(pdfFilePath: localPath));
-          } else {
-            // Handle the case when localPath is null
-            print('PDF file path is null');
-          }
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Buka Ebook',
-              style: TextStyle(fontSize: 16),
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
-}
-
-
+      ],
+    );
+  }
 }

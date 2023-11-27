@@ -145,7 +145,11 @@ class MainScreen extends GetView<MainController> {
         return AppBar(
           leading: (controller.utilsController.isLogin.value)
               ? IconButton(
-                  icon: const Icon(Ionicons.person_circle_outline),
+                  icon: const Icon(
+                    Ionicons.person_circle_outline,
+                    color: Colors.white,
+                    size: 30, // Warna ikon diatur menjadi putih
+                  ),
                   onPressed: () {
                     if (controller.scaffoldKey?.currentState != null) {
                       controller.scaffoldKey?.currentState!.openDrawer();

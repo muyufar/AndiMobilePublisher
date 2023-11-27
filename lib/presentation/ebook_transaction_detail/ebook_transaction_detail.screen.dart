@@ -231,19 +231,19 @@ Widget _buttomreview() {
         color: Colors.white,
         border: Border(top: BorderSide(color: colorGrey)),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SizedBox(
-            width: Get.width - 50,
-            child: ElevatedButton(
-              onPressed: () => Get.toNamed(Routes.EBOOK_RATINGS,
-              arguments: controller.ebookdetailHistoryTransactionModel.value?.transaksi.idTransaksi), // Ganti dengan rute ke EbookRatingsScreen
-              child: const Text('Beri Penilaian'),
-            ),
-          )
-        ],
-      ),
+      // child: Row(
+      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //   children: [
+      //     SizedBox(
+      //       width: Get.width - 50,
+      //       child: ElevatedButton(
+      //         onPressed: () => Get.toNamed(Routes.EBOOK_RATINGS,
+      //         arguments: controller.ebookdetailHistoryTransactionModel.value?.transaksi.idTransaksi), // Ganti dengan rute ke EbookRatingsScreen
+      //         child: const Text('Beri Penilaian'),
+      //       ),
+      //     )
+      //   ],
+      // ),
     ),
   );
 }
