@@ -26,7 +26,7 @@ class EbookKategoriChildController extends GetxController {
     super.onClose();
   }
   
-  Future<void > loadChildCategories(String categoryId) async {
+  Future<void > loadChildCategories(String categoryId, {childCategoryId}) async {
     try {
       for (final category in categories) {
         category.isExpanded = category.idKategori == categoryId;

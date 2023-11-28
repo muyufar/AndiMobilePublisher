@@ -211,6 +211,6 @@ class ShimmerLoaderExample extends StatelessWidget {
 
 void onCategoryTap(category) {
   if (category.isHasChild == 1) {
-    Get.to(() => EbookKategoriChildScreen());
+    Get.to(() => EbookKategoriChildScreen(childCategoryId: category.idKategori,));
   } else {}
 }

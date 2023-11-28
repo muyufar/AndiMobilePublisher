@@ -173,7 +173,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.EBOOK_KATEGORI_CHILD,
-      page: () => const EbookKategoriChildScreen(),
+      page: () =>  const EbookKategoriChildScreen(),
       binding: EbookKategoriChildControllerBinding(),
     ),
     GetPage(

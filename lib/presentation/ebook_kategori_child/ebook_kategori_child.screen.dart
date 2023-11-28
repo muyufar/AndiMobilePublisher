@@ -3,23 +3,29 @@ import 'package:get/get.dart';
 
 import 'controllers/ebook_kategori_child.controller.dart';
 
-class EbookKategoriChildScreen extends StatelessWidget {
+class EbookKategoriChildScreen extends GetView<EbookKategoriChildController> {
+  final String? childCategoryId;
 
-
-   const EbookKategoriChildScreen({Key? key,}) : super(key: key);
-  
+  const EbookKategoriChildScreen({Key? key, this.childCategoryId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(EbookKategoriChildController());
-  final GlobalKey<RefreshIndicatorState> refreshKey = GlobalKey<RefreshIndicatorState>();
-final String childCategoryId;
+    final GlobalKey<RefreshIndicatorState> refreshKey =
+        GlobalKey<RefreshIndicatorState>();
+
     return Scaffold(
       appBar: AppBar(
         title: Obx(() {
+          if (controller.categories.isEmpty) {
+            return Text('No categories found'); // Handle the empty list case
+          }
+
           final selectedCategory = controller.categories.firstWhere(
             (cat) => cat.idKategori == controller.currentCategoryId.value,
           );
+
           return Text(selectedCategory.namaKategori);
         }),
       ),
@@ -31,7 +37,8 @@ final String childCategoryId;
         } else {
           return RefreshIndicator(
             key: refreshKey,
-            onRefresh: () => controller.loadChildCategories(controller.currentCategoryId.value),
+            onRefresh: () => controller.loadChildCategories(
+                childCategoryId!), // Use the childCategoryId here
             child: ListView.builder(
               itemCount: controller.childCategories.length,
               itemBuilder: (context, index) {
