@@ -6,6 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+/// RequestLoginView
+///
+/// This class is a Widget that displays a "Request login" page.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can use it to display a "Request login" page like this:
+///
+///
+/// RequestLoginView();
+///
+/// This code will display a "Request login" page with a Lottie animation and the text "Silakan Login terlebih dahulu ! ". When the user taps on the "Login" text, they will be navigated to the login page.
+
 class RequestLoginView extends GetView {
   const RequestLoginView({Key? key}) : super(key: key);
   @override

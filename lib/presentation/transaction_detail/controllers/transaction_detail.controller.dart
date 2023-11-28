@@ -4,6 +4,28 @@ import 'package:andipublisher/app/data/services/transaction_service.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:get/get.dart';
 
+/// TransactionDetailController
+///
+/// This class is a controller for the transaction detail page.
+
+/// Properties
+///
+/// * `detailHistoryTransactionModel`: The detail history transaction model.
+
+/// Methods
+///
+/// * `fetchDetailTransaction`: Fetches the detail transaction.
+/// * `onTapPayNaw`: Handles the pay now button tap event.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can instantiate it like this:
+///
+///
+/// TransactionDetailController controller = TransactionDetailController();
+///
+/// This code will instantiate a TransactionDetailController object.
+
 class TransactionDetailController extends GetxController {
   Rxn<DetailHistoryTransactionModel> detailHistoryTransactionModel =
       Rxn<DetailHistoryTransactionModel>();

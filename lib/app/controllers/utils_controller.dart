@@ -8,12 +8,53 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+/// UtilsController
+///
+/// This class is a controller for utility functions. It provides methods for checking the internet connection, saving and getting user data, and getting the cart count.
+
 class UtilsController extends GetxController {
   //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
 
+  /// Constructor
+  ///
+  ///
+  /// UtilsController() {
+  ///   isLogin = false.obs;
+  ///   countCart = '0'.obs;
+  /// }
+  ///
+
+  /// Properties
+  ///
+  /// * isLogin: A boolean that indicates whether the user is logged in.
+  /// /// * userModel: The user model, which contains the user's data.
+  /// /// * countCart: A string that contains the number of items in the cart.
+  ///
+  ///
   RxBool isLogin = false.obs;
   late UserModel userModel;
   RxString countCart = '0'.obs;
+
+  /// Methods
+  ///
+  /// * checkConnection(): This method checks the internet connection and shows a dialog if the connection is not available.
+  /// * saveDataUser(userModel): This method saves the user data to the local storage.
+  /// * getDataUser(): This method gets the user data from the local storage.
+  /// * deleteDataUser(): This method deletes the user data from the local storage.
+  /// * getCountCart(): This method gets the number of items in the cart from the api.
+
+  /// Usage
+  ///
+  /// To use this class, you first need to instantiate it. Then, you can use the checkConnection(), saveDataUser(), getDataUser(), deleteDataUser(), and getCountCart() methods to perform the desired tasks.
+  ///
+  /// For example, the following code checks the internet connection and shows a dialog if the connection is not available:
+  ///
+  ///
+  /// UtilsController utilsController = Get.put(UtilsController());
+  /// utilsController.checkConnection();
+  /// ```
+  ///
+  /// This code will show a dialog if the internet connection is not available.
 
   Future<void> checkConnection() async {
     final Connectivity connectivity = Connectivity();

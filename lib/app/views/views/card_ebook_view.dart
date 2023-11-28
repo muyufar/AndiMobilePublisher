@@ -1,4 +1,4 @@
-import 'package:andipublisher/app/data/models/item_master_model.dart';
+import 'package:andipublisher/app/data/models/ebook_master_model.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
@@ -24,14 +24,19 @@ import 'package:get/get.dart';
 ///
 /// This code will create a card of an item with the data provided.
 
-class CardItemsView extends GetView {
-  final ItemMasterModel data;
-  const CardItemsView(this.data, {Key? key}) : super(key: key);
+class CardEbookView extends GetView {
+  final EbookMasterModel data;
+  const CardEbookView(this.data, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Hitung harga awal jika ada diskon
+    int hargaAwal = data.harga != 0
+        ? (data.harga / ((100 + data.diskon) / 100)).toInt()
+        : data.diskon;
+
     return InkWell(
-      onTap: () => Get.toNamed(Routes.ITEM_DETAIL, arguments: data.idBarang),
+      onTap: () => Get.toNamed(Routes.EBOOK_DETAIL, arguments: data.idBarang),
       child: AspectRatio(
         aspectRatio: 2 / 4.4,
         child: Card(
@@ -49,7 +54,7 @@ class CardItemsView extends GetView {
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(10))),
                       ),
-                      //Diskon
+                      // Diskon
                       Visibility(
                         visible: data.diskon != 0,
                         child: Align(
@@ -75,7 +80,7 @@ class CardItemsView extends GetView {
                         ),
                       ),
 
-                      //Stok Habis
+                      // Stok Habis
                       Visibility(
                         visible: !data.statusStok,
                         child: Align(
@@ -105,23 +110,32 @@ class CardItemsView extends GetView {
                     Text(
                       data.judul,
                       maxLines: 2,
-                      style: const TextStyle(fontSize: 13),
+                      style: const TextStyle(fontSize: 15),
                       overflow: TextOverflow.ellipsis,
                     ),
                     (data.diskon != 0)
-                        ? Text(
-                            data.harga.parceRp(),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: colorTextGrey,
-                              decoration: TextDecoration.lineThrough,
-                            ),
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data.harga.parceRp(), // Harga awal di sini
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: colorTextGrey,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                              ),
+                              Text(
+                                hargaAwal.parceRp(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           )
-                        : const SizedBox(height: 20),
-                    Text(
-                      data.harga.parceRp(),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                        : Text(
+                            data.diskon.parceRp(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
                   ],
                 ),
               )

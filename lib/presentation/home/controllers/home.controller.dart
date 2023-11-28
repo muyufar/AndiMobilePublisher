@@ -1,7 +1,9 @@
 import 'package:andipublisher/app/data/models/banner_model.dart';
+import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
 import 'package:andipublisher/app/data/models/label_items_master_model.dart';
 import 'package:andipublisher/app/data/services/banner_service.dart';
 import 'package:andipublisher/app/data/services/items_service.dart';
+import 'package:andipublisher/app/data/services/ebook_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +15,12 @@ class HomeController extends GetxController {
       Rxn<LabelItemsMasterModel>();
   Rxn<LabelItemsMasterModel> bestSallerLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
+  Rxn<LabelItemsMasterModel> sewaSallerLabelItemsMasterModel =
+      Rxn<LabelItemsMasterModel>();
+  Rxn<LabelItemsMasterModel> beliSallerLabelItemsMasterModel =
+      Rxn<LabelItemsMasterModel>();
+  Rxn<LabelEbookMasterModel> ebookNewLabelItemsMasterModel =
+      Rxn<LabelEbookMasterModel>();
 
   RxInt currentBanner = 0.obs;
 
@@ -35,6 +43,9 @@ class HomeController extends GetxController {
     await fetchBanner();
     await newLabelItemsMaster();
     await bestSallerLabelItemsMaster();
+    await sewaSallerLabelItemsMaster();
+    await beliSallerLabelItemsMaster();
+    await ebookNewLabelItemsMaster();
   }
 
   Future<List<BannerModel>> fetchBanner() async {
@@ -52,5 +63,23 @@ class HomeController extends GetxController {
     bestSallerLabelItemsMasterModel.value =
         await ItemsService.getItemsMaster(link: 'bestSaller');
     return bestSallerLabelItemsMasterModel.value!;
+  }
+
+  Future<LabelItemsMasterModel> sewaSallerLabelItemsMaster() async {
+    sewaSallerLabelItemsMasterModel.value =
+        await ItemsService.getItemsMaster(link: 'sewa');
+    return sewaSallerLabelItemsMasterModel.value!;
+  }
+
+  Future<LabelItemsMasterModel> beliSallerLabelItemsMaster() async {
+    beliSallerLabelItemsMasterModel.value =
+        await ItemsService.getItemsMaster(link: 'beli');
+    return beliSallerLabelItemsMasterModel.value!;
+  }
+
+  Future<LabelEbookMasterModel> ebookNewLabelItemsMaster() async {
+    ebookNewLabelItemsMasterModel.value =
+        await EbookService.getEbookItemsMaster(link: 'list');
+    return ebookNewLabelItemsMasterModel.value!;
   }
 }

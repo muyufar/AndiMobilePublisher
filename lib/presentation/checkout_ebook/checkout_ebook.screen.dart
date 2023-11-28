@@ -1,21 +1,21 @@
-import 'package:andipublisher/app/data/models/checkout_model.dart';
+import 'package:andipublisher/app/data/models/checkout_ebook_model.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'controllers/checkout.controller.dart';
+import 'package:andipublisher/presentation/checkout_ebook/controllers/checkout_ebook.controller.dart';
 
-class CheckoutScreen extends GetView<CheckoutController> {
-  const CheckoutScreen({Key? key}) : super(key: key);
+class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
+  const CheckoutEbookScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(CheckoutController());
+    Get.put(CheckoutEbookController());
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Checkout'),
+          title: const Text('Checkout Ebook'),
           centerTitle: true,
           leading: IconButton(
             onPressed: () => Get.back(),
@@ -24,13 +24,13 @@ class CheckoutScreen extends GetView<CheckoutController> {
         ),
         body: ListView(
           children: [
-            _alamat(),
+            // _alamat(),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: controller.checkoutModel.dataCheckout.length,
+              itemCount: controller.checkoutEbookModel.dataEbookCheckout.length,
               itemBuilder: (context, index) => _dataItms(
-                  data: controller.checkoutModel.dataCheckout[index],
+                  data: controller.checkoutEbookModel.dataEbookCheckout[index],
                   index: index),
             ),
             //Voucher
@@ -71,11 +71,9 @@ class CheckoutScreen extends GetView<CheckoutController> {
                   Obx(
                     () => Text(
                       ((controller.hargaTotalProduct.value +
-                                  controller.checkoutModel.dataProfile
-                                      .biayaPenanganan +
-                                  controller.ongkoskirim.value) -
-                              (controller.diskonOngkoskirim.value +
-                                  controller.diskonTotalProduct.value))
+                                  controller.checkoutEbookModel.dataProfile
+                                      .biayaPenanganan) -
+                              (controller.diskonTotalProduct.value))
                           .parceRp(),
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.bold),
@@ -115,7 +113,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                    'Total Harga (${controller.checkoutModel.dataCheckout.length} Barang)'),
+                    'Total Harga (${controller.checkoutEbookModel.dataEbookCheckout.length} Barang)'),
                 Text(controller.hargaTotalProduct.value.parceRp())
               ],
             ),
@@ -126,28 +124,28 @@ class CheckoutScreen extends GetView<CheckoutController> {
                 Text('-${controller.diskonTotalProduct.value.parceRp()}')
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Total Ongkos Kirim'),
-                Text(controller.ongkoskirim.value.parceRp())
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Total Diskon Ongkos Kirim'),
-                Text('-${controller.diskonOngkoskirim.value.parceRp()}')
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Biaya Penanganan'),
-                Text(controller.checkoutModel.dataProfile.biayaPenanganan
-                    .parceRp())
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const Text('Total Ongkos Kirim'),
+            //     Text(controller.ongkoskirim.value.parceRp())
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const Text('Total Diskon Ongkos Kirim'),
+            //     Text('-${controller.diskonOngkoskirim.value.parceRp()}')
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const Text('Biaya Penanganan'),
+            //     Text(controller.checkoutModel.dataProfile.biayaPenanganan
+            //         .parceRp())
+            //   ],
+            // ),
           ],
         ),
       ),
@@ -194,7 +192,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
     );
   }
 
-  Container _dataItms({required DataCheckout data, required int index}) {
+  Container _dataItms({required DataEbookCheckout data, required int index}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: marginHorizontal),
@@ -203,10 +201,10 @@ class CheckoutScreen extends GetView<CheckoutController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //warehouse
-          Text(
-            data.warehouseItem.namaCabang,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
+          // Text(
+          //   // data.warehouseItem.namaCabang,
+          //   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          // ),
           //items
           ListView.builder(
             shrinkWrap: true,
@@ -241,10 +239,10 @@ class CheckoutScreen extends GetView<CheckoutController> {
                         ),
 
                         //berat
-                        Text(
-                          'Berat ${data.items[index].berat * data.items[index].quantityOrder} g',
-                          style: TextStyle(fontSize: 12, color: colorTextGrey),
-                        ),
+                        // Text(
+                        //   'Berat ${data.items[index].berat * data.items[index].quantityOrder} g',
+                        //   style: TextStyle(fontSize: 12, color: colorTextGrey),
+                        // ),
 
                         //harga harga promo
                         Row(
@@ -287,63 +285,63 @@ class CheckoutScreen extends GetView<CheckoutController> {
           ),
           const Divider(),
           //Pilih Pengiriman
-          InkWell(
-            onTap: () async {
-              await controller.fetchCourier(index: index);
-              if (controller.courierModel.isEmpty) {
-                return;
-              }
-              Get.bottomSheet(_bottomSheetCourier(), isScrollControlled: true);
-            },
-            child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 4),
-                padding: EdgeInsets.symmetric(
-                    vertical: 14, horizontal: marginHorizontal),
-                decoration: BoxDecoration(
-                    borderRadius: borderRadius,
-                    border: Border.all(color: colorGrey)),
-                child: Obx(
-                  () => (controller.selectCourier.value?.kode == null)
-                      ? Row(
-                          children: [
-                            const Icon(Ionicons.archive_outline),
-                            SizedBox(width: marginHorizontal),
-                            const Text(
-                              'Pilih Pengiriman',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const Spacer(),
-                            Icon(
-                              Ionicons.chevron_forward,
-                              size: 18,
-                              color: colorGrey,
-                            )
-                          ],
-                        )
-                      : Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${controller.selectCourier.value?.layanan} ${controller.selectCourier.value?.produk} (${controller.selectCourier.value?.harga.parceRp()})',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                    'Estimasi ${controller.selectCourier.value?.estimasi} hari')
-                              ],
-                            ),
-                            const Spacer(),
-                            Icon(
-                              Ionicons.chevron_forward,
-                              size: 18,
-                              color: colorGrey,
-                            )
-                          ],
-                        ),
-                )),
-          ),
+          // InkWell(
+          //   onTap: () async {
+          //     await controller.fetchCourier(index: index);
+          //     if (controller.courierModel.isEmpty) {
+          //       return;
+          //     }
+          //     Get.bottomSheet(_bottomSheetCourier(), isScrollControlled: true);
+          //   },
+          //   child: Container(
+          //       margin: const EdgeInsets.symmetric(vertical: 4),
+          //       padding: EdgeInsets.symmetric(
+          //           vertical: 14, horizontal: marginHorizontal),
+          //       decoration: BoxDecoration(
+          //           borderRadius: borderRadius,
+          //           border: Border.all(color: colorGrey)),
+          //       child: Obx(
+          //         () => (controller.selectCourier.value?.kode == null)
+          //             ? Row(
+          //                 children: [
+          //                   const Icon(Ionicons.archive_outline),
+          //                   SizedBox(width: marginHorizontal),
+          //                   const Text(
+          //                     'Pilih Pengiriman',
+          //                     style: TextStyle(fontWeight: FontWeight.bold),
+          //                   ),
+          //                   const Spacer(),
+          //                   Icon(
+          //                     Ionicons.chevron_forward,
+          //                     size: 18,
+          //                     color: colorGrey,
+          //                   )
+          //                 ],
+          //               )
+          //             : Row(
+          //                 children: [
+          //                   Column(
+          //                     crossAxisAlignment: CrossAxisAlignment.start,
+          //                     children: [
+          //                       Text(
+          //                         '${controller.selectCourier.value?.layanan} ${controller.selectCourier.value?.produk} (${controller.selectCourier.value?.harga.parceRp()})',
+          //                         style: const TextStyle(
+          //                             fontWeight: FontWeight.bold),
+          //                       ),
+          //                       Text(
+          //                           'Estimasi ${controller.selectCourier.value?.estimasi} hari')
+          //                     ],
+          //                   ),
+          //                   const Spacer(),
+          //                   Icon(
+          //                     Ionicons.chevron_forward,
+          //                     size: 18,
+          //                     color: colorGrey,
+          //                   )
+          //                 ],
+          //               ),
+          //       )),
+          // ),
           //subtotal
           Obx(
             () => ExpansionTile(
@@ -356,9 +354,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                 children: [
                   const Text('Subtotal'),
                   Text(
-                    (data.items.fold(
-                                0, (total, item) => total + item.subtotal) +
-                            controller.ongkoskirim.value)
+                    (data.items.fold(0, (total, item) => total + item.subtotal))
                         .parceRp(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
@@ -374,15 +370,15 @@ class CheckoutScreen extends GetView<CheckoutController> {
                         .parceRp()),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Total Ongkos Kirim'),
-                    Text(
-                      controller.ongkoskirim.value.parceRp(),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     const Text('Total Ongkos Kirim'),
+                //     Text(
+                //       controller.ongkoskirim.value.parceRp(),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           )
@@ -391,89 +387,89 @@ class CheckoutScreen extends GetView<CheckoutController> {
     );
   }
 
-  Container _bottomSheetCourier() {
-    return Container(
-      color: Colors.white,
-      margin: const EdgeInsets.only(top: 100),
-      padding: EdgeInsets.only(
-          bottom: 12, left: marginHorizontal, right: marginHorizontal),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Pilih Pengiriman',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              IconButton(
-                onPressed: () => Get.back(),
-                icon: Icon(
-                  Ionicons.close_outline,
-                  color: colorBlack,
-                ),
-              ),
-            ],
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: controller.courierModel.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                titleTextStyle: TextStyle(fontSize: 14, color: colorBlack),
-                selected: controller.courierModel[index].kode ==
-                    controller.selectCourier.value?.kode,
-                onTap: () => controller.onTapSelectCourier(
-                    data: controller.courierModel[index]),
-                title: Text(
-                    '${controller.courierModel[index].layanan} ${controller.courierModel[index].produk} (${controller.courierModel[index].harga.parceRp()})'),
-                subtitle: Text(
-                    'Estimasi ${controller.courierModel[index].estimasi} hari'),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  // Container _bottomSheetCourier() {
+  //   return Container(
+  //     color: Colors.white,
+  //     margin: const EdgeInsets.only(top: 100),
+  //     padding: EdgeInsets.only(
+  //         bottom: 12, left: marginHorizontal, right: marginHorizontal),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.stretch,
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             const Text(
+  //               'Pilih Pengiriman',
+  //               style: TextStyle(fontWeight: FontWeight.bold),
+  //             ),
+  //             IconButton(
+  //               onPressed: () => Get.back(),
+  //               icon: Icon(
+  //                 Ionicons.close_outline,
+  //                 color: colorBlack,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         ListView.builder(
+  //           shrinkWrap: true,
+  //           itemCount: controller.courierModel.length,
+  //           itemBuilder: (context, index) {
+  //             return ListTile(
+  //               titleTextStyle: TextStyle(fontSize: 14, color: colorBlack),
+  //               selected: controller.courierModel[index].kode ==
+  //                   controller.selectCourier.value?.kode,
+  //               onTap: () => controller.onTapSelectCourier(
+  //                   data: controller.courierModel[index]),
+  //               title: Text(
+  //                   '${controller.courierModel[index].layanan} ${controller.courierModel[index].produk} (${controller.courierModel[index].harga.parceRp()})'),
+  //               subtitle: Text(
+  //                   'Estimasi ${controller.courierModel[index].estimasi} hari'),
+  //             );
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Container _bottomSheetAddress() {
-    return Container(
-      color: Colors.white,
-      margin: const EdgeInsets.only(top: 100),
-      padding: EdgeInsets.only(
-          bottom: 12, left: marginHorizontal, right: marginHorizontal),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Pilih Alamat',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              IconButton(
-                onPressed: () => Get.back(),
-                icon: Icon(
-                  Ionicons.close_outline,
-                  color: colorBlack,
-                ),
-              ),
-            ],
-          ),
-          ListView(
-            shrinkWrap: true,
-            children: [],
-          ),
-          TextButton(onPressed: () {}, child: const Text('Tambah Alamat'))
-        ],
-      ),
-    );
-  }
+  // Container _bottomSheetAddress() {
+  //   return Container(
+  //     color: Colors.white,
+  //     margin: const EdgeInsets.only(top: 100),
+  //     padding: EdgeInsets.only(
+  //         bottom: 12, left: marginHorizontal, right: marginHorizontal),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.stretch,
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             const Text(
+  //               'Pilih Alamat',
+  //               style: TextStyle(fontWeight: FontWeight.bold),
+  //             ),
+  //             IconButton(
+  //               onPressed: () => Get.back(),
+  //               icon: Icon(
+  //                 Ionicons.close_outline,
+  //                 color: colorBlack,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         ListView(
+  //           shrinkWrap: true,
+  //           children: [],
+  //         ),
+  //         TextButton(onPressed: () {}, child: const Text('Tambah Alamat'))
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Container _bottomSheetVoucher() {
     return Container(
@@ -510,44 +506,44 @@ class CheckoutScreen extends GetView<CheckoutController> {
     );
   }
 
-  Container _alamat() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: marginHorizontal),
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Alamat Pengiriman',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              TextButton(
-                  onPressed: () => Get.bottomSheet(_bottomSheetAddress(),
-                      isScrollControlled: true),
-                  child: const Text('Pilih Alamat Lain'))
-            ],
-          ),
-          const Divider(),
-          Text(
-            controller.selectAlamatUser.value!.labelAlamatUser,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            '${controller.selectAlamatUser.value!.namaPenerimaUser} (${controller.selectAlamatUser.value!.teleponUser})',
-            style: const TextStyle(fontWeight: FontWeight.w200),
-          ),
-          Text(
-            controller.selectAlamatUser.value!.alamatUser,
-            style: const TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
-    );
-  }
+  // Container _alamat() {
+  //   return Container(
+  //     margin: const EdgeInsets.symmetric(vertical: 4),
+  //     padding: EdgeInsets.symmetric(vertical: 4, horizontal: marginHorizontal),
+  //     color: Colors.white,
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             const Text(
+  //               'Alamat Pengiriman',
+  //               style: TextStyle(fontWeight: FontWeight.bold),
+  //             ),
+  //             TextButton(
+  //                 onPressed: () => Get.bottomSheet(_bottomSheetAddress(),
+  //                     isScrollControlled: true),
+  //                 child: const Text('Pilih Alamat Lain'))
+  //           ],
+  //         ),
+  //         const Divider(),
+  //         Text(
+  //           controller.selectAlamatUser.value!.labelAlamatUser,
+  //           style: const TextStyle(fontWeight: FontWeight.bold),
+  //         ),
+  //         Text(
+  //           '${controller.selectAlamatUser.value!.namaPenerimaUser} (${controller.selectAlamatUser.value!.teleponUser})',
+  //           style: const TextStyle(fontWeight: FontWeight.w200),
+  //         ),
+  //         Text(
+  //           controller.selectAlamatUser.value!.alamatUser,
+  //           style: const TextStyle(fontWeight: FontWeight.w200, fontSize: 12),
+  //           maxLines: 2,
+  //           overflow: TextOverflow.ellipsis,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
