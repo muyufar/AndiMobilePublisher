@@ -179,7 +179,6 @@ class ShimmerLoaderExample extends StatelessWidget {
                     ),
                     SizedBox(width: 10), // Jarak antara lingkaran dan kotak
                     Expanded(
-                      
                       child: Shimmer.fromColors(
                         baseColor: Colors.grey[300]!,
                         highlightColor: Colors.white,
@@ -212,7 +211,6 @@ class ShimmerLoaderExample extends StatelessWidget {
 
 void onCategoryTap(category) {
   if (category.isHasChild == 1) {
-    Get.to(
-        () => EbookKategoriChildScreen());
+    Get.to(() => EbookKategoriChildScreen());
   } else {}
 }
