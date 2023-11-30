@@ -143,7 +143,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.EBOOK_KATEGORI,
-      page: () => const EbookKategoriScreen(),
+      page: () => EbookKategoriScreen(),
       binding: EbookKategoriControllerBinding(),
     ),
     GetPage(
@@ -173,13 +173,23 @@ class Nav {
     ),
     GetPage(
       name: Routes.EBOOK_KATEGORI_CHILD,
-      page: () =>  const EbookKategoriChildScreen(),
+      page: () => EbookKategoriChildScreen(),
       binding: EbookKategoriChildControllerBinding(),
     ),
     GetPage(
       name: Routes.EBOOK_KATEGORI_LIST,
       page: () => const EbookKategoriListScreen(),
       binding: EbookKategoriListControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_PENERBIT_LIST,
+      page: () => const EbookPenerbitListScreen(),
+      binding: EbookPenerbitListControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_VIEWALL_TERLARIS,
+      page: () => const EbookViewallTerlarisScreen(),
+      binding: EbookViewallTerlarisControllerBinding(),
     ),
   ];
 }

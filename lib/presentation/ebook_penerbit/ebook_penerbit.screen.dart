@@ -1,3 +1,4 @@
+import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/presentation/ebook_penerbit/controllers/ebook_penerbit.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,13 @@ class EbookPenerbitScreen extends GetView<EbookPenerbitController> {
               return ListTile(
                 leading: Image.network(penerbit.icon),
                 title: Text(penerbit.namaPenerbit),
+                onTap: (){
+                  var id = penerbit.idPenerbit;
+                  Map<String, String> penerbitis ={
+                    'id': id,
+                  };
+                  Get.toNamed(Routes.EBOOK_PENERBIT_LIST, arguments: penerbitis);
+                },
               );
             },
           );

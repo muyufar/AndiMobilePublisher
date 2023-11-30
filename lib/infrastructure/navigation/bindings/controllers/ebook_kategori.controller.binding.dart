@@ -5,8 +5,8 @@ import '../../../../presentation/ebook_kategori/controllers/ebook_kategori.contr
 class EbookKategoriControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<EbookKategoriController>(
-      () => EbookKategoriController(),
+    Get.lazyPut<EbookKategoriScreenController>(
+      () => EbookKategoriScreenController(),
     );
   }
 }

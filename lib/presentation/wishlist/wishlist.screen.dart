@@ -47,19 +47,16 @@ class WishlistScreen extends StatelessWidget {
     final wishlist = wishlistController.wishlist;
     if (wishlist.isEmpty) {
       // Jika wishlist kosong, tampilkan pesan kosong
-         return Center(
-      
-      child: Column(
-        
-        mainAxisAlignment: MainAxisAlignment.center,
-       
-        children: [
-          // SizedBox(height: 10),
-          Lottie.asset(Assets.lottie.emptyStatePage, width: 200, height: 200),
-          Text('Belum ada Ebook di Wishlist'),
-        ],
-      ),
-    );
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // SizedBox(height: 10),
+            Lottie.asset(Assets.lottie.emptyStatePage, width: 200, height: 200),
+            Text('Belum ada Ebook di Wishlist'),
+          ],
+        ),
+      );
     } else {
       // Jika ada item dalam wishlist, tampilkan daftar item dalam bentuk CardEbookView
       return SingleChildScrollView(
@@ -82,7 +79,8 @@ class WishlistScreen extends StatelessWidget {
                 // Tambahkan logika untuk menghapus item dari wishlist di sini
                 wishlistController.removeFromWishlist(ebookItem);
                 Get.back();
-                wishlistController.getWishlistData(); // Panggil fungsi yang sesuai di controller
+                wishlistController
+                    .getWishlistData(); // Panggil fungsi yang sesuai di controller
               },
             );
           },

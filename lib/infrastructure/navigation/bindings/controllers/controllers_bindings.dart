@@ -6,12 +6,14 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebo
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_kategori_child.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_kategori_list.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_penerbit.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_penerbit_list.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_primary_ratings_detail_screen.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_ratings.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_ratings_input.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction_detail.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_viewall.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_viewall_terlaris.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/forgot_password.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/home.controller.binding.dart';
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/item_detail.controller.binding.dart'; 

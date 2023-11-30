@@ -10,7 +10,9 @@ class Routes {
   static const EBOOK_DETAIL = '/ebook_detail';
   static const EBOOK_KATEGORI = '/ebook-kategori';
   static const EBOOK_KATEGORI_CHILD = '/ebook-kategori-child';
+  static const EBOOK_KATEGORI_LIST = '/ebook-kategori-list';
   static const EBOOK_PENERBIT = '/ebook-penerbit';
+  static const EBOOK_PENERBIT_LIST = '/ebook-penerbit-list';
   static const EBOOK_RATINGS = '/ebook-ratings';
   static const EBOOK_RATINGS_DETAIL = '/ebook-rating-detail-screen';
   static const EBOOK_RATINGS_INPUT = '/ebook-ratings-input';
@@ -34,5 +36,5 @@ class Routes {
   static const TRANSACTION = '/transaction';
   static const TRANSACTION_DETAIL = '/transaction-detail';
   static const WISHLIST = '/wishlist';
-  static const EBOOK_KATEGORI_LIST = '/ebook-kategori-list';
+  static const EBOOK_VIEWALL_TERLARIS = '/ebook-viewall-terlaris';
 }

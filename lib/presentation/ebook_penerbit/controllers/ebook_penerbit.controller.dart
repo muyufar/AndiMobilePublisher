@@ -16,7 +16,6 @@ class EbookPenerbitController extends GetxController {
 
   Future<void> _fetchPenerbitList() async {
     if (!hasMore) return;
-
     try {
       isLoading.value = true;
       final List<EbookPenerbitModel> result = await EbookPenerbitService.getListPenerbit(

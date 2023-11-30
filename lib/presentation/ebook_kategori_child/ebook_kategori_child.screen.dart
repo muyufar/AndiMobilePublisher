@@ -1,54 +1,51 @@
+import 'package:andipublisher/app/data/models/ebook_category_model.dart';
+import 'package:andipublisher/infrastructure/navigation/routes.dart';
+import 'package:andipublisher/presentation/ebook_kategori_list/ebook_kategori_list.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'controllers/ebook_kategori_child.controller.dart';
 
-class EbookKategoriChildScreen extends GetView<EbookKategoriChildController> {
-  final String? childCategoryId;
-
-  const EbookKategoriChildScreen({Key? key, this.childCategoryId})
-      : super(key: key);
+class EbookKategoriChildScreen
+    extends GetView<EbookKategoriChildScreenController> {
+  const EbookKategoriChildScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(EbookKategoriChildController());
-    final GlobalKey<RefreshIndicatorState> refreshKey =
-        GlobalKey<RefreshIndicatorState>();
+    // Get the category from the navigation arguments
+    final EbookCategoryModel category = Get.arguments as EbookCategoryModel;
+
+    // Initialize the controller using Get.put()
+    Get.put(EbookKategoriChildScreenController(category));
 
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() {
-          if (controller.categories.isEmpty) {
-            return Text('No categories found'); // Handle the empty list case
-          }
-
-          final selectedCategory = controller.categories.firstWhere(
-            (cat) => cat.idKategori == controller.currentCategoryId.value,
-          );
-
-          return Text(selectedCategory.namaKategori);
-        }),
+        title: Text(category.namaKategori),
+        centerTitle: true,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (controller.childCategories.isEmpty) {
-          return Center(child: Text('Tidak ada kategori anak.'));
+          return const Center(
+            child: Text('Tidak ada Kategori'),
+          );
         } else {
-          return RefreshIndicator(
-            key: refreshKey,
-            onRefresh: () => controller.loadChildCategories(
-                childCategoryId!), // Use the childCategoryId here
-            child: ListView.builder(
-              itemCount: controller.childCategories.length,
-              itemBuilder: (context, index) {
-                final category = controller.childCategories[index];
-                return ListTile(
-                  title: Text(category.namaKategori),
-                  // Implementasikan tindakan saat item dipilih jika diperlukan
-                );
-              },
-            ),
+          return ListView.builder(
+            itemCount: controller.childCategories.length,
+            itemBuilder: (context, index) {
+              final childCategory = controller.childCategories[index];
+              return ListTile(
+                title: Text(childCategory.namaKategori),
+                onTap: () {
+                  var id = childCategory.idKategori;
+                  Map<String, String> kategoris = {
+                    'id': id,
+                  };
+                  Get.toNamed(Routes.EBOOK_KATEGORI_LIST, arguments: kategoris);
+                },
+              );
+            },
           );
         }
       }),

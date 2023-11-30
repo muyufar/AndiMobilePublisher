@@ -1,29 +1,28 @@
 import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
 import 'package:andipublisher/app/views/views/card_categori_view.dart';
-import 'package:andipublisher/app/views/views/card_ebook_view.dart';
 import 'package:andipublisher/app/views/views/future_view.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
-import 'controllers/ebook_kategori_list.controller.dart';
+import 'controllers/ebook_penerbit_list.controller.dart';
 
-class EbookKategoriListScreen extends GetView<EbookKategoriListController> {
-  const EbookKategoriListScreen({Key? key}) : super(key: key);
-
+class EbookPenerbitListScreen extends GetView<EbookPenerbitListController> {
+  const EbookPenerbitListScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var data = Get.arguments;
     String idKategori = data['id'];
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ebook Kategori List'),
+        title: const Text('Ebook Penerbit'),
+        centerTitle: true,
       ),
       body: ListView(
         children: [
           _labelEbookMaster(
             future: controller.loadEbookData(idKategori),
-            data: controller.ebooklistkategori,
+            data: controller.ebooklistPenerbit,
           ),
         ],
       ),
