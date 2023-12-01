@@ -188,7 +188,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.EBOOK_VIEWALL_TERLARIS,
-      page: () => const EbookViewallTerlarisScreen(),
+      page: () =>  EbookViewallTerlarisScreen(),
       binding: EbookViewallTerlarisControllerBinding(),
     ),
   ];

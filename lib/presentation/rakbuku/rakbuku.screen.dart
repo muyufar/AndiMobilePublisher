@@ -17,7 +17,7 @@ class RakbukuScreen extends StatelessWidget {
     final RakBukuController rakBukuController = RakBukuController();
 
     return DefaultTabController(
-      length: 1,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: Row(

@@ -56,11 +56,11 @@ class EbookViewallScreen extends GetView<EbookViewallController> {
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(10),
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
+                  maxCrossAxisExtent: 131,
                   childAspectRatio: 1 / 1,
-                  mainAxisExtent: Get.height / 2.2,
+                  mainAxisExtent: Get.height / 2.8,
                   mainAxisSpacing: 0,
                 ),
                 itemCount: data.value?.value.length ?? 0,

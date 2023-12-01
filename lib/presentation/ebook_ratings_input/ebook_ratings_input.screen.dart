@@ -122,14 +122,14 @@ class EbookRatingsInputScreen extends GetView<EbookRatingsInputController> {
           SizedBox(height: 8),
           Center(
             child: SizedBox(
-              height: 34,
+              height: 50,
               child: ListView.builder(
                 itemCount: 5,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => GestureDetector(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: GestureDetector(
                       onTap: () => controller.onTapRetingProduct(
                           retingDataProduct: index + 1,

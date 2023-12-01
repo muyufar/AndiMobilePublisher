@@ -49,11 +49,11 @@ Widget _buildRakBukuList(List<RakBukuModel> rakBukuList) {
         child: GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(1),
+          padding: const EdgeInsets.all(10),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 120,
+            maxCrossAxisExtent: 131,
             childAspectRatio: 1 / 1,
-            mainAxisExtent: Get.height / 3.5,
+            mainAxisExtent: Get.height / 3.4,
             mainAxisSpacing: 0,
           ),
           itemCount: rakBukuList.length,

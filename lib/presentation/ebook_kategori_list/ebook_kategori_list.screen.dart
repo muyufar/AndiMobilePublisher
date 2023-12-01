@@ -44,21 +44,21 @@ class EbookKategoriListScreen extends GetView<EbookKategoriListController> {
               Row(
                 children: [
                   const SizedBox(width: 10),
-                  // Text(
-                  //   data.value!.label,
-                  //   style: const TextStyle(
-                  //     fontSize: 18,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
+                  const Spacer(),
+                  SizedBox(width: 15),
                 ],
               ),
-            SizedBox(
-              height: 290,
-              child: ListView.builder(
+            SingleChildScrollView(
+              child: GridView.builder(
                 shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(10),
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 131,
+                  childAspectRatio: 1 / 1,
+                  mainAxisExtent: Get.height / 2.8,
+                  mainAxisSpacing: 0,
+                ),
                 itemCount: data.value?.value.length ?? 0,
                 itemBuilder: (context, index) {
                   return CardKategoriView(data.value!.value[index]);

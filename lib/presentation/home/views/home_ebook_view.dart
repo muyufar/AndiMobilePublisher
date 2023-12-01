@@ -9,6 +9,7 @@ import 'package:andipublisher/gen/assets.gen.dart';
 import 'package:andipublisher/presentation/ebook_kategori/ebook_kategori.screen.dart';
 import 'package:andipublisher/presentation/ebook_penerbit/ebook_penerbit.screen.dart';
 import 'package:andipublisher/presentation/ebook_viewall/ebook_viewall.screen.dart';
+import 'package:andipublisher/presentation/ebook_viewall_terlaris/ebook_viewall_terlaris.screen.dart';
 import 'package:andipublisher/presentation/home/controllers/home.controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -27,16 +28,16 @@ class HomeEbookView extends GetView {
       children: [
         _bannerEbook(context),
         SizedBox(
-          height: 10,
+          height: 0,
         ),
-        _labelEbookMaster(
+        _labelEbookMasterNew(
           future: controller.ebookNewLabelItemsMaster(),
           data: controller.ebookNewLabelItemsMasterModel,
         ),
         SizedBox(
           height: 10,
         ),
-        _labelEbookMaster(
+        _labelEbookMasterLaris(
           future: controller.ebookTerlarisLabelItemsMaster(),
           data: controller.ebookLarisLabelItemsMasterModel,
         ),
@@ -181,7 +182,7 @@ class HomeEbookView extends GetView {
     );
   }
 
-  Widget _labelEbookMaster(
+  Widget _labelEbookMasterNew(
       {required Future<Object> future,
       required Rxn<LabelEbookMasterModel> data}) {
     return FutureView(
@@ -218,6 +219,60 @@ class HomeEbookView extends GetView {
             SizedBox(
               height: 290,
               child: ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: data.value?.value.length ?? 0,
+                itemBuilder: (context, index) {
+                  return CardEbookView(data.value!.value[index]);
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  
+  Widget _labelEbookMasterLaris(
+      {required Future<Object> future,
+      required Rxn<LabelEbookMasterModel> data}) {
+    return FutureView(
+      future: future,
+      widgetEmpty: const SizedBox(),
+      widgetBuilder: Obx(
+        () => Column(
+          children: [
+            if (data.value != null)
+              Row(
+                children: [
+                  const SizedBox(width: 10),
+                  Text(
+                    data.value!.label,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () => Get.to(EbookViewallTerlarisScreen()),
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 12),
+                    ),
+                    child: Row(
+                      children: const [
+                        Text('Lihat Semua'),
+                        Icon(Ionicons.chevron_forward_outline, size: 16)
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 15),
+                ],
+              ),
+            SizedBox(
+              height: 290,
+              child: ListView.builder(
+                // reverse: false,
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
