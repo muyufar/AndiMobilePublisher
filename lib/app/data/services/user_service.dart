@@ -4,7 +4,6 @@ import 'package:andipublisher/app/data/services/main_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
 import 'package:get/get.dart';
 
-
 class UserService {
   static Future<UserModel> login(
       {required String email, required String password}) async {
@@ -18,10 +17,20 @@ class UserService {
     return UserModel.fromMap(result['data']);
   }
 
+  static Future<UserModel> deleteakun({required String idUser}) async {
+    Map body = {
+      'idUser': idUser,
+    };
+
+    final result = await MainService().postAPI(url: 'User/remove', body: body);
+
+    return UserModel.fromMap(result['data']);
+  }
+
   static Future<dynamic> register({
     required String name,
     required String email,
-    required String noPhone,
+     String? noPhone,
     required String password,
     required String repassword,
     // File? imageProfile,
@@ -35,12 +44,11 @@ class UserService {
       // 'photo': imageProfile,
     };
 
-      final result = await MainService().postAPI(
+    final result = await MainService().postAPI(
       url: 'register',
       body: body,
     );
-   
-   return UserModel.fromMap(result['data']);
-    
+
+    return UserModel.fromMap(result['data']);
   }
 }

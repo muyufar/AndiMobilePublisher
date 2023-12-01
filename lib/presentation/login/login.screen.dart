@@ -85,6 +85,7 @@ class LoginScreen extends GetView<LoginController> {
                           //           Get.toNamed(Routes.FORGOT_PASSWORD),
                           //       child: const Text('Lupa Kata Sandi')),
                           // ),
+                          SizedBox(height: 10,),
                           SizedBox(
                             width: Get.width,
                             child: ElevatedButton(

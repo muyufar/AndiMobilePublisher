@@ -74,6 +74,7 @@ class RegisterScreen extends GetView<RegisterController> {
                     validator: (value) =>
                         controller.validatorController.validatorFullName(value),
                   ),
+
                   SizedBox(height: 30),
                   _textFromFiled(
                     controller: controller.numberTextEditingController,
@@ -83,8 +84,13 @@ class RegisterScreen extends GetView<RegisterController> {
                     ),
                     labelText: 'Nomor Telepon',
                     keyboardType: TextInputType.phone,
-                    validator: (value) => controller.validatorController
-                        .validatorNumberPhone(value),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return null; // Allow empty value
+                      }
+                      return controller.validatorController
+                          .validatorNumberPhone(value);
+                    },
                   ),
                   SizedBox(height: 30),
                   _textFromFiled(
@@ -98,9 +104,8 @@ class RegisterScreen extends GetView<RegisterController> {
 
                     // validator: (val) =>
                     //     controller.validatorController.validatorIdentifier(val),
-                    validator: (value) => controller
-                        .validatorController
-                        .validatorEmail(value),
+                    validator: (value) =>
+                        controller.validatorController.validatorEmail(value),
                   ),
                   SizedBox(height: 30),
                   _textFromFiled(
@@ -154,9 +159,15 @@ class RegisterScreen extends GetView<RegisterController> {
                     width: Get.width,
                     child: ElevatedButton(
                       onPressed: () => controller.onTapRegister(),
-                      
                       child: const Text('Daftar'),
-                      
+                             style: ElevatedButton.styleFrom(
+                                primary: colorPrimary,
+                                onPrimary: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      13), // Sesuaikan dengan keinginan Anda
+                                ),
+                              ),
                     ),
                   ),
                   SizedBox(height: 20),

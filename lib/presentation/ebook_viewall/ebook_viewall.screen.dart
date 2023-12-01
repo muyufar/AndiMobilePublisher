@@ -60,7 +60,7 @@ class EbookViewallScreen extends GetView<EbookViewallController> {
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 131,
                   childAspectRatio: 1 / 1,
-                  mainAxisExtent: Get.height / 2.8,
+                  mainAxisExtent: Get.height / 3.6,
                   mainAxisSpacing: 0,
                 ),
                 itemCount: data.value?.value.length ?? 0,

@@ -1,5 +1,6 @@
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/presentation/profile/controllers/profile.controller.dart';
+import 'package:andipublisher/presentation/profile/konten/delete_akun.dart';
 import 'package:andipublisher/presentation/profile/konten/faqAndi_view.dart';
 import 'package:andipublisher/presentation/profile/konten/inginjadiPenulis_view.dart';
 import 'package:andipublisher/presentation/profile/konten/kebijakanPrivasi_view.dart';
@@ -80,6 +81,19 @@ class ProfileOptionsView extends GetView {
                   title: 'Beri Penilaian',
                   icon: Ionicons.chatbubble_outline,
                   onTap: () => Get.toNamed(Routes.EBOOK_RATINGS),
+                ),
+          (!controller.utilsController.isLogin.value)
+              ? _listTile(
+                  title: 'Hapus Akun',
+                  icon: Ionicons.person_remove_outline,
+                  onTap: () => Get.toNamed(Routes.LOGIN),
+                )
+              : _listTile(
+                  title: 'Hapus Akun',
+                  icon: Ionicons.person_remove_outline,
+                  onTap: () {
+                    Get.to(DeleteAccountView());
+                  },
                 ),
           const Divider(),
           (!controller.utilsController.isLogin.value)

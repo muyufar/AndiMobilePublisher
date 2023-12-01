@@ -53,7 +53,7 @@ Widget _buildRakBukuList(List<RakBukuModel> rakBukuList) {
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 131,
             childAspectRatio: 1 / 1,
-            mainAxisExtent: Get.height / 3.4,
+            mainAxisExtent: Get.height / 4.6,
             mainAxisSpacing: 0,
           ),
           itemCount: rakBukuList.length,
