@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:andipublisher/app/views/views/badge_cart_view.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
@@ -140,48 +142,59 @@ class MainScreen extends GetView<MainController> {
   }
 
   AppBar? _appBar() {
-    switch (controller.navController.selectedIndexPrimaryMain.value) {
-      case 0:
-        return AppBar(
-          leading: (controller.utilsController.isLogin.value)
-              ? IconButton(
-                  icon: const Icon(
-                    Ionicons.person_circle_outline,
-                    color: Colors.white,
-                    size: 30, // Warna ikon diatur menjadi putih
-                  ),
-                  onPressed: () {
-                    if (controller.scaffoldKey?.currentState != null) {
-                      controller.scaffoldKey?.currentState!.openDrawer();
-                    }
-                  },
-                )
-              : null,
-          title: const TextField(
-            readOnly: true,
-            decoration: InputDecoration(hintText: 'Cari Sesuatu ...'),
-          ),
-          bottom: TabBar(
-            isScrollable: true,
-            labelColor: Colors.white,
-            unselectedLabelColor: colorTextGrey,
-            tabs: const [
-              Tab(text: 'E Book'),
-              Tab(text: 'Buku Fisik'),
-              // Tab(text: 'Kategori'),
-              // Tab(text: 'Produk Digital'),
-            ],
-          ),
-          backgroundColor: colorPrimary,
-          // actions: [
-          //   (controller.utilsController.isLogin.value)
-          //       ?
-          //        BadgeCartView():
-          //         const SizedBox(),
-          // ],
-        );
-      default:
-        return null;
-    }
+  switch (controller.navController.selectedIndexPrimaryMain.value) {
+    case 0:
+      return AppBar(
+        leading: (controller.utilsController.isLogin.value)
+            ? IconButton(
+                icon: const Icon(
+                  Ionicons.person_circle_outline,
+                  color: Colors.white,
+                  size: 30, // Warna ikon diatur menjadi putih
+                ),
+                onPressed: () {
+                  if (controller.scaffoldKey?.currentState != null) {
+                    controller.scaffoldKey?.currentState!.openDrawer();
+                  }
+                },
+              )
+            : null,
+        title: const TextField(
+          readOnly: true,
+          decoration: InputDecoration(hintText: 'Cari Sesuatu ...'),
+        ),
+        bottom: TabBar(
+          isScrollable: true,
+          labelColor: Colors.white,
+          unselectedLabelColor: colorTextGrey,
+          tabs: _buildTabs(),
+        ),
+        backgroundColor: colorPrimary,
+        // actions: [
+        //   (controller.utilsController.isLogin.value)
+        //       ?
+        //        BadgeCartView():
+        //         const SizedBox(),
+        // ],
+      );
+    default:
+      return null;
   }
+}
+
+List<Widget> _buildTabs() {
+  List<Tab> tabs = const [
+    Tab(text: 'E Book'),
+    // Tab(text: 'Buku Fisik'),
+    // Tab(text: 'Kategori'),
+    // Tab(text: 'Produk Digital'),
+  ];
+
+  // Check if the platform is iOS and hide the 'Buku Fisik' tab
+  if (Platform.isIOS) {
+    tabs = tabs.where((tab) => tab.text != 'Buku Fisik').toList();
+  }
+
+  return tabs;
+}
 }
