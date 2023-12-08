@@ -16,6 +16,8 @@ class EbookMasterDetailModel {
   Kategori? kategori;
   List<Info> info;
   String rating;
+  Review? isReviewAble;
+  BukudiBeli? isInBookShelf;
 
   EbookMasterDetailModel({
     this.idBarang = '',
@@ -33,6 +35,8 @@ class EbookMasterDetailModel {
     this.kategori,
     this.info = const [],
     this.rating = '',
+    this.isReviewAble,
+    this.isInBookShelf,
   });
 
   factory EbookMasterDetailModel.fromJson(Map<String, dynamic> json) =>
@@ -52,6 +56,8 @@ class EbookMasterDetailModel {
         kategori: Kategori.fromJson(json['kategori']),
         info: List<Info>.from(json['info'].map((x) => Info.fromJson(x))),
         rating: json["rating"],
+        isReviewAble: Review.fromJson(json['isReviewAble']),
+        isInBookShelf: BukudiBeli.fromJson(json['isInBookShelf']),
       );
 }
 
@@ -73,6 +79,38 @@ class Harga {
       );
 }
 
+class BukudiBeli {
+  final bool owned;
+  final bool loaned;
+
+  BukudiBeli({
+    this.owned = false,
+    this.loaned = false,
+  });
+
+  factory BukudiBeli.fromJson(Map<String, dynamic> json) => BukudiBeli(
+        owned: json['owned'],
+        loaned: json['loaned'],
+      );
+}
+
+class Review{
+  final String? idTransaction;
+  final String? id;
+  final bool? status;
+
+  Review({
+    this.idTransaction,
+    this.id,
+    this.status = false,
+  });
+
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
+    idTransaction: json['idTransaction'],
+    id: json['id'],
+    status: json['status'],
+  );
+}
 class Diskon {
   final bool status;
   final int persen;

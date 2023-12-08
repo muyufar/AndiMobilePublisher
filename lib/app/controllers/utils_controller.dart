@@ -112,7 +112,7 @@ class UtilsController extends GetxController {
   }
 
    void onTapChatWa() {
-    launchUrl(Uri.parse('https://api.whatsapp.com/send?phone=628112936865'),
+    launchUrl(Uri.parse('https://api.whatsapp.com/send?phone=628112844568'),
         mode: LaunchMode.externalApplication);
   }
 }

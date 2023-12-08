@@ -3,13 +3,12 @@ import 'package:andipublisher/app/data/services/ebook_rating_service.dart';
 import 'package:get/get.dart';
 import 'package:andipublisher/app/controllers/utils_controller.dart';
 
-
 class EbookRatingController extends GetxController {
-    final UtilsController utilsController = Get.put(UtilsController());
+  final UtilsController utilsController = Get.put(UtilsController());
 
-  
-  RxList<EbookListHistoryTransactionModel> ratingsNotRated = RxList<EbookListHistoryTransactionModel>();
-    @override
+  RxList<EbookListHistoryTransactionModel> ratingsNotRated =
+      RxList<EbookListHistoryTransactionModel>();
+  @override
   void onInit() {
     super.onInit();
   }
@@ -24,10 +23,11 @@ class EbookRatingController extends GetxController {
     super.onClose();
   }
 
-    Future<List<EbookListHistoryTransactionModel>> getListNotRated() async {
-    ratingsNotRated.value = await EbookratingService.getNotRatedList(
-        tag: '5', offset: '0');
+  Future<List<EbookListHistoryTransactionModel>> getListNotRated() async {
+    ratingsNotRated.value =
+        await EbookratingService.getNotRatedList(tag: '5', offset: '0');
     return ratingsNotRated;
   }
-   RxInt initPage = 1.obs;
+
+  RxInt initPage = 1.obs;
 }

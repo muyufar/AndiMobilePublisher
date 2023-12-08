@@ -17,12 +17,10 @@ class TransactionEbookService {
       'tag': tag,
       'idUser': MainService().utilsController.userModel.idUser,
       'voucherCode': voucherCode,
-
     };
     for (int i = 0; i < ids.length; i++) {
       body.addAll({'id[$i]': ids[i]});
       body.addAll({'isBuy[$i]': isBuy[i] ? 'true' : 'false'});
-
     }
 
     print("DATA: ${body.toString()}");
@@ -37,31 +35,29 @@ class TransactionEbookService {
     required bool usePoinUser,
     bool isVoucher = false,
     String voucherCode = "",
-     required bool isBuy,
-
+    required bool isBuy,
     required List<DataEbookCheckoutMolde> dataEbookCheckout,
   }) async {
     DataEbookCheckoutModel body = DataEbookCheckoutModel(
       user: User(
         idUser: MainService().utilsController.userModel.idUser,
         usePoinUser: usePoinUser,
-  
       ),
       kodeVoucher: voucherCode,
       dataEbookCheckout: dataEbookCheckout,
-      
     );
 
     print("DATA: $isBuy");
-    
+
     final result = await MainService()
         .postAPIBodyRaw(url: 'transaction/ebook', body: body.toJson());
 
     return PaymentEbookModel.fromJson(result['data']);
   }
 
-  static Future<List<EbookListHistoryTransactionModel>> getListHistoryTransaction(
-      {required String tag, required String offset}) async {
+  static Future<List<EbookListHistoryTransactionModel>>
+      getListHistoryTransaction(
+          {required String tag, required String offset}) async {
     Map<String, String> body = {
       'tag': tag,
       'offset': offset,
@@ -77,17 +73,17 @@ class TransactionEbookService {
             .map((e) => EbookListHistoryTransactionModel.fromJson(e)));
   }
 
-  static Future<EbookDetailHistoryTransactionModel> ebookgetDetailHistoryTransaction(
-      {required String idTransaksi}) async {
-         Map<String, dynamic> body = {
+  static Future<EbookDetailHistoryTransactionModel>
+      ebookgetDetailHistoryTransaction({required String idTransaksi}) async {
+    Map<String, dynamic> body = {
       'idUser': MainService().utilsController.userModel.idUser,
-      'idTransaksi': idTransaksi};
-       print('Request Body: $body');
-      
-   final result = await MainService()
-        .getAPI(url: 'Transaction/detail',body: body);
-print('Response Data: $result');
+      'idTransaksi': idTransaksi
+    };
+    print('Request Body: $body');
+
+    final result =
+        await MainService().getAPI(url: 'Transaction/detail', body: body);
+    print('Response Data: $result');
     return EbookDetailHistoryTransactionModel.fromJson(result['data']);
-   
   }
 }

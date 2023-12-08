@@ -32,36 +32,36 @@ class RakBukuBeliScreen extends StatelessWidget {
     );
   }
 
-Widget _buildRakBukuList(List<RakBukuModel> rakBukuList) {
-  if (rakBukuList.isEmpty) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset(Assets.lottie.emptyStatePage, width: 200, height: 200),
-          Text('Belum ada Ebook di Rak Buku'),
-        ],
-      ),
-    );
-  }
-
- return SingleChildScrollView(
-        child: GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(10),
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 131,
-            childAspectRatio: 1 / 1,
-            mainAxisExtent: Get.height / 3.4,
-            mainAxisSpacing: 0,
-          ),
-          itemCount: rakBukuList.length,
-          itemBuilder: (context, index) {
-            final rakBuku = rakBukuList[index];
-            return RakBukuView(rakBuku);
-          },
+  Widget _buildRakBukuList(List<RakBukuModel> rakBukuList) {
+    if (rakBukuList.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset(Assets.lottie.emptyStatePage, width: 200, height: 200),
+            Text('Belum ada Ebook di Rak Buku'),
+          ],
         ),
       );
     }
+
+    return SingleChildScrollView(
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(10),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 131,
+          childAspectRatio: 1 / 1,
+          mainAxisExtent: Get.height / 3.5,
+          mainAxisSpacing: 0,
+        ),
+        itemCount: rakBukuList.length,
+        itemBuilder: (context, index) {
+          final rakBuku = rakBukuList[index];
+          return RakBukuView(rakBuku);
+        },
+      ),
+    );
   }
+}

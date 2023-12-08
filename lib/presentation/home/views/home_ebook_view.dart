@@ -23,30 +23,31 @@ class HomeEbookView extends GetView {
   final HomeController controller = Get.put(HomeController());
 
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        _bannerEbook(context),
-        SizedBox(
-          height: 0,
-        ),
-        _labelEbookMasterNew(
-          future: controller.ebookNewLabelItemsMaster(),
-          data: controller.ebookNewLabelItemsMasterModel,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        _labelEbookMasterLaris(
-          future: controller.ebookTerlarisLabelItemsMaster(),
-          data: controller.ebookLarisLabelItemsMasterModel,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-      ],
-    );
-  }
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.transparent,
+    body: RefreshIndicator(
+      onRefresh: controller.onRefresh,
+      child: ListView(
+        children: [
+          _bannerEbook(context),
+          SizedBox(height: 0),
+          _labelEbookMasterNew(
+            future: controller.ebookNewLabelItemsMaster(),
+            data: controller.ebookNewLabelItemsMasterModel,
+          ),
+          SizedBox(height: 10),
+          _labelEbookMasterLaris(
+            future: controller.ebookTerlarisLabelItemsMaster(),
+            data: controller.ebookLarisLabelItemsMasterModel,
+          ),
+          SizedBox(height: 10),
+        ],
+      ),
+    ),
+  );
+}
+
 
   Widget _bannerEbook(BuildContext context) {
     return FutureView(
@@ -234,7 +235,6 @@ class HomeEbookView extends GetView {
     );
   }
 
-  
   Widget _labelEbookMasterLaris(
       {required Future<Object> future,
       required Rxn<LabelEbookMasterModel> data}) {
@@ -287,6 +287,4 @@ class HomeEbookView extends GetView {
       ),
     );
   }
-
-//
 }

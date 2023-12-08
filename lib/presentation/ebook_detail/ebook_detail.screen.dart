@@ -33,57 +33,75 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
             height: 58,
             decoration: BoxDecoration(
               color: Colors.white,
-              // border: Border(top: BorderSide(color: colorGrey)),
             ),
             child: Obx(() {
               final isEbookReady =
                   controller.ebookMasterDetailModel.value?.isReady ?? false;
+              final isInBookShelf = controller
+                      .ebookMasterDetailModel.value?.isInBookShelf?.owned ??
+                  false;
+              final isReviewAble = controller
+                      .ebookMasterDetailModel.value?.isReviewAble?.status ??
+                  false;
 
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Tombol Chat
                   ElevatedButton.icon(
                     onPressed: () {
-                      // Implementasikan logika untuk membuka WhatsApp di sini
                       controller.utilsController.onTapChatWa();
                     },
                     style: ElevatedButton.styleFrom(
-                      primary:
-                          Colors.green, // Ganti warna sesuai keinginan Anda
+                      primary: Colors.green,
                       onPrimary: Colors.white,
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 12,
-                      ), // Sesuaikan sesuai keinginan Anda
+                      ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            13), // Sesuaikan dengan keinginan Anda
+                        borderRadius: BorderRadius.circular(13),
                       ),
                     ),
                     icon: Icon(
                       Icons.chat,
-                      size: 24, // Sesuaikan ukuran ikon sesuai keinginan Anda
+                      size: 24,
                     ),
-                    label: SizedBox.shrink(), // Hapus label
+                    label: SizedBox.shrink(),
                   ),
-
-                  // Spasi di antara tombol
-                  // SizedBox(width: 5),
-
-                  // Tombol Beli
                   SizedBox(
                     width: Get.width / 1.5,
                     height: 48,
                     child: ElevatedButton(
                       onPressed: () {
                         if (!controller.utilsController.isLogin.value) {
-                          // Jika pengguna belum login, arahkan ke layar login
                           Get.toNamed(Routes.LOGIN);
                         } else {
-                          // Jika pengguna sudah login dan ebook siap, lakukan tindakan pembelian
-                          if (isEbookReady) {
+                          if (!isInBookShelf && isEbookReady) {
                             controller.onTapBuyNow();
+                          } else if (isInBookShelf &&
+                              isEbookReady &&
+                              !isReviewAble) {
+                            // controller.ebookfetchDetailTransaction();
+                            Get.toNamed(Routes.RAKBUKU,
+                                // arguments: controller
+                                //     .ebookMasterDetailModel
+                                //     .value
+                                //     ?.idBarang
+                                    );
+                          } else if (isInBookShelf &&
+                              isEbookReady &&
+                              isReviewAble) {
+                            // Handle case where book is in bookshelf, ready, and needs review
+                            // For example, navigate to the review screen
+                            controller.ebookfetchDetailTransaction();
+                            Get.toNamed(Routes.EBOOK_RATINGS_INPUT,
+                                arguments: controller
+                                    .ebookMasterDetailModel
+                                    .value?.isReviewAble!
+                                    .idTransaction);
+                          } else {
+                            // Handle any other case
+                            // You may want to add specific logic for other scenarios
                           }
                         }
                       },
@@ -91,19 +109,31 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
                         primary: colorPrimary,
                         onPrimary: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              13), // Sesuaikan dengan keinginan Anda
+                          borderRadius: BorderRadius.circular(13),
                         ),
                       ),
-                      child: const Text(
-                        'Beli Sekarang',
+                      child: Text(
+                        () {
+                          if (!isInBookShelf || !isEbookReady) {
+                            return 'Beli Sekarang';
+                          } else if (isInBookShelf &&
+                              isEbookReady &&
+                              isReviewAble) {
+                            return 'Beri Rating';
+                          } else if (isInBookShelf &&
+                              isEbookReady &&
+                              !isReviewAble) {
+                            return 'Baca Buku';
+                          } else {
+                            return '';
+                          }
+                        }(),
                         style: TextStyle(
-                          fontSize:
-                              15, // Ganti ukuran teks sesuai keinginan Anda
+                          fontSize: 15,
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               );
             }),
@@ -121,14 +151,8 @@ class EbookDetailScreen extends GetView<EbookDetailController> {
           icon: const Icon(Ionicons.chevron_back),
           color: colorPrimary,
         ),
-
         const Spacer(),
-        // if (controller.utilsController.isLogin.value)
-        //   BadgeCartView(
-        //     color: colorBlack,
-        //   )
-        // else
-        const SizedBox(),
+        const SizedBox(), // You can add BadgeCartView or other widgets here
       ],
     );
   }

@@ -119,6 +119,29 @@ class LoginScreen extends GetView<LoginController> {
                       ]),
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  // const Spacer(flex: 2),
+                  Center(
+                    child: RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                            text: 'Info lebih lanjut Hubungi  ',
+                            style:
+                                TextStyle(color: colorTextGrey, fontSize: 12)),
+                        TextSpan(
+                            text: 'Admin',
+                            style: TextStyle(
+                                color: colorTextPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () =>
+                                  controller.utilsController.onTapChatWa()),
+                      ]),
+                    ),
+                  ),
                   const Spacer(flex: 1),
                 ],
               ),

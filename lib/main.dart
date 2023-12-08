@@ -17,9 +17,9 @@ void main() async {
 
   var initialRoute = await Routes.initialRoute;
   runApp(Main(initialRoute));
-    Get.put(EbookDetailController());
+  Get.put(EbookDetailController());
 
-    Get.put(ProfileController());
+  Get.put(ProfileController());
 }
 
 class Main extends StatelessWidget {
@@ -29,11 +29,10 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: themeData(),
       initialRoute: initialRoute,
       getPages: Nav.routes,
-      
     );
   }
-  
 }

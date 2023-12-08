@@ -1,3 +1,5 @@
+import 'package:andipublisher/app/controllers/nav_controller.dart';
+import 'package:andipublisher/app/controllers/utils_controller.dart';
 import 'package:andipublisher/app/data/models/banner_model.dart';
 import 'package:andipublisher/app/data/models/ebook_campaign.dart';
 import 'package:andipublisher/app/data/models/label_ebook_master_model.dart';
@@ -12,10 +14,13 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
+  final UtilsController utilsController = Get.put(UtilsController());
+  final NavController navController = Get.put(NavController());
 
   RxList<BannerModel> bannerModel = RxList<BannerModel>();
   RxList<BannerModel> bannerModelebook = RxList<BannerModel>();
   RxList<EbookCampaign> campaigns = RxList<EbookCampaign>();
+  GlobalKey<ScaffoldState>? scaffoldKey;
 
   Rxn<LabelItemsMasterModel> newLabelItemsMasterModel =
       Rxn<LabelItemsMasterModel>();
@@ -47,10 +52,11 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onReady() async {
+  void onReady() {
+    utilsController.getDataUser();
+    scaffoldKey = utilsController.mainScaffoldKey; // Menggunakan mainScaffoldKey dari UtilsController
     super.onReady();
   }
-
   @override
   void onClose() {
     super.onClose();

@@ -41,7 +41,7 @@ class EbookContentView extends GetView {
                       double.tryParse(controller
                               .ebookMasterDetailModel.value!.rating) ??
                           0.0,
-                      starHalf: true,
+                      starHalf: false,
                     ),
                   ),
                   _infoItem(),

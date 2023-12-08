@@ -16,8 +16,8 @@ class EbookService {
   }
 
   static Future<EbookMasterDetailModel> getEbookItemMasterDetail(
-      {required String id}) async {
-    final result = await MainService().getAPI(url: 'ebook', body: {'id': id});
+      {required String id,required String idUser}) async {
+    final result = await MainService().getAPI(url: 'ebook', body: {'id': id,'idUser': idUser} );
     return EbookMasterDetailModel.fromJson(result['data']);
   }
 }

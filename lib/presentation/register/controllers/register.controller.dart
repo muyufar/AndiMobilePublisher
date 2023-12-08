@@ -78,11 +78,11 @@ class RegisterController extends GetxController {
   if (utilsController.isLogin.value) {
     // Tampilkan Snackbar setelah penundaan
     ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-      SnackBar(content: Text('Selamat, Pendaftaran Berhasil'), backgroundColor: Colors.blue,)
+      SnackBar(content: Text('Silahkan Cek Email, Untuk Aktivasi akun'), backgroundColor: Colors.blue,)
     );
 
     // Pindah ke halaman Main
-    Get.offAllNamed(Routes.MAIN);
+    Get.toNamed(Routes.LOGIN);
   }
 }
 }
