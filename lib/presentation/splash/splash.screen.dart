@@ -16,11 +16,26 @@ class SplashScreen extends GetView<SplashController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              Assets.images.logosplashscreen.path,
+            Container(
               width: 150,
               height: 150,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey, // warna bayangan
+                    blurRadius: 5, // radius blur
+                    spreadRadius: 2, // seberapa jauh bayangan tersebar
+                    offset: Offset(0, 3), // posisi bayangan (x, y)
+                  ),
+                ],
+              ),
+              child: Image.asset(
+                Assets.images.logosplashscreen.path,
+                width: 150,
+                height: 150,
+              ),
             ),
+
             SizedBox(height: 16), // Jarak antara logo dan teks
             Text(
               'Andi Publisher Mobile', // Ganti dengan teks yang diinginkan

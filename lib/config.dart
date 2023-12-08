@@ -14,7 +14,7 @@ class ConfigEnvironments {
     },
     {
       'env': Environments.DEV,
-      'url': '',
+      'url': 'https://mobiledev.andipublisher.com/api/dev/',
     },
     {
       'env': Environments.QAS,
