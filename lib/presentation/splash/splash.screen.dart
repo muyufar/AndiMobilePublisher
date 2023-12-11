@@ -20,6 +20,7 @@ class SplashScreen extends GetView<SplashController> {
               width: 150,
               height: 150,
               decoration: BoxDecoration(
+                shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey, // warna bayangan
