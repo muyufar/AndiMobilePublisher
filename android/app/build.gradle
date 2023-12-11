@@ -51,7 +51,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.ags.andipublisher"
+        applicationId "com.ags.andipublisherdev"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
@@ -77,7 +77,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
    }
 
    
-    namespace "com.ags.andipublisher"
+    namespace "com.ags.andipublisherdev"
 
 }
 

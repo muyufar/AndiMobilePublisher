@@ -10,20 +10,20 @@ import 'package:get/get.dart';
 class EbookCardListTransactionView extends GetView {
   final EbookListHistoryTransactionModel data;
   const EbookCardListTransactionView({required this.data, Key? key})
-  : super(key: key);
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-      Get.toNamed(Routes.EBOOK_TRANSACTION_DETAIL,arguments: data.idTransaksi),
+      onTap: () => Get.toNamed(Routes.EBOOK_TRANSACTION_DETAIL,
+          arguments: data.idTransaksi),
       child: Container(
         height: 120,
-         margin: const EdgeInsets.symmetric(vertical: 6),
+        margin: const EdgeInsets.symmetric(vertical: 6),
         padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
         color: Colors.white,
         child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               'Tanggal ${data.tanggalTransaksi.toCustomFormat()}',
@@ -71,8 +71,8 @@ class EbookCardListTransactionView extends GetView {
                 ],
               ),
             ),
-            ],
-            ),
+          ],
+        ),
       ),
     );
   }
