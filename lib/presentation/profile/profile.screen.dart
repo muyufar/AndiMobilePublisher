@@ -10,44 +10,56 @@ class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // final controller = Get.find<ProfileController>();
+
     Get.put(ProfileController());
 
     return Scaffold(
-        body: SafeArea(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        children: [
-          _info(),
-          const SizedBox(height: 20),
-          ProfileOptionsView(),
-        ],
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          children: [
+            _info(),
+            const SizedBox(height: 20),
+            ProfileOptionsView(),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
-  Row _info() {
+  Widget _info() {
+    final userModel = controller.utilsController.userModel;
+    final defaultNama = "AndiPublisher";
+    final defaultEmail = "andipublisher@gmail.com";
+
+    final namaUser = userModel?.namaUser ?? defaultNama;
+    final emailUser = userModel?.emailUser ?? defaultEmail;
+
     return Row(
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 10, left: 18),
-          child: Image.asset(Assets.images.logo.path),
+          child: Image.asset(
+            Assets.images.logo.path,
+            width: 50, // Ubah ukuran sesuai keinginan Anda
+            height: 50, // Ubah ukuran sesuai keinginan Anda
+          ),
         ),
-        // Container(
-        //   margin: const EdgeInsets.only(right: 10, left: 18),
-        //   height: 80,
-        //   width: 80,
-        //   decoration: BoxDecoration(color: colorGrey, shape: BoxShape.circle),
-        // ),
-        const Column(
+         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Andipublisher',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              namaUser,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            Text('Andipublishercom@yahoo.com'),
+            Text(emailUser),
           ],
-        )
+        ),
       ],
     );
   }

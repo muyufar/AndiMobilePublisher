@@ -8,11 +8,30 @@ import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
 
+/// MainService
+///
+/// This class is a service for making api requests. It provides methods for
+/// making post and get requests.
+
+/// Properties
+///
+/// * `urlAPIMain`: The base url of the api.
+/// * `urlRedirect`: The redirect url of the api.
+/// * `username`: The username for basic authentication.
+/// * `password`: The password for basic authentication.
+/// * `basicAuth`: The base64 encoded string of the username and password.
+
 class MainService {
+  /// Methods
+  ///
+  /// * `postAPI(url, body, [client])`: This method makes a post request to the api.
+  /// * `getAPI(url, body, [client])`: This method makes a get request to the api.
+  /// * `postAPIBodyRaw(url, body, [client])`: This method makes a post request to the api with a raw json body.
+
   final UtilsController utilsController = Get.put(UtilsController());
 
-  String urlAPIMain = 'https://api.andipublisher.com/';
-  late String urlRedirect = '${urlAPIMain}api/dev/';
+  static const String urlAPIMain = 'https://mobiledev.andipublisher.com/';
+  static const String urlRedirect = '${urlAPIMain}api/dev/';
 
   String username = 'admin';
   String password = '1234';
@@ -47,8 +66,6 @@ class MainService {
       return;
     }
 
-    Get.back();
-
     return result;
   }
 
@@ -69,12 +86,14 @@ class MainService {
 
     final result = jsonDecode(response.body);
 
+    log("Error: ${result['message']}");
+
     if (!result['status']) {
-      Get.dialog(dialogView(
-        title: 'Error',
-        content: result['message'],
-        onTapOke: () => Get.back(),
-      ));
+      // Get.dialog(dialogView(
+      //   title: 'Error',
+      //   content: result['message'],
+      //   onTapOke: () => Get.back(),
+      // ));
       return;
     }
 
@@ -117,4 +136,17 @@ class MainService {
 
     return result;
   }
+
+  /// Usage
+  ///
+  /// To use this class, you first need to instantiate it. Then, you can use the
+  /// `postAPI()`, `getAPI()`, and `postAPIBodyRaw()` methods to make api requests.
+  ///
+  /// For example, the following code makes a post request to the api:
+  ///
+  ///
+  /// MainService mainService = MainService();
+  /// dynamic result = await mainService.postAPI(url: '/users', body: {'name': 'John Doe'});
+  ///
+  /// This code will make a post request to the `/users` endpoint of the api with the body `{'name': 'John Doe'}`.
 }

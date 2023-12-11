@@ -5,11 +5,23 @@ import 'package:andipublisher/app/data/models/user_model.dart';
 import 'package:andipublisher/app/data/services/cart_service.dart';
 import 'package:andipublisher/app/views/views/dialog_view.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class GlobalKeyManager {
+  static final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  static final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+  static final GlobalKey<ScaffoldState> mainScaffoldKey =
+      GlobalKey<ScaffoldState>();
+}
 
 class UtilsController extends GetxController {
-  //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
+  final GlobalKey<FormState> loginFormKey = GlobalKeyManager.loginFormKey;
+  final GlobalKey<FormState> registerFormKey = GlobalKeyManager.registerFormKey;
+  final GlobalKey<ScaffoldState> mainScaffoldKey =
+      GlobalKeyManager.mainScaffoldKey;
 
   RxBool isLogin = false.obs;
   late UserModel userModel;
@@ -82,7 +94,25 @@ class UtilsController extends GetxController {
     log('isLogin $isLogin');
   }
 
+  void initializeUserModel() {
+    userModel = UserModel(
+      idUser: '',
+      namaUser: '',
+      usernameUser: '',
+      emailUser: '',
+      teleponUser: '',
+      fotoUser: '',
+      poinUser: 0,
+    );
+    isLogin.value = false;
+  }
+
   Future<void> getCountCart() async {
     countCart.value = await CartService.getCartCount();
+  }
+
+   void onTapChatWa() {
+    launchUrl(Uri.parse('https://api.whatsapp.com/send?phone=628112844568'),
+        mode: LaunchMode.externalApplication);
   }
 }

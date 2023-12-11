@@ -1,0 +1,79 @@
+import 'package:andipublisher/app/data/models/ebook_list_history_transaction_model.dart';
+import 'package:andipublisher/app/views/views/image_network_view.dart';
+import 'package:andipublisher/extensions/date_time_extension.dart';
+import 'package:andipublisher/extensions/int_extension.dart';
+import 'package:andipublisher/infrastructure/navigation/routes.dart';
+import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class EbookCardListTransactionView extends GetView {
+  final EbookListHistoryTransactionModel data;
+  const EbookCardListTransactionView({required this.data, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Get.toNamed(Routes.EBOOK_TRANSACTION_DETAIL,
+          arguments: data.idTransaksi),
+      child: Container(
+        height: 120,
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              'Tanggal ${data.tanggalTransaksi.toCustomFormat()}',
+              style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  color: colorTextGrey,
+                  fontSize: 12),
+            ),
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ImageNetworkView(
+                      height: 80,
+                      width: 80,
+                      margin: const EdgeInsets.only(right: 8),
+                      url: data.barang[0].gambar1),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data.barang[0].judul,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(data.jumlahBarang),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Total Harga'),
+                            Text(
+                              data.totalHargaFinal.parceRp(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: colorTextPrimary),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

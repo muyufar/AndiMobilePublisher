@@ -1,11 +1,42 @@
+import 'dart:io';
+import 'package:andipublisher/app/controllers/utils_controller.dart';
+import 'package:andipublisher/app/controllers/validator_controller.dart';
+import 'package:andipublisher/app/data/models/user_model.dart';
+import 'package:andipublisher/app/data/services/user_service.dart';
+import 'package:andipublisher/app/views/views/dialog_view.dart';
+import 'package:andipublisher/infrastructure/navigation/routes.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterController extends GetxController {
-  //TODO: Implement RegisterController
+  final ValidatorController validatorController =
+      Get.put(ValidatorController());
 
-  final count = 0.obs;
+  TextEditingController fullNameTextEditingController = TextEditingController();
+  TextEditingController numberTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController confirmationPasswordTextEditingController =
+      TextEditingController();
+
+  RxBool obscureTextPassword = false.obs;
+  RxBool obscureTextConfirmationPassword = false.obs;
+
+  final UtilsController utilsController = Get.put(UtilsController());
+  final formKey = GlobalKey<FormState>();
+
+  // final ImagePicker _picker = ImagePicker();
+  // XFile? image;
+  // RxString? pathImage = ''.obs;
+
   @override
   void onInit() {
+    fullNameTextEditingController = TextEditingController();
+    numberTextEditingController = TextEditingController();
+    emailTextEditingController = TextEditingController();
+    passwordTextEditingController = TextEditingController();
+    confirmationPasswordTextEditingController = TextEditingController();
     super.onInit();
   }
 
@@ -16,8 +47,42 @@ class RegisterController extends GetxController {
 
   @override
   void onClose() {
+    fullNameTextEditingController.dispose();
+    numberTextEditingController.dispose();
+    emailTextEditingController.dispose();
+    passwordTextEditingController.dispose();
+    confirmationPasswordTextEditingController.dispose();
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> onTapRegister() async {
+  if (!formKey.currentState!.validate()) {
+    return;
+  }
+  
+  UserModel userModel = await UserService.register(
+    name: fullNameTextEditingController.text,
+    noPhone: numberTextEditingController.text,
+    email: emailTextEditingController.text,
+    password: passwordTextEditingController.text,
+    repassword: confirmationPasswordTextEditingController.text,
+    // imageProfile: image != null ? File(image!.path) : null,
+  );
+
+  // Tambahkan penundaan sebelum menampilkan Snackbar
+  await Future.delayed(Duration(seconds: 1));
+
+  utilsController.saveDataUser(userModel: userModel);
+  utilsController.getDataUser();
+
+  if (utilsController.isLogin.value) {
+    // Tampilkan Snackbar setelah penundaan
+    ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+      SnackBar(content: Text('Silahkan Cek Email, Untuk Aktivasi akun'), backgroundColor: Colors.blue,)
+    );
+
+    // Pindah ke halaman Main
+    Get.toNamed(Routes.LOGIN);
+  }
+}
 }

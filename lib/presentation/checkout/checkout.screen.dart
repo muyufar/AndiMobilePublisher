@@ -3,10 +3,8 @@ import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
 import 'controllers/checkout.controller.dart';
 
 class CheckoutScreen extends GetView<CheckoutController> {
@@ -36,7 +34,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
                   index: index),
             ),
             //Voucher
-            _voucher(),
+            // _voucher(),
 
             //Ringkasan Belanja
             _infoOrder(),
@@ -524,13 +522,13 @@ class CheckoutScreen extends GetView<CheckoutController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Alamat Pengiriman',
+                'Alamat Pengiriman :',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              TextButton(
-                  onPressed: () => Get.bottomSheet(_bottomSheetAddress(),
-                      isScrollControlled: true),
-                  child: const Text('Pilih Alamat Lain'))
+              // TextButton(
+              //     onPressed: () => Get.bottomSheet(_bottomSheetAddress(),
+              //         isScrollControlled: true),
+              //     child: const Text('Pilih Alamat Lain'))
             ],
           ),
           const Divider(),

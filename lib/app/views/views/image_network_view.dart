@@ -4,6 +4,41 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+/// ImageNetworkView
+///
+/// This class is a Widget that displays an image from a network URL.
+
+/// Properties
+///
+/// * `url`: The URL of the image to be displayed.
+/// * `height`: The height of the image.
+/// * `width`: The width of the image.
+/// * `margin`: The margin around the image.
+/// * `padding`: The padding around the image.
+/// * `alignment`: The alignment of the image.
+/// * `child`: A widget to be placed on top of the image.
+/// * `decoration`: The decoration of the image.
+/// * `fit`: The fit of the image.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can use it to display an image from a network URL like this:
+///
+///
+/// ImageNetworkView(
+///   url: 'https://picsum.photos/200/300',
+///   height: 100,
+///   width: 150,
+///   margin: EdgeInsets.all(8),
+///   padding: EdgeInsets.all(4),
+///   alignment: Alignment.center,
+///   child: Text('This is an image'),
+///   decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+///   fit: BoxFit.cover,
+/// );
+///
+/// This code will display an image with the URL "https://picsum.photos/200/300" with the height of 100 and the width of 150. The image will be centered and have a margin of 8 pixels around it. The image will also have a border of 1 pixel in black.
+
 class ImageNetworkView extends GetView {
   final String url;
   final double? height;

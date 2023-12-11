@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:andipublisher/gen/assets.gen.dart';
 
 import 'package:get/get.dart';
 
@@ -11,10 +12,24 @@ class SplashScreen extends GetView<SplashController> {
     Get.put(SplashController());
 
     return Scaffold(
-      body: const Center(
-        child: Text(
-          'Selamat Datang di Andi Publiser',
-          style: TextStyle(fontSize: 20),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              Assets.images.logosplashscreen.path,
+              width: 150,
+              height: 150,
+            ),
+            SizedBox(height: 16), // Jarak antara logo dan teks
+            Text(
+              'Andi Publisher Mobile', // Ganti dengan teks yang diinginkan
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );

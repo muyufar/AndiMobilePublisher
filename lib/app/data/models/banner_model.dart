@@ -2,13 +2,17 @@ class BannerModel {
   final String idbanner;
   final String namaBanner;
   final String gambarBanner;
-  final String linkBanner;
+   String? linkBanner;
+   String? campaignId;
+   String? flashSaleId;
 
   BannerModel({
     required this.idbanner,
     required this.namaBanner,
     required this.gambarBanner,
-    required this.linkBanner,
+     this.linkBanner,
+     this.campaignId,
+     this.flashSaleId,
   });
 
   factory BannerModel.fromJson(Map<String, dynamic> json) => BannerModel(
@@ -16,5 +20,7 @@ class BannerModel {
         namaBanner: json['nama_banner'],
         gambarBanner: json['gambar_banner'],
         linkBanner: json['link_banner'],
+        campaignId: json['CampaignId'],
+        flashSaleId: json['FlashSaleId'],
       );
 }

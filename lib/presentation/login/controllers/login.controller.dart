@@ -7,11 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  final ValidatorController validatorController =
-      Get.put(ValidatorController());
+  final ValidatorController validatorController = Get.put(ValidatorController());
   final UtilsController utilsController = Get.put(UtilsController());
 
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKeyManager.loginFormKey; // Menggunakan loginFormKey dari UtilsController
 
   late TextEditingController emailTextEditingController;
   late TextEditingController passTextEditingController;
@@ -41,6 +40,7 @@ class LoginController extends GetxController {
     if (!formKey.currentState!.validate()) {
       return;
     }
+  await Future.delayed(Duration(seconds: 1));
 
     UserModel userModel = await UserService.login(
         email: emailTextEditingController.text,
@@ -49,8 +49,14 @@ class LoginController extends GetxController {
     utilsController.saveDataUser(userModel: userModel);
     utilsController.getDataUser();
 
-    if (utilsController.isLogin.value) {
-      Get.offAllNamed(Routes.MAIN);
-    }
+  if (utilsController.isLogin.value) {
+    // Tampilkan Snackbar setelah penundaan
+    ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+      SnackBar(content: Text('Selamat datang, Anda berhasil Login'), backgroundColor: Color.fromARGB(255, 39, 112, 172),)
+    );
+
+    // Pindah ke halaman Main
+    Get.offAllNamed(Routes.MAIN);
   }
+}
 }

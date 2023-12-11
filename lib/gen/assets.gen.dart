@@ -11,12 +11,29 @@ import 'package:flutter/widgets.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+  AssetGenImage get imgDefaul =>
+      const AssetGenImage('assets/images/ImgDefaul.png');
 
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+  AssetGenImage get banerDefault =>
+      const AssetGenImage('assets/images/defaultBN.jpg');
+  AssetGenImage get logosplashscreen =>
+      const AssetGenImage('assets/images/LogoAndiHigh.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [logo];
+}
+
+class $AssetsIconsGen {
+    const $AssetsIconsGen();
+
+  String get bintangWarna => 'assets/icons/Bintang Warna.svg';
+  String get iconPenilaianSaya => 'assets/icons/Icon Penilaian saya.svg';
+  List<dynamic> get values => [
+        bintangWarna,
+        iconPenilaianSaya,
+      ];
 }
 
 class $AssetsLottieGen {
@@ -34,6 +51,10 @@ class $AssetsLottieGen {
   /// File path: assets/lottie/warning-red.json
   String get warningRed => 'assets/lottie/warning-red.json';
 
+  String get ebookdownload => 'assets/lottie/ebookdownloadnew.json';
+  String get listloading => 'assets/lottie/animation_loadinglist.json';
+  String get notFound => 'assets/lottie/not found.json';
+
   /// List of all assets
   List<String> get values =>
       [correctTealColour, emptyStatePage, login, warningRed];
@@ -43,6 +64,7 @@ class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
 }
 

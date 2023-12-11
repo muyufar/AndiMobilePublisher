@@ -25,24 +25,26 @@ class TransactionScreen extends GetView<TransactionController> {
                 foregroundColor: colorBlack,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                title: const Text('Transaksi'),
+                title: const Text(''),
                 centerTitle: true,
               ),
               body: const RequestLoginView())
           : DefaultTabController(
               length: 5,
               child: Scaffold(
-                  appBar: AppBar(
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(50), // Menghilangkan tinggi AppBar
+                  child: AppBar(
+                    // Setting padding sisi atas ke nol
+                    titleSpacing: 0,
                     foregroundColor: colorBlack,
                     backgroundColor: Colors.transparent,
+                   
                     elevation: 0,
-                    title: const Text('Transaksi'),
-                    centerTitle: true,
                     bottom: TabBar(
+                       labelColor: Colors.black,
                       isScrollable: true,
-                      labelColor: colorPrimary,
-                      unselectedLabelColor: colorGrey,
-                      tabs: const [
+                      tabs: [
                         Tab(text: 'Belum Dibayar'),
                         Tab(text: 'Diproses'),
                         Tab(text: 'Dikirim'),
@@ -51,15 +53,18 @@ class TransactionScreen extends GetView<TransactionController> {
                       ],
                     ),
                   ),
-                  body: TabBarView(
-                      dragStartBehavior: DragStartBehavior.down,
-                      children: [
-                        TransactionUnpaidView(),
-                        TransactionProcessedView(),
-                        TransactionSendView(),
-                        TransactionDoneView(),
-                        TransactionCanceledView()
-                      ])),
+                ),
+                body: TabBarView(
+                  dragStartBehavior: DragStartBehavior.down,
+                  children: [
+                    TransactionUnpaidView(),
+                    TransactionProcessedView(),
+                    TransactionSendView(),
+                    TransactionDoneView(),
+                    TransactionCanceledView()
+                  ],
+                ),
+              ),
             ),
     );
   }

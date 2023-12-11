@@ -7,6 +7,39 @@ import 'package:andipublisher/app/data/services/transaction_service.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:get/get.dart';
 
+/// CheckoutController
+///
+/// This class is a controller for the checkout page.
+
+/// Properties
+///
+/// * `checkoutModel`: The checkout model.
+/// * `courierModel`: The list of courier models.
+/// * `selectCourier`: The selected courier model.
+/// * `selectAlamatUser`: The selected address user model.
+/// * `hargaTotalProduct`: The total price of the products.
+/// * `diskonTotalProduct`: The discount of the products.
+/// * `ongkoskirim`: The shipping cost.
+/// * `diskonOngkoskirim`: The discount of the shipping cost.
+/// * `priceSubTotalItmes`: The list of subtotal prices of the items.
+
+/// Methods
+///
+/// * `setPriceTotalItmes`: Sets the price total items.
+/// * `weightTotalProductInWrehouse`: Calculates the total weight of the products in the warehouse.
+/// * `fetchCourier`: Fetches the list of couriers.
+/// * `onTapSelectCourier`: Handles the select courier button tap event.
+/// * `onTapSelectPayment`: Handles the select payment button tap event.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can instantiate it like this:
+///
+///
+/// CheckoutController controller = CheckoutController();
+///
+/// This code will instantiate a CheckoutController object.
+
 class CheckoutController extends GetxController {
   CheckoutModel checkoutModel = Get.arguments;
   RxList<CourierModel> courierModel = RxList<CourierModel>();
@@ -37,6 +70,8 @@ class CheckoutController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    Get.back();
+      Get.back();
   }
 
   void setPriceTotalItmes() {
@@ -69,6 +104,7 @@ class CheckoutController extends GetxController {
     selectCourier.value = data;
     ongkoskirim.value = selectCourier.value?.harga ?? 0;
     Get.back();
+     Get.back();
   }
 
   Future<void> onTapSelectPayment() async {

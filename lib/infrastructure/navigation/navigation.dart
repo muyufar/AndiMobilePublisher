@@ -106,5 +106,95 @@ class Nav {
       page: () => const CartScreen(),
       binding: CartControllerBinding(),
     ),
+    GetPage(
+      name: Routes.EBOOK_DETAIL,
+      page: () => const EbookDetailScreen(),
+      binding: EbookDetailControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.CHECKOUT_EBOOK,
+      page: () => CheckoutEbookScreen(),
+      binding: CheckoutEbookControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.PAYMENT_EBOOK,
+      page: () => PaymentEbookScreen(),
+      binding: PaymentEbookControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.RAKBUKU,
+      page: () => RakbukuScreen(),
+      binding: RakbukuControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.MAIN_TRANSACTION,
+      page: () => const MainTransactionScreen(),
+      binding: MainTransactionControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_TRANSACTION,
+      page: () => const EbookTransactionScreen(),
+      binding: EbookTransactionControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_TRANSACTION_DETAIL,
+      page: () => const EbookTransactionDetailScreen(),
+      binding: EbookTransactionDetailControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_KATEGORI,
+      page: () => EbookKategoriScreen(),
+      binding: EbookKategoriControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_PENERBIT,
+      page: () => const EbookPenerbitScreen(),
+      binding: EbookPenerbitControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_VIEWALL,
+      page: () => EbookViewallScreen(),
+      binding: EbookViewallControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_RATINGS,
+      page: () => EbookRatingsScreen(),
+      binding: EbookRatingsControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_RATINGS_DETAIL,
+      page: () => const EbookRatingTransactionDetailScreen(),
+      binding: EbookPrimaryRatingsDetailScreenControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_RATINGS_INPUT,
+      page: () => const EbookRatingsInputScreen(),
+      binding: EbookRatingsInputControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_KATEGORI_CHILD,
+      page: () => EbookKategoriChildScreen(),
+      binding: EbookKategoriChildControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_KATEGORI_LIST,
+      page: () => const EbookKategoriListScreen(),
+      binding: EbookKategoriListControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_PENERBIT_LIST,
+      page: () => const EbookPenerbitListScreen(),
+      binding: EbookPenerbitListControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_VIEWALL_TERLARIS,
+      page: () => EbookViewallTerlarisScreen(),
+      binding: EbookViewallTerlarisControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.EBOOK_SEARCH,
+      page: () =>  EbookSearchScreen(),
+      binding: EbookSearchControllerBinding(),
+    ),
   ];
 }

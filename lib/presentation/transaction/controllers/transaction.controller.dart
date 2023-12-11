@@ -3,6 +3,35 @@ import 'package:andipublisher/app/data/models/list_history_transaction_model.dar
 import 'package:andipublisher/app/data/services/transaction_service.dart';
 import 'package:get/get.dart';
 
+/// TransactionController
+///
+/// This class is a controller for the transaction page.
+
+/// Properties
+///
+/// * `listUnpaid`: The list of unpaid transaction models.
+/// * `listProcessed`: The list of processed transaction models.
+/// * `listSend`: The list of send transaction models.
+/// * `listDone`: The list of done transaction models.
+/// * `listCanceled`: The list of canceled transaction models.
+
+/// Methods
+///
+/// * `getListUnpaid`: Fetches the list of unpaid transactions.
+/// * `getListProcessed`: Fetches the list of processed transactions.
+/// * `getListSend`: Fetches the list of send transactions.
+/// * `getListDone`: Fetches the list of done transactions.
+/// * `getListCanceled`: Fetches the list of canceled transactions.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can instantiate it like this:
+///
+///
+/// TransactionController controller = TransactionController();
+///
+/// This code will instantiate a TransactionController object.
+
 class TransactionController extends GetxController {
   final UtilsController utilsController = Get.put(UtilsController());
 

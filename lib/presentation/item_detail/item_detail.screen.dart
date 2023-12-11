@@ -31,23 +31,23 @@ class ItemDetailScreen extends GetView<ItemDetailController> {
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Ionicons.chatbubble_outline)),
-                      Text(
-                        '|',
-                        style: TextStyle(
-                            color: colorGrey,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w200),
-                      ),
-                      IconButton(
-                          onPressed: (controller
-                                  .itemMasterDetailModel.value!.statusStok)
-                              ? () =>
-                                  controller.onTapBottomSheetOrder(isBuy: false)
-                              : null,
-                          icon: const Icon(Ionicons.cart_outline)),
+                      // IconButton(
+                      //     onPressed: () {},
+                      //     icon: const Icon(Ionicons.chatbubble_outline)),
+                      // Text(
+                      //   '|',
+                      //   style: TextStyle(
+                      //       color: colorGrey,
+                      //       fontSize: 20,
+                      //       fontWeight: FontWeight.w200),
+                      // ),
+                      // IconButton(
+                      //     onPressed: (controller
+                      //             .itemMasterDetailModel.value!.statusStok)
+                      //         ? () =>
+                      //             controller.onTapBottomSheetOrder(isBuy: false)
+                      //         : null,
+                      //     icon: const Icon(Ionicons.cart_outline)),
                       SizedBox(
                           width: Get.width / 2,
                           child: ElevatedButton(
@@ -74,24 +74,25 @@ class ItemDetailScreen extends GetView<ItemDetailController> {
           icon: const Icon(Ionicons.chevron_back),
           color: colorBlack,
         ),
-        const Spacer(),
-        IconButton(
-          padding: const EdgeInsets.only(top: 14),
-          onPressed: () {},
-          icon: const Icon(Ionicons.share_social_outline),
-          color: colorBlack,
-        ),
-        IconButton(
-          padding: const EdgeInsets.only(top: 14),
-          onPressed: () {},
-          icon: const Icon(Ionicons.heart_outline),
-          color: colorBlack,
-        ),
-        (controller.utilsController.isLogin.value)
-            ? BadgeCartView(
-                color: colorBlack,
-              )
-            : const SizedBox(),
+        // const Spacer(),
+        // IconButton(
+        //   padding: const EdgeInsets.only(top: 14),
+        //   onPressed: () {},
+        //   icon: const Icon(Ionicons.share_social_outline),
+        //   color: colorBlack,
+        // ),
+        // IconButton(
+        //   padding: const EdgeInsets.only(top: 14),
+        //   onPressed: () {},
+        //   icon: const Icon(Ionicons.heart_outline),
+        //   color: colorBlack,
+        // ),
+        // (controller.utilsController.isLogin.value)
+        //     ? BadgeCartView(
+        //         color: colorBlack,
+        //       )
+        //     : const 
+            SizedBox(),
       ],
     );
   }

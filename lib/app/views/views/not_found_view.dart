@@ -4,6 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+/// NotFoundView
+///
+/// This class is a Widget that displays a "Not Found" page.
+
+/// Usage
+///
+/// To use this class, first you need to import it. Then, you can use it to display a "Not Found" page like this:
+///
+///
+/// NotFoundView();
+///
+/// This code will display a "Not Found" page with an empty state Lottie animation and the text "Tidak ada Data yang di temukan".
+
 class NotFoundView extends GetView {
   const NotFoundView({Key? key}) : super(key: key);
   @override
@@ -11,7 +24,7 @@ class NotFoundView extends GetView {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Lottie.asset(Assets.lottie.emptyStatePage),
+        Lottie.asset(Assets.lottie.emptyStatePage, width: 200, height: 200),
         const Text('Tidak ada Data yang di temukan')
       ],
     );

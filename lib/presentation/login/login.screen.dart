@@ -78,18 +78,28 @@ class LoginScreen extends GetView<LoginController> {
                                   .validatorPassword(val),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                                onPressed: () =>
-                                    Get.toNamed(Routes.FORGOT_PASSWORD),
-                                child: const Text('Lupa Kata Sandi')),
-                          ),
+                          // Align(
+                          //   alignment: Alignment.centerRight,
+                          //   child: TextButton(
+                          //       onPressed: () =>
+                          //           Get.toNamed(Routes.FORGOT_PASSWORD),
+                          //       child: const Text('Lupa Kata Sandi')),
+                          // ),
                           SizedBox(
-                              width: Get.width,
-                              child: ElevatedButton(
-                                  onPressed: () => controller.oTapLogin(),
-                                  child: const Text('Masuk')))
+                            width: Get.width,
+                            child: ElevatedButton(
+                              onPressed: () => controller.oTapLogin(),
+                              style: ElevatedButton.styleFrom(
+                                primary: colorPrimary,
+                                onPrimary: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      13), // Sesuaikan dengan keinginan Anda
+                                ),
+                              ),
+                              child: const Text('Masuk'),
+                            ),
+                          ),
                         ],
                       )),
                   const Spacer(flex: 1),
@@ -106,6 +116,29 @@ class LoginScreen extends GetView<LoginController> {
                                 fontWeight: FontWeight.bold),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Get.toNamed(Routes.REGISTER)),
+                      ]),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  // const Spacer(flex: 2),
+                  Center(
+                    child: RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                            text: 'Info lebih lanjut Hubungi  ',
+                            style:
+                                TextStyle(color: colorTextGrey, fontSize: 12)),
+                        TextSpan(
+                            text: 'Admin',
+                            style: TextStyle(
+                                color: colorTextPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () =>
+                                  controller.utilsController.onTapChatWa()),
                       ]),
                     ),
                   ),
