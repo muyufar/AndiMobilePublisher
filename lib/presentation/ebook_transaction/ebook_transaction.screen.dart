@@ -14,7 +14,7 @@ import 'controllers/ebook_transaction.controller.dart';
 
 class EbookTransactionScreen extends GetView<EbookTransactionController> {
   const EbookTransactionScreen({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     Get.put(EbookTransactionController());
@@ -34,16 +34,17 @@ class EbookTransactionScreen extends GetView<EbookTransactionController> {
               length: 3,
               child: Scaffold(
                 appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(50), // Menghilangkan tinggi AppBar
+                  preferredSize:
+                      Size.fromHeight(50), // Menghilangkan tinggi AppBar
                   child: AppBar(
                     // Setting padding sisi atas ke nol
                     titleSpacing: 0,
                     foregroundColor: colorBlack,
                     backgroundColor: Colors.transparent,
-                   
+
                     elevation: 0,
                     bottom: TabBar(
-                       labelColor: Colors.black,
+                      labelColor: Colors.black,
                       isScrollable: true,
                       tabs: [
                         Tab(text: 'Belum Dibayar'),

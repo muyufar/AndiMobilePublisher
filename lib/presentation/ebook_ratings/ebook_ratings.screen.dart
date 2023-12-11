@@ -23,15 +23,44 @@ class EbookRatingsScreen extends GetView<EbookRatingController> {
       () => (!controller.utilsController.isLogin.value)
           ? Scaffold(
               appBar: AppBar(
-                title: const Text('Penilaian'),
+                foregroundColor: colorBlack,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
               ),
-              body: const RequestLoginView(),
-            )
-          : Scaffold(
-              appBar: AppBar(
-                title: const Text('Penilaian'),
+              body: const RequestLoginView())
+          : DefaultTabController(
+              length: 1,
+              child: Scaffold(
+                appBar: AppBar(
+                  toolbarHeight: 10, // Set the height directly
+                  titleSpacing: 0,
+                  foregroundColor: colorBlack,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  bottom: TabBar(
+                    labelColor: Colors.black,
+                    isScrollable: true,
+                    tabs: [
+                      Tab(text: 'Penilaian'),
+                    ],
+                  ),
+                ),
+                body: TabBarView(
+                  dragStartBehavior: DragStartBehavior.down,
+                  children: [
+                    EbookRatingView(),
+                  ],
+                ),
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Icon(Icons.arrow_back),
+                  backgroundColor: Colors.white,
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.startFloat,
               ),
-              body: EbookRatingView(),
             ),
     );
   }

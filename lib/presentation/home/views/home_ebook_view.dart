@@ -23,31 +23,31 @@ class HomeEbookView extends GetView {
   final HomeController controller = Get.put(HomeController());
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: Colors.transparent,
-    body: RefreshIndicator(
-      onRefresh: controller.onRefresh,
-      child: ListView(
-        children: [
-          _bannerEbook(context),
-          SizedBox(height: 0),
-          _labelEbookMasterNew(
-            future: controller.ebookNewLabelItemsMaster(),
-            data: controller.ebookNewLabelItemsMasterModel,
-          ),
-          SizedBox(height: 10),
-          _labelEbookMasterLaris(
-            future: controller.ebookTerlarisLabelItemsMaster(),
-            data: controller.ebookLarisLabelItemsMasterModel,
-          ),
-          SizedBox(height: 10),
-        ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: RefreshIndicator(
+        onRefresh: controller.onRefresh,
+        child: ListView(
+          children: [
+            _bannerEbook(context),
+            SizedBox(height: 0),
+            _category(),
+            _labelEbookMasterNew(
+              future: controller.ebookNewLabelItemsMaster(),
+              data: controller.ebookNewLabelItemsMasterModel,
+            ),
+            SizedBox(height: 10),
+            _labelEbookMasterLaris(
+              future: controller.ebookTerlarisLabelItemsMaster(),
+              data: controller.ebookLarisLabelItemsMasterModel,
+            ),
+            SizedBox(height: 10),
+          ],
+        ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   Widget _bannerEbook(BuildContext context) {
     return FutureView(
@@ -57,9 +57,9 @@ Widget build(BuildContext context) {
         () {
           if (controller.bannerModelebook.isEmpty) {
             // Tampilkan banner default jika tidak ada banner
-            return ImageNetworkView(
-              url: Assets.images.banerDefault
-                  .path, // Ganti dengan URL banner default Anda
+            return Image.asset(
+              Assets.images.banerDefault.path, // Check the correct path here
+              fit: BoxFit.cover, // Adjust the BoxFit property as needed
             );
           }
 
@@ -124,62 +124,65 @@ Widget build(BuildContext context) {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Flexible(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(() => EbookKategoriScreen());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 55, vertical: 13),
-                        elevation: 2, // Efek bayangan
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              8), // Konfigurasi border-radius
-                        ),
-                      ),
-                      child: Text(
-                        'Kategori',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(() => EbookPenerbitScreen());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 55, vertical: 13),
-                        elevation: 2, // Efek bayangan
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              8), // Konfigurasi border-radius
-                        ),
-                      ),
-                      child: Text(
-                        'Penerbit',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              // SizedBox(
-              //   height: ,
-              // ),
             ],
           );
         },
       ),
+    );
+  }
+
+  Widget _category() {
+    return Column(
+      children: [
+        SizedBox(height: 20), // Add a SizedBox above the Row
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Flexible(
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.to(() => EbookKategoriScreen());
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 55, vertical: 13),
+                  elevation: 2, // Efek bayangan
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8), // Konfigurasi border-radius
+                  ),
+                ),
+                child: Text(
+                  'Kategori',
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ),
+            Flexible(
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.to(() => EbookPenerbitScreen());
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 55, vertical: 13),
+                  elevation: 2, // Efek bayangan
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8), // Konfigurasi border-radius
+                  ),
+                ),
+                child: Text(
+                  'Penerbit',
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 

@@ -22,7 +22,7 @@ class CardEbookPrimaryRatingView extends GetView {
         height: 145,
         color: Colors.white,
         padding: EdgeInsets.symmetric(horizontal: marginHorizontal),
-        margin: EdgeInsets.symmetric(vertical: 6),
+        margin: const EdgeInsets.symmetric(vertical: 6),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
