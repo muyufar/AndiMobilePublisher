@@ -5,6 +5,7 @@ class EbookCategoryModel {
   final int isHasChild;
   final String icon;
   bool isExpanded;
+  final int? jumlah;
 
   EbookCategoryModel({
     required this.idKategori,
@@ -13,6 +14,7 @@ class EbookCategoryModel {
     required this.totalChild,
     required this.icon,
     this.isExpanded = false,
+    this.jumlah,
   });
 
   factory EbookCategoryModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class EbookCategoryModel {
       totalChild: json['totalChild'] != null ? int.parse(json['totalChild'].toString()) : 0,
       icon: json['icon'],
       isHasChild: json['isHasChild'] != null ? int.parse(json['isHasChild'].toString()) : 0,
+      jumlah: json['jumlah'],
     );
   }
 }

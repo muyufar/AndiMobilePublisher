@@ -556,7 +556,10 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               IconButton(
-                onPressed: () => Get.back(),
+                onPressed: () {
+                  Get.back();
+                  controller.textVoucher.clear(); // Clear textVoucher di sini
+                },
                 icon: Icon(
                   Ionicons.close_outline,
                   color: colorBlack,
@@ -651,6 +654,8 @@ class CheckoutEbookScreen extends GetView<CheckoutEbookController> {
                         onPressed: () {
                           Get.back();
                           Get.back();
+                          // controller.textVoucher
+                          //     .clear(); // Clear textVoucher di sini
                         },
                         child: const Text('OK'),
                       ),

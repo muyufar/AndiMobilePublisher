@@ -58,9 +58,9 @@ class EbookPenerbitListScreen extends GetView<EbookPenerbitListController> {
                   mainAxisExtent: Get.height / 2.8,
                   mainAxisSpacing: 0,
                 ),
-                itemCount: data.value?.value.length ?? 0,
+                itemCount: data.value?.value?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return CardKategoriView(data.value!.value[index]);
+                  return CardKategoriView(data.value!.value![index]);
                 },
               ),
             ),

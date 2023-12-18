@@ -103,7 +103,8 @@ class ProfileOptionsView extends GetView {
       required IconData icon,
       required Function() onTap}) {
     return ListTile(
-      horizontalTitleGap: 0,
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+      // horizontalTitleGap: 0,
       onTap: onTap,
       leading: Icon(
         icon,

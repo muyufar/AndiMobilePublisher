@@ -12,12 +12,22 @@ class EbookService {
       url: 'ebook/$link',
       body: body,
     );
-    return LabelEbookMasterModel.fromJson(result['data']);
+
+    if (result != null) {
+      Map<String, dynamic> data = result['data'];
+
+      return LabelEbookMasterModel.fromJson(data);
+    } else {
+      return LabelEbookMasterModel(
+        value: List.empty(),
+      );
+    }
   }
 
   static Future<EbookMasterDetailModel> getEbookItemMasterDetail(
-      {required String id,required String idUser}) async {
-    final result = await MainService().getAPI(url: 'ebook', body: {'id': id,'idUser': idUser} );
+      {required String id, required String idUser}) async {
+    final result = await MainService()
+        .getAPI(url: 'ebook', body: {'id': id, 'idUser': idUser});
     return EbookMasterDetailModel.fromJson(result['data']);
   }
 }

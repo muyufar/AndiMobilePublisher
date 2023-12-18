@@ -226,9 +226,9 @@ class HomeEbookView extends GetView {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: data.value?.value.length ?? 0,
+                itemCount: data.value?.value?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return CardEbookView(data.value!.value[index]);
+                  return CardEbookView(data.value!.value![index]);
                 },
               ),
             ),
@@ -279,9 +279,9 @@ class HomeEbookView extends GetView {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: data.value?.value.length ?? 0,
+                itemCount: data.value?.value?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return CardEbookView(data.value!.value[index]);
+                  return CardEbookView(data.value!.value![index]);
                 },
               ),
             ),

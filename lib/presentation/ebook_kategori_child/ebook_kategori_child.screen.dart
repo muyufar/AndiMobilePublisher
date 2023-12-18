@@ -13,7 +13,7 @@ class EbookKategoriChildScreen
   @override
   Widget build(BuildContext context) {
     // Get the category from the navigation arguments
-    final EbookCategoryModel category = Get.arguments as EbookCategoryModel;
+    final EbookCategoryModel category = Get.arguments;
 
     // Initialize the controller using Get.put()
     Get.put(EbookKategoriChildScreenController(category));
@@ -36,7 +36,13 @@ class EbookKategoriChildScreen
             itemBuilder: (context, index) {
               final childCategory = controller.childCategories[index];
               return ListTile(
-                title: Text(childCategory.namaKategori),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(childCategory.namaKategori),
+                    Text(childCategory.jumlah.toString()),
+                  ],
+                ),
                 onTap: () {
                   var id = childCategory.idKategori;
                   Map<String, String> kategoris = {

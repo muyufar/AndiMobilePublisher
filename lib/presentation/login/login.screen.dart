@@ -37,7 +37,8 @@ class LoginScreen extends GetView<LoginController> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const Text('Masuk Untuk Melanjutkan'),
-                  const Spacer(flex: 2),
+                  // const Spacer(flex: 1),
+                  SizedBox(height: 145,),
                   Form(
                       key: controller.formKey,
                       child: Column(
@@ -85,8 +86,10 @@ class LoginScreen extends GetView<LoginController> {
                           //           Get.toNamed(Routes.FORGOT_PASSWORD),
                           //       child: const Text('Lupa Kata Sandi')),
                           // ),
+                          SizedBox(height: 20,),
                           SizedBox(
                             width: Get.width,
+                            height: 45,
                             child: ElevatedButton(
                               onPressed: () => controller.oTapLogin(),
                               style: ElevatedButton.styleFrom(
@@ -94,7 +97,7 @@ class LoginScreen extends GetView<LoginController> {
                                 onPrimary: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
-                                      13), // Sesuaikan dengan keinginan Anda
+                                      10), // Sesuaikan dengan keinginan Anda
                                 ),
                               ),
                               child: const Text('Masuk'),
