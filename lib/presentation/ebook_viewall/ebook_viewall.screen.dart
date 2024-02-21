@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class EbookViewallScreen extends GetView<EbookViewallController> {
   final EbookViewallController controller = Get.put(EbookViewallController());
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class EbookViewallScreen extends GetView<EbookViewallController> {
         title: Text("Ebook Terbaru"),
       ),
       body: SingleChildScrollView(
+        controller: scrollController,
         child: _labelEbookMaster(
           future: controller.ebookNewLabelItemsMaster(),
           data: controller.ebookNewLabelItemsMasterModel,
@@ -49,7 +51,6 @@ class EbookViewallScreen extends GetView<EbookViewallController> {
               Row(
                 children: [
                   const SizedBox(width: 10),
-                
                   SizedBox(width: 15),
                 ],
               ),
@@ -57,15 +58,15 @@ class EbookViewallScreen extends GetView<EbookViewallController> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(10),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 131,
-                  childAspectRatio: 1 / 1,
-                  mainAxisExtent: Get.height / 3.6,
-                  mainAxisSpacing: 0,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, // Mengatur jumlah kolom yang tetap
+                  crossAxisSpacing: 0, // Spasi antar kolom
+                  mainAxisSpacing: 0, // Spasi antar baris
+                  childAspectRatio: 1 / 2.2, // Ratio lebar/tinggi setiap item
                 ),
-                itemCount: data.value?.value.length ?? 0,
+                itemCount: data.value?.value?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return CardEbookView(data.value!.value[index]);
+                  return CardEbookView(data.value!.value![index]);
                 },
               ),
             ],

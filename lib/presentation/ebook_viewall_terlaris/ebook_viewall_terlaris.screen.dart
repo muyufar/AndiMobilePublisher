@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 
 import 'controllers/ebook_viewall_terlaris.controller.dart';
 
-class EbookViewallTerlarisScreen extends GetView<EbookViewallTerlarisController> {
-  final EbookViewallTerlarisController controller = Get.put(EbookViewallTerlarisController());
+class EbookViewallTerlarisScreen
+    extends GetView<EbookViewallTerlarisController> {
+  final EbookViewallTerlarisController controller =
+      Get.put(EbookViewallTerlarisController());
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +53,6 @@ class EbookViewallTerlarisScreen extends GetView<EbookViewallTerlarisController>
               Row(
                 children: [
                   const SizedBox(width: 10),
-                
                   SizedBox(width: 15),
                 ],
               ),
@@ -59,15 +60,15 @@ class EbookViewallTerlarisScreen extends GetView<EbookViewallTerlarisController>
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(10),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 131,
-                  childAspectRatio: 1 / 1,
-                  mainAxisExtent: Get.height / 3.6,
-                  mainAxisSpacing: 0,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3, // Mengatur jumlah kolom yang tetap
+                  crossAxisSpacing: 0, // Spasi antar kolom
+                  mainAxisSpacing: 0, // Spasi antar baris
+                  childAspectRatio: 1 / 2.2, // Ratio lebar/tinggi setiap item
                 ),
-                itemCount: data.value?.value.length ?? 0,
+                itemCount: data.value?.value?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return CardEbookView(data.value!.value[index]);
+                  return CardEbookView(data.value!.value![index]);
                 },
               ),
             ],

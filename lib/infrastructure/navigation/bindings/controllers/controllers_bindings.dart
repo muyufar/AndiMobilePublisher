@@ -10,6 +10,7 @@ export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebo
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_primary_ratings_detail_screen.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_ratings.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_ratings_input.controller.binding.dart'; 
+export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_search.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_transaction_detail.controller.binding.dart'; 
 export 'package:andipublisher/infrastructure/navigation/bindings/controllers/ebook_viewall.controller.binding.dart'; 

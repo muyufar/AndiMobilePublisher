@@ -1,36 +1,18 @@
-import 'package:andipublisher/app/data/models/ebook_campaign.dart';
-import 'package:andipublisher/app/data/models/ebook_master_model.dart';
+import 'package:andipublisher/app/data/models/ebook_search_model.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/app/views/views/rating_product_view.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 
-/// CardItemsView
-///
-/// This class is a widget that displays a card of an item.
+class EbookCardSearchGridView extends GetView {
+  final EbookSearchModel data;
+  const EbookCardSearchGridView(this.data, {Key? key}) : super(key: key);
 
-/// Properties
-///
-/// * `data`: The item data.
-
-/// Usage
-///
-/// To use this class, first you need to import it. Then, you can use it to display a card of an item like this:
-///
-///
-/// CardItemsView(data: itemData);
-///
-/// This code will create a card of an item with the data provided.
-
-class CardEbookView extends GetView {
-  final EbookMasterModel data;
-  const CardEbookView(this.data, {Key? key}) : super(key: key);
-
-  @override
+    @override
   Widget build(BuildContext context) {
     int hargaAwal = data.harga;
     int diskonAwal = data.diskon;

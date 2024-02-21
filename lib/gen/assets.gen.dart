@@ -53,6 +53,7 @@ class $AssetsLottieGen {
 
   String get ebookdownload => 'assets/lottie/ebookdownloadnew.json';
   String get listloading => 'assets/lottie/animation_loadinglist.json';
+  String get notFound => 'assets/lottie/not found.json';
 
   /// List of all assets
   List<String> get values =>

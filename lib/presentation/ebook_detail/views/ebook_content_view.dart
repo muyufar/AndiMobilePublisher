@@ -3,6 +3,7 @@ import 'package:andipublisher/app/data/models/ebook_rating_model.dart';
 import 'package:andipublisher/app/views/views/future_view.dart';
 import 'package:andipublisher/app/views/views/image_network_view.dart';
 import 'package:andipublisher/app/views/views/rating_product_view.dart';
+import 'package:andipublisher/infrastructure/navigation/routes.dart';
 import 'package:andipublisher/infrastructure/theme/theme_utils.dart';
 import 'package:andipublisher/extensions/int_extension.dart';
 import 'package:andipublisher/presentation/ebook_detail/controllers/ebook_detail.controller.dart';
@@ -10,7 +11,7 @@ import 'package:andipublisher/presentation/ebook_detail/views/ebook_review.dart'
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
@@ -41,7 +42,7 @@ class EbookContentView extends GetView {
                       double.tryParse(controller
                               .ebookMasterDetailModel.value!.rating) ??
                           0.0,
-                      starHalf: true,
+                      starHalf: false,
                     ),
                   ),
                   _infoItem(),
@@ -50,9 +51,7 @@ class EbookContentView extends GetView {
                     ebookRatingModel:
                         controller.ebookRatings?.value ?? EbookRatingData(),
                     controller: controller,
-
                   ),
-
                 ],
               ),
             ),
@@ -61,8 +60,6 @@ class EbookContentView extends GetView {
       ),
     );
   }
-
-  
 
   Column _infoItem() {
     return Column(
@@ -114,7 +111,7 @@ class EbookContentView extends GetView {
         ),
         const SizedBox(height: 10),
         ReadMoreText(
-          controller.ebookMasterDetailModel.value!.deskripsi,
+          _filterHtmlTags(controller.ebookMasterDetailModel.value!.deskripsi),
           trimMode: TrimMode.Length,
           moreStyle: TextStyle(color: colorTextPrimary),
           lessStyle: TextStyle(color: colorTextPrimary),
@@ -125,6 +122,12 @@ class EbookContentView extends GetView {
       ],
     );
   }
+
+  String _filterHtmlTags(String htmlString) {
+    // Menghapus tag HTML menggunakan RegExp
+    return htmlString.replaceAll(RegExp(r'<[^>]*>'), '');
+  }
+
 
   CarouselSlider _imagesItem() {
     return CarouselSlider.builder(
@@ -224,47 +227,71 @@ class EbookContentView extends GetView {
           ],
         ),
         const Spacer(),
-        Obx(() {
-          final isInWishlist = controller.isInWishlist.value;
+        Row(
+          children: [
+            InkWell(
+              onTap: () {
+                final isInWishlist =
+                    controller.ebookMasterDetailModel.value?.isWishlisted;
 
-          return InkWell(
-            onTap: () async {
-              // Tambahkan atau hapus item dari Wishlist di sini
-              if (isInWishlist) {
-                await controller.removeFromWishlist();
-              } else {
-                await controller.addToWishlist();
-              }
+                if (!controller.utilsController.isLogin.value) {
+                  Get.toNamed(Routes.LOGIN);
+                } else if (isInWishlist != null) {
+                  if (isInWishlist) {
+                    controller.removeFromWishlist();
+                    Get.back();
+                  } else {
+                    controller.addToWishlist();
+                    Get.back();
+                  }
 
-              // Setelah menambahkan atau menghapus dari Wishlist, perbarui status Wishlist
-              await controller.checkWishlistStatus();
-
-              // Setelah selesai, tutup halaman
-              Get.back();
-            },
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 500),
-              curve: Curves.elasticInOut,
-              decoration: BoxDecoration(
-                color: isInWishlist ? Colors.red : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: isInWishlist ? Colors.red : colorBlack,
-                  width: 2,
+                  // Setelah menambahkan atau menghapus dari Wishlist, perbarui status Wishlist
+                  controller.ebookMasterDetailModel.update((model) {
+                    if (model != null) {
+                      model.isWishlisted = !isInWishlist;
+                    }
+                  });
+                }
+              },
+              
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 100),
+                curve: Curves.elasticInOut,
+                decoration: BoxDecoration(
+                  color:
+                      controller.ebookMasterDetailModel.value?.isWishlisted ??
+                              false
+                          ? Colors.red
+                          : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color:
+                        controller.ebookMasterDetailModel.value?.isWishlisted ??
+                                false
+                            ? Colors.red
+                            : colorBlack,
+                    width: 2,
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                child: Row(
+                  children: [
+                    Icon(
+                      Ionicons.heart,
+                      color: controller
+                                  .ebookMasterDetailModel.value?.isWishlisted ??
+                              false
+                          ? Colors.white
+                          : colorBlack,
+                    ),
+                  ],
                 ),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              child: Row(
-                children: [
-                  Icon(
-                    Ionicons.heart,
-                    color: isInWishlist ? Colors.white : colorBlack,
-                  ),
-                ],
-              ),
             ),
-          );
-        }),
+          ],
+        ),
+
+        // ),
         // Visibility(
         //   visible: (controller.ebookMasterDetailModel.value!.flashsale!.status !=
         //           null &&
@@ -292,5 +319,4 @@ class EbookContentView extends GetView {
   }
 
   // Column _ReviewSection{ B}
-  
 }
