@@ -33,8 +33,8 @@ class _PDFViewerViewState extends State<PDFViewerView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-         Navigator.pop(context);
-        Navigator.pop(context); // Navigate back when the back button is pressed
+        //  Navigator.pop(context);
+        // Navigator.pop(context); // Navigate back when the back button is pressed
         return true;
         
       },
@@ -47,6 +47,8 @@ class _PDFViewerViewState extends State<PDFViewerView> {
         
         body: SfPdfViewer.file(
           pdfFile,
+          pageLayoutMode: PdfPageLayoutMode.continuous,
+          
         ),
       ),
     );

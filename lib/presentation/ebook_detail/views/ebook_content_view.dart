@@ -11,7 +11,7 @@ import 'package:andipublisher/presentation/ebook_detail/views/ebook_review.dart'
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
@@ -111,7 +111,7 @@ class EbookContentView extends GetView {
         ),
         const SizedBox(height: 10),
         ReadMoreText(
-          controller.ebookMasterDetailModel.value!.deskripsi,
+          _filterHtmlTags(controller.ebookMasterDetailModel.value!.deskripsi),
           trimMode: TrimMode.Length,
           moreStyle: TextStyle(color: colorTextPrimary),
           lessStyle: TextStyle(color: colorTextPrimary),
@@ -122,6 +122,12 @@ class EbookContentView extends GetView {
       ],
     );
   }
+
+  String _filterHtmlTags(String htmlString) {
+    // Menghapus tag HTML menggunakan RegExp
+    return htmlString.replaceAll(RegExp(r'<[^>]*>'), '');
+  }
+
 
   CarouselSlider _imagesItem() {
     return CarouselSlider.builder(
@@ -314,3 +320,4 @@ class EbookContentView extends GetView {
 
   // Column _ReviewSection{ B}
 }
+

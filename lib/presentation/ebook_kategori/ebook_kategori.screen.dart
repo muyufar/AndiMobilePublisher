@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 class EbookKategoriScreen extends GetView<EbookKategoriScreenController> {
   const EbookKategoriScreen({Key? key}) : super(key: key);
@@ -101,7 +102,7 @@ class EbookKategoriScreen extends GetView<EbookKategoriScreenController> {
                             },
                           ),
                           Text(
-                            category.namaKategori,
+                            HtmlUnescape().convert(category.namaKategori),
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 13),
                           ),
