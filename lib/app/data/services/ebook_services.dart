@@ -30,4 +30,19 @@ class EbookService {
         .getAPI(url: 'ebook', body: {'id': id, 'idUser': idUser});
     return EbookMasterDetailModel.fromJson(result['data']);
   }
+
+  static Future<List<LabelEbookMasterModel>> getallList(
+      {String offset = '0', String q = ''}) async {
+    final result = await MainService().getAPI(
+      url: 'ebook/list',
+      body: {
+        'tag': 'terbaru',
+        'offset': offset,
+        'limit': '20',
+        'q': q,
+      },
+    );
+    return List<LabelEbookMasterModel>.from(
+        result['data'].map((e) => LabelEbookMasterModel.fromJson(e)));
+  }
 }
